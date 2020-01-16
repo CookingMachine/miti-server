@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Recipe controller</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <form method="post">
+        <p><b>Название:</b><br>
+        <input type="text" name="name" placeholder="Введите название" size="40">
+        </p>
+        <p><b>Описание:</b><br>
+        <textarea name="description" cols="40" rows="3"></textarea>
+        </p>
+        <p><b>Логин автора:</b><br>
+        <input type="text" name="authorName" placeholder="Введите логин пользоавтеля" size="40">
+        </p>
+        <p><input type="submit" value="Отправить">
+            <input type="reset" value="Очистить"></p>
+    </form>
+
+    <p>{{message}}</p>
+    <a href="/">Back to mainPage</a>
+
+{{#recipes}}
+    <div>
+        <span>{{id}}</span>
+        <span>{{name}}</span>
+        <span>{{description}}</span>
+        <span>{{author.userName}}</span>
+    </div>
+{{/recipes}}
+</body>
+</html>

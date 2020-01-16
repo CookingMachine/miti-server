@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Comment controller</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<form method="post">
+    <span><input type="text" name="userName" placeholder="Введите логин"></span>
+    <span><input type="text" name="recipeId" placeholder="Введите id рецепта"></span>
+    <p><b>Описание:</b><br>
+        <textarea name="comment" cols="40" rows="3"></textarea>
+    </p>
+    <p><input type="submit" value="Отправить">
+        <input type="reset" value="Очистить"></p>
+</form>
+<p>{{message}}</p>
+<a href="/">Back to mainPage</a>
+
+{{#comments}}
+    <div>
+        <span>{{id}}</span>
+        <span>{{comment}}</span>
+        <span>{{commentator.userName}}</span>
+        <span>{{recipe.id}}</span>
+    </div>
+{{/comments}}
+</body>
+</html>
