@@ -22,7 +22,7 @@ public class RecipeController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/recipe")
+    @GetMapping("/recipeHTML")
     public String showAllRecipes(Map<String, Object> model) {
         String message = "";
         List<Recipe> recipes = recipeRepo.findAll();
@@ -32,7 +32,7 @@ public class RecipeController {
         return "recipe";
     }
 
-    @PostMapping("/recipe")
+    @PostMapping("/recipeHTML")
     public String addRecipe(@RequestParam String name,
                             @RequestParam String description,
                             @RequestParam String authorName,

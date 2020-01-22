@@ -26,7 +26,7 @@ public class CommentController {
     @Autowired
     private RecipeService recipeService;
 
-    @GetMapping("/comment")
+    @GetMapping("/commentHTML")
     public String showAllComments(Map<String, Object> model) {
         String message = "";
         List<Comment> comments = commentRepo.findAll();
@@ -36,7 +36,7 @@ public class CommentController {
         return "comment";
     }
 
-    @PostMapping("/comment")
+    @PostMapping("/commentHTML")
     public String addComment(@RequestParam String userName,
                              @RequestParam String comment,
                              @RequestParam Long recipeId,
