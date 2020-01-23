@@ -3,15 +3,17 @@ package com.miti.server.service.impl;
 import com.miti.server.entity.Recipe;
 import com.miti.server.repo.RecipeRepo;
 import com.miti.server.service.RecipeService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class RecipeServiceImpl implements RecipeService {
-    @Autowired
-    private RecipeRepo recipeRepo;
+    private final RecipeRepo recipeRepo;
+
+    public RecipeServiceImpl(RecipeRepo recipeRepo) {
+        this.recipeRepo = recipeRepo;
+    }
 
     @Override
     public Recipe addRecipe(Recipe recipe) {

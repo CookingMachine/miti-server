@@ -14,13 +14,14 @@ public class Comment {
     private Long id;
 
     private String comment;
+    private Long recipeId;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "usrId", nullable = false)
     private User commentator;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "recipeId", nullable = false)
+    @JoinColumn(name = "rId", nullable = false)
     private Recipe recipe;
 
     public Comment() {
@@ -30,6 +31,7 @@ public class Comment {
         this.comment = comment;
         this.commentator = commentator;
         this.recipe = recipe;
+        this.recipeId = recipe.getId();
     }
 
     public Long getId() {
@@ -48,6 +50,14 @@ public class Comment {
         this.comment = comment;
     }
 
+    public Long getRecipeId() {
+        return recipeId;
+    }
+
+    public void setRecipeId(Long recipeId) {
+        this.recipeId = recipeId;
+    }
+
     public User getCommentator() {
         return commentator;
     }
@@ -63,4 +73,6 @@ public class Comment {
     public void setRecipe(Recipe recipe) {
         this.recipe = recipe;
     }
+
+
 }

@@ -3,15 +3,17 @@ package com.miti.server.service.impl;
 import com.miti.server.entity.User;
 import com.miti.server.repo.UserRepo;
 import com.miti.server.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
-    @Autowired
-    private UserRepo userRepo;
+    private final UserRepo userRepo;
+
+    public UserServiceImpl(UserRepo userRepo) {
+        this.userRepo = userRepo;
+    }
 
     @Override
     public User addUser(User user) {
