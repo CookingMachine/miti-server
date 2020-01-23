@@ -3,12 +3,9 @@ package com.miti.server.controller;
 import com.miti.server.check.CommentChecker;
 import com.miti.server.entity.Comment;
 import com.miti.server.entity.Recipe;
-import com.miti.server.entity.User;
 import com.miti.server.repo.CommentRepo;
-import com.miti.server.repo.RecipeRepo;
 import com.miti.server.service.RecipeService;
 import com.miti.server.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,13 +15,16 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-public class CommentController {
-    @Autowired
-    private CommentRepo commentRepo;
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private RecipeService recipeService;
+public class CommentControllerHTML {
+    private final CommentRepo commentRepo;
+    private final UserService userService;
+    private final RecipeService recipeService;
+
+    public CommentControllerHTML(CommentRepo commentRepo, UserService userService, RecipeService recipeService) {
+        this.commentRepo = commentRepo;
+        this.userService = userService;
+        this.recipeService = recipeService;
+    }
 
     @GetMapping("/commentHTML")
     public String showAllComments(Map<String, Object> model) {

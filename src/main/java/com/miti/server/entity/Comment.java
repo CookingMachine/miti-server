@@ -1,9 +1,13 @@
 package com.miti.server.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "comm")
+@JsonIgnoreProperties(ignoreUnknown = true,
+        value = {"recipe"})
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

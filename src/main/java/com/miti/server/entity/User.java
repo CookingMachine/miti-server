@@ -1,10 +1,14 @@
 package com.miti.server.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Table(name = "usr")
+@JsonIgnoreProperties(ignoreUnknown = true,
+        value = {"recipeList", "commentList"})
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,7 +24,7 @@ public class User {
     private List<Recipe> recipeList;
 
     @OneToMany(mappedBy = "commentator")
-    private List<Comment> commmentList;
+    private List<Comment> commentList;
 
     public User() {
     }
@@ -80,11 +84,11 @@ public class User {
         this.recipeList = recipeList;
     }
 
-    public List<Comment> getCommmentList() {
-        return commmentList;
+    public List<Comment> getCommentList() {
+        return commentList;
     }
 
-    public void setCommmentList(List<Comment> commmentList) {
-        this.commmentList = commmentList;
+    public void setCommentList(List<Comment> commentList) {
+        this.commentList = commentList;
     }
 }
