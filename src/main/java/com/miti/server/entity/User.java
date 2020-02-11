@@ -1,11 +1,13 @@
 package com.miti.server.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Data
 @Table(name = "usr")
 @JsonIgnoreProperties(ignoreUnknown = true,
         value = {"recipeList", "commentList"})
@@ -34,61 +36,5 @@ public class User {
         this.password = password;
         this.active = true;
         this.role = role;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    public List<Recipe> getRecipeList() {
-        return recipeList;
-    }
-
-    public void setRecipeList(List<Recipe> recipeList) {
-        this.recipeList = recipeList;
-    }
-
-    public List<Comment> getCommentList() {
-        return commentList;
-    }
-
-    public void setCommentList(List<Comment> commentList) {
-        this.commentList = commentList;
     }
 }

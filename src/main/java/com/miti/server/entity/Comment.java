@@ -1,10 +1,12 @@
 package com.miti.server.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Data;
 
 import javax.persistence.*;
 
 @Entity
+@Data
 @Table(name = "comm")
 @JsonIgnoreProperties(ignoreUnknown = true,
         value = {"recipe"})
@@ -33,46 +35,4 @@ public class Comment {
         this.recipe = recipe;
         this.recipeId = recipe.getId();
     }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getComment() {
-        return comment;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
-
-    public Long getRecipeId() {
-        return recipeId;
-    }
-
-    public void setRecipeId(Long recipeId) {
-        this.recipeId = recipeId;
-    }
-
-    public User getCommentator() {
-        return commentator;
-    }
-
-    public void setCommentator(User commentator) {
-        this.commentator = commentator;
-    }
-
-    public Recipe getRecipe() {
-        return recipe;
-    }
-
-    public void setRecipe(Recipe recipe) {
-        this.recipe = recipe;
-    }
-
-
 }

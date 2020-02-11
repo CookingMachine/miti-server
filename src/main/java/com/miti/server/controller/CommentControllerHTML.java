@@ -56,7 +56,7 @@ public class CommentControllerHTML {
             } catch (Exception e) {
                 message = "Recipe with that id doesnt exist";
             }
-        } else message = "User doesnt exist";
+        } else message = "User doesn't exist";
 
         List<Comment> comments = commentRepo.findAll();
         model.put("message", message);

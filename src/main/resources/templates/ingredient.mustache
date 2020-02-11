@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Ingredient controller</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<form method="post">
+    <span><input type="text" name="name" placeholder="Введите название ингредиента" size="30"></span>
+    <p><input type="submit" value="Отправить">
+        <input type="reset" value="Очистить"></p>
+</form>
+<p>{{message}}</p>
+<a href="/">Back to mainPage</a>
+
+<table border="1" cellpadding="5">
+{{#ingredients}}
+    <tr>
+        <td>{{id}}</td>
+        <td>{{name}}</td>
+    </tr>
+{{/ingredients}}
+</table>
+</body>
+</html>
