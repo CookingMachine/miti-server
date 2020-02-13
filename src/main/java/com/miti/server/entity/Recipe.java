@@ -19,6 +19,10 @@ public class Recipe {
     @JoinColumn(name = "usrId", nullable = false)
     private User author;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "category", nullable = false)
+    private Category category;
+
     @OneToMany(mappedBy = "recipe")
     private List<Comment> commentList;
 
@@ -28,9 +32,10 @@ public class Recipe {
     public Recipe() {
     }
 
-    public Recipe(String name, String description, User author) {
+    public Recipe(String name, String description, User author, Category category) {
         this.name = name;
         this.description = description;
         this.author = author;
+        this.category = category;
     }
 }

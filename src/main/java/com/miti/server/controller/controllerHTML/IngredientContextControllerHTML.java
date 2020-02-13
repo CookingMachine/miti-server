@@ -1,6 +1,5 @@
-package com.miti.server.controller;
+package com.miti.server.controller.controllerHTML;
 
-import com.miti.server.entity.Ingredient;
 import com.miti.server.entity.IngredientContext;
 import com.miti.server.service.IngredientContextService;
 import com.miti.server.service.IngredientService;

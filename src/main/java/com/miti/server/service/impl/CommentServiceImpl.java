@@ -27,11 +27,21 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public Comment addComment(Comment comment) {
-        Comment newComment = new Comment(comment.getComment(),
-                comment.getCommentator(),
-                comment.getRecipe());
+        return commentRepo.save(comment);
+    }
 
-        return commentRepo.save(newComment);
+    @Override
+    public Comment addComment(String text, String commentator, Long recipeId) {
+        User user = userRepo.getUserByUserName(commentator);
+        Recipe recipe = recipeRepo.findById(recipeId).orElseThrow(()->
+                new RuntimeException("Recipe with id: " + recipeId + " is not find!"));
+        Comment comment = new Comment(text, user, recipe);
+        return addComment(comment);
+    }
+
+    @Override
+    public List<Comment> getAllComments() {
+        return commentRepo.findAll();
     }
 
     @Override

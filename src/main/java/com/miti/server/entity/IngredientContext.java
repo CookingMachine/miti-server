@@ -1,7 +1,6 @@
 package com.miti.server.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.miti.server.controller.IngredientControllerHTML;
 import lombok.Data;
 
 import javax.persistence.*;

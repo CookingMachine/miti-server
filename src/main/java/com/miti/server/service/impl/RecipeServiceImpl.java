@@ -1,7 +1,11 @@
 package com.miti.server.service.impl;
 
+import com.miti.server.entity.Category;
 import com.miti.server.entity.Recipe;
+import com.miti.server.entity.User;
+import com.miti.server.repo.CategoryRepo;
 import com.miti.server.repo.RecipeRepo;
+import com.miti.server.repo.UserRepo;
 import com.miti.server.service.RecipeService;
 import org.springframework.stereotype.Service;
 
@@ -10,18 +14,24 @@ import java.util.List;
 @Service
 public class RecipeServiceImpl implements RecipeService {
     private final RecipeRepo recipeRepo;
+    private final UserRepo userRepo;
+    private final CategoryRepo categoryRepo;
 
-    public RecipeServiceImpl(RecipeRepo recipeRepo) {
+    public RecipeServiceImpl(RecipeRepo recipeRepo, UserRepo userRepo, CategoryRepo categoryRepo) {
         this.recipeRepo = recipeRepo;
+        this.userRepo = userRepo;
+        this.categoryRepo = categoryRepo;
     }
 
     @Override
     public Recipe addRecipe(Recipe recipe) {
-        Recipe newRecipe = new Recipe(recipe.getName(),
-                recipe.getDescription(),
-                recipe.getAuthor());
+        return recipeRepo.save(recipe);
+    }
 
-        return recipeRepo.save(newRecipe);
+    @Override
+    public Recipe addRecipe(String name, String description, User author, Category category) {
+        Recipe recipe = new Recipe(name, description, author, category);
+        return addRecipe(recipe);
     }
 
     @Override
@@ -37,14 +47,16 @@ public class RecipeServiceImpl implements RecipeService {
     }
 
     @Override
-    public List<Recipe> getRecipesByName(String name) {
-        List<Recipe> recipes = recipeRepo.getRecipesByName(name);
+    public List<Recipe> getRecipesByAuthor(String author) {
+        User user = userRepo.getUserByUserName(author);
+        List<Recipe> recipes = recipeRepo.getRecipesByAuthor(user);
         return recipes;
     }
 
     @Override
-    public List<Recipe> getRecipesByAuthor(String author) {
-        List<Recipe> recipes = recipeRepo.getRecipesByAuthor(author);
+    public List<Recipe> getRecipesByCategory(String name) {
+        Category category = categoryRepo.getCategoryByName(name);
+        List<Recipe> recipes = recipeRepo.getRecipesByCategory(category);
         return recipes;
     }
 }

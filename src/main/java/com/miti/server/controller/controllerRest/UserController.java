@@ -1,4 +1,4 @@
-package com.miti.server.controller;
+package com.miti.server.controller.controllerRest;
 
 import com.miti.server.check.UserChecker;
 import com.miti.server.entity.User;
@@ -40,7 +40,6 @@ public class UserController {
     public User addUser(@RequestBody User user) {
         if  (uc.userChecker(user.getUserName(), user.getPassword()) &&
                 userService.getUserByUserName(user.getUserName()) == null) {
-
             return userService.addUser(user);
         } else
             return null;

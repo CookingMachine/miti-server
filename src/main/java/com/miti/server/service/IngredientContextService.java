@@ -7,11 +7,13 @@ import com.miti.server.entity.Recipe;
 import java.util.List;
 
 public interface IngredientContextService {
-    IngredientContext getIngredientContextByRecipeId(Long recipeId);
+    List<IngredientContext> getIngredientContextByRecipeId(Long recipeId);
 
     List<IngredientContext> getAllIngredientContexts();
 
     IngredientContext addIngredientContext(double count, String flag, Recipe recipe, Ingredient ingredient);
 
     IngredientContext addIngredientContext(IngredientContext ingredientContext);
+
+    IngredientContext getIngredientContextById(Long id);
 }

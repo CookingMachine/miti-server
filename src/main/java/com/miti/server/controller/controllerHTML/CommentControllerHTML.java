@@ -1,10 +1,8 @@
-package com.miti.server.controller;
+package com.miti.server.controller.controllerHTML;
 
 import com.miti.server.check.CommentChecker;
 import com.miti.server.entity.Comment;
-import com.miti.server.entity.Recipe;
-import com.miti.server.repo.CommentRepo;
-import com.miti.server.service.RecipeService;
+import com.miti.server.service.CommentService;
 import com.miti.server.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,20 +14,18 @@ import java.util.Map;
 
 @Controller
 public class CommentControllerHTML {
-    private final CommentRepo commentRepo;
+    private final CommentService commentService;
     private final UserService userService;
-    private final RecipeService recipeService;
 
-    public CommentControllerHTML(CommentRepo commentRepo, UserService userService, RecipeService recipeService) {
-        this.commentRepo = commentRepo;
+    public CommentControllerHTML(CommentService commentService, UserService userService) {
+        this.commentService = commentService;
         this.userService = userService;
-        this.recipeService = recipeService;
     }
 
     @GetMapping("/commentHTML")
     public String showAllComments(Map<String, Object> model) {
         String message = "";
-        List<Comment> comments = commentRepo.findAll();
+        List<Comment> comments = commentService.getAllComments();
         model.put("message", message);
         model.put("comments", comments);
 
@@ -47,18 +43,13 @@ public class CommentControllerHTML {
         if (cc.commentChecker(comment,
                 userService.getUserByUserName(userName))) {
             try {
-                Recipe recipe = recipeService.getRecipeById(recipeId);
-                Comment newComment = new Comment(comment,
-                        userService.getUserByUserName(userName),
-                        recipe);
-
-                commentRepo.save(newComment);
+                commentService.addComment(comment, userName, recipeId);
             } catch (Exception e) {
                 message = "Recipe with that id doesnt exist";
             }
         } else message = "User doesn't exist";
 
-        List<Comment> comments = commentRepo.findAll();
+        List<Comment> comments = commentService.getAllComments();
         model.put("message", message);
         model.put("comments", comments);
 

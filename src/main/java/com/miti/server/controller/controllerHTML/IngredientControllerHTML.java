@@ -1,8 +1,7 @@
-package com.miti.server.controller;
+package com.miti.server.controller.controllerHTML;
 
 import com.miti.server.check.IngredientChecker;
 import com.miti.server.entity.Ingredient;
-import com.miti.server.repo.IngredientRepo;
 import com.miti.server.service.IngredientService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
