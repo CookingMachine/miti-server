@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Comment controller</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<form method="post">
+    <span><input type="text" name="name" placeholder="Введите название категории" size="40"></span>
+    <p><input type="submit" value="Отправить">
+        <input type="reset" value="Очистить"></p>
+</form>
+
+<a href="/">Back to mainPage</a>
+
+{{#categories}}
+    <div>
+        <span>{{id}}</span>
+        <span>{{name}}</span>
+    </div>
+{{/categories}}
+</body>
+</html>
