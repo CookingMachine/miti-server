@@ -39,6 +39,16 @@ public class RecipeController {
         return recipeService.getRecipesByCategory(categoryName);
     }
 
+    @GetMapping("/getRecipesByCategoryId")
+    public List<Recipe> getRecipesByCategoryId(@RequestParam Long categoryId) {
+        return recipeService.getRecipesByCategoryId(categoryId);
+    }
+
+    @GetMapping("/getRecipesByUserId")
+    public List<Recipe> getRecipesByUserId(@RequestParam Long userId) {
+        return recipeService.getRecipesByAuthorId(userId);
+    }
+
     @PostMapping("/addRecipe")
     public Recipe addRecipe(@RequestBody Recipe recipe, @RequestParam String userName, @RequestParam String category) {
         Recipe newRecipe = new Recipe(recipe.getName(),

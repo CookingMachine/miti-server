@@ -11,4 +11,6 @@ public interface RecipeRepo extends JpaRepository<Recipe, Long> {
     List<Recipe> getRecipesByAuthor(User user);
 
     List<Recipe> getRecipesByCategory(Category category);
+
+    List<Recipe> getRecipesByCategoryId(Long categoryId);
 }

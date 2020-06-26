@@ -9,4 +9,6 @@ public interface UserRepo extends JpaRepository<User, Long> {
     User getUserByUserName(String userName);
 
     List<User> getUsersByRole(String role);
+
+
 }
