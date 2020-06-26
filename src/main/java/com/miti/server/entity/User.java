@@ -28,6 +28,9 @@ public class User {
     @OneToMany(mappedBy = "commentator")
     private List<Comment> commentList;
 
+    @OneToMany(mappedBy = "user")
+    private List<Favourite> favouriteList;
+
     public User() {
     }
 

@@ -25,6 +25,11 @@ public class UserController {
             return null;
     }
 
+    @GetMapping("/getuserById")
+    public User getUserById(@RequestParam Long userId) {
+        return userService.getUserById(userId);
+    }
+
     @GetMapping("/getAllUsers")
     public List<User> getAllUsers() {
         return userService.getAllUsers();

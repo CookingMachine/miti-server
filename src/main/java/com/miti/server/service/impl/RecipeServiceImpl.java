@@ -54,9 +54,21 @@ public class RecipeServiceImpl implements RecipeService {
     }
 
     @Override
+    public List<Recipe> getRecipesByAuthorId(Long id) {
+        User _user = userRepo.findById(id).orElseThrow(()
+                -> new RuntimeException("User with id: " + id + " doesn't exist!"));
+        return recipeRepo.getRecipesByAuthor(_user);
+    }
+
+    @Override
     public List<Recipe> getRecipesByCategory(String name) {
         Category category = categoryRepo.getCategoryByName(name);
         List<Recipe> recipes = recipeRepo.getRecipesByCategory(category);
         return recipes;
+    }
+
+    @Override
+    public List<Recipe> getRecipesByCategoryId(Long categoryId) {
+        return recipeRepo.getRecipesByCategoryId(categoryId);
     }
 }

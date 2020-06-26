@@ -17,5 +17,9 @@ public interface RecipeService {
 
     List<Recipe> getRecipesByAuthor(String author);
 
+    List<Recipe> getRecipesByAuthorId(Long id);
+
     List<Recipe> getRecipesByCategory(String category);
+
+    List<Recipe> getRecipesByCategoryId(Long categoryId);
 }

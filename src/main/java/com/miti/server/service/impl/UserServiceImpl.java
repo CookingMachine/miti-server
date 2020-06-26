@@ -25,6 +25,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User getUserById(Long userId) {
+        return userRepo.findById(userId).orElseThrow(()
+                -> new RuntimeException("User with id: " + userId + " doesn't exist"));
+    }
+
+    @Override
     public User getUserByUserName(String userName) {
         return userRepo.getUserByUserName(userName);
     }

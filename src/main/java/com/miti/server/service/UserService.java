@@ -9,6 +9,8 @@ public interface UserService {
 
     User getUserByUserName(String userName);
 
+    User getUserById(Long userId);
+
     List<User> getAllUsers();
 
     List<User> getUsersByRole(String role);
