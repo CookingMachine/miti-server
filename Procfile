@@ -1,0 +1,1 @@
+web: java -jar out\artifacts\miti_server_jar.jar
