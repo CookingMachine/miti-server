@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="jar" name="miti-server:jar">
-    <output-path>$PROJECT_DIR$/out/artifacts/miti_server_jar</output-path>
+    <output-path>$PROJECT_DIR$/</output-path>
     <root id="archive" name="miti-server.jar">
       <element id="module-output" name="miti-server" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot/2.2.2.RELEASE/spring-boot-2.2.2.RELEASE.jar" path-in-jar="/" />
