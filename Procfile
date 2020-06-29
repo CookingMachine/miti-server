@@ -1,1 +1,1 @@
-web: java -jar miti_server_jar.jar
+web: java -jar miti_server.jar
