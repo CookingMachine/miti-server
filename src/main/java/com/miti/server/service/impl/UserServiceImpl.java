@@ -16,12 +16,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User addUser(User user) {
-        User newUser = new User(user.getUserName(),
-                user.getPassword(),
-                user.getRole());
+    public User addUser(User user) { return userRepo.save(user); }
 
-        return userRepo.save(newUser);
+    @Override
+    public User addUser(String userName, String password, String role) {
+        User _user = new User(userName, password, role);
+
+        return addUser(_user);
     }
 
     @Override

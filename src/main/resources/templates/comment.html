@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>CommentController</title>
+</head>
+<body>
+    <th:block th:include="/_menu">...</th:block>
+
+    <form th:action="@{/comment}"
+          th:object="${commentForm}" method="POST">
+        Comment: <br/>
+        <textarea name="comment" id="comment" cols="30" rows="10"
+                  placeholder="Input your comment here" th:field="*{commentText}">...</textarea> <br/>
+        Author: <br/>
+        <input type="text" placeholder="Input author id" size="20px" th:field="*{userId}" /> <br/>
+        Recipe: <br/>
+        <input type="text" placeholder="Input recipe id" size="20px" th:field="*{recipeId}" /> <br/>
+        <input type="submit" value="Submit">
+        <input type="reset" value="Reset">
+    </form>
+
+    <div th:if="${errorMessage}" th:utext="${errorMessage}" style="color: red; font-style: italic">...</div>
+</body>
+
+</html>
