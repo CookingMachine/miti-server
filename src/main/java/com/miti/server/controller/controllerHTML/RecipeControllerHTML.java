@@ -1,63 +1,69 @@
 package com.miti.server.controller.controllerHTML;
 
-import com.miti.server.check.RecipeChecker;
 import com.miti.server.entity.Category;
 import com.miti.server.entity.Recipe;
 import com.miti.server.entity.User;
+import com.miti.server.form.RecipeForm;
 import com.miti.server.service.CategoryService;
 import com.miti.server.service.RecipeService;
 import com.miti.server.service.UserService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
-import java.util.Map;
 
 @Controller
 public class RecipeControllerHTML {
-    private final UserService userService;
-    private final RecipeService recipeService;
-    private final CategoryService categoryService;
+    private RecipeService recipeService;
+    private UserService userService;
+    private CategoryService categoryService;
 
-    public RecipeControllerHTML(UserService userService, RecipeService recipeService, CategoryService categoryService) {
+    public RecipeControllerHTML(RecipeService recipeService, UserService userService, CategoryService categoryService) {
         this.recipeService = recipeService;
         this.userService = userService;
         this.categoryService = categoryService;
     }
 
-    @GetMapping("/recipeHTML")
-    public String showAllRecipes(Map<String, Object> model) {
-        String message = "";
+    @Value("${error.message}")
+    private String errorMessage;
+
+    @RequestMapping(value = {"/recipeList"}, method = RequestMethod.GET)
+    public String recipeList(Model model) {
         List<Recipe> recipes = recipeService.getAllRecipes();
-        model.put("recipes", recipes);
-        model.put("message", message);
+        model.addAttribute("recipes", recipes);
+
+        return "lists/recipeList";
+    }
+
+    @RequestMapping(value = {"/recipe"}, method = RequestMethod.GET)
+    public String showAddRecipePage(Model model) {
+        RecipeForm recipeForm = new RecipeForm();
+        model.addAttribute("recipeForm", recipeForm);
 
         return "recipe";
     }
 
-    @PostMapping("/recipeHTML")
-    public String addRecipe(@RequestParam String name,
-                            @RequestParam String description,
-                            @RequestParam String authorName,
-                            @RequestParam String category,
-                            Map<String, Object> model) {
-        RecipeChecker rc = new RecipeChecker();
-        String message = "";
+    @RequestMapping(value = {"/recipe"}, method = RequestMethod.POST)
+    public String save(Model model, @ModelAttribute("recipeForm") RecipeForm recipeForm) {
+        String name = recipeForm.getName();
+        String description = recipeForm.getDescription();
+        User _author = userService.getUserByUserName(recipeForm.getAuthorName());
+        Category _category = categoryService.getCategoryByName(recipeForm.getCategory());
 
-        if (rc.recipeChecker(name, userService.getUserByUserName(authorName))) {
-            recipeService.addRecipe(name, description,
-                    userService.getUserByUserName(authorName),
-                    categoryService.getCategoryByName(category));
-        } else
-            message = "Author doesnt exist or name is empty";
+        if (name != null && name.length() > 0
+                && _author != null
+                && _category != null) {
 
-        List<Recipe> recipes = recipeService.getAllRecipes();
-        model.put("recipes", recipes);
-        model.put("message", message);
+            recipeService.addRecipe(name, description, _author, _category);
+
+            return "redirect:/recipeList";
+        }
+        model.addAttribute("errorMessage", errorMessage);
 
         return "recipe";
     }
-
 }

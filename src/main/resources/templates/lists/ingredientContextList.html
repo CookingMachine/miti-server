@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>ingredientContext List</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/style.css}">
+</head>
+<body>
+<th:block th:include="/_menu">...</th:block>
+
+<h1>IngredientContext List</h1>
+<a href="/ingredientContext">Add ingredientContext</a>
+<br/> <br/>
+
+<div>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Count</th>
+            <th>Flag</th>
+            <th>Ingredient Name</th>
+            <th>Recipe ID</th>
+        </tr>
+        <tr th:each="ingredientContext : ${ingredientContexts}">
+            <td th:utext="${ingredientContext.getId()}">...</td>
+            <td th:utext="${ingredientContext.getCount()}">...</td>
+            <td th:utext="${ingredientContext.getFlag()}">...</td>
+            <td th:utext="${ingredientContext.getIngredient().getName()}">...</td>
+            <td th:utext="${ingredientContext.getRecipeIngredients().getId()}">...</td>
+        </tr>
+    </table>
+</div>
+</body>
+
+</html>

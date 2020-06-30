@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>CommentList</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/style.css}">
+</head>
+<body>
+    <th:block th:include="/_menu">...</th:block>
+    <h1>Comment List</h1>
+    <a href="comment">Add comment</a>
+    <br/> <br/>
+
+    <div>
+        <table border="1">
+            <tr>
+            <th>ID</th>
+            <th>AuthorID</th>
+            <th>RecipeID</th>
+            <th>Comment</th>
+            </tr>
+            <tr th:each="comment : ${comments}">
+                <td th:utext="${comment.id}">...</td>
+                <td th:utext="${comment.getRecipe().getId()}">...</td>
+                <td th:utext="${comment.getCommentator().getId()}">...</td>
+                <td th:utext="${comment.getComment()}">...</td>
+            </tr>
+        </table>
+    </div>
+</body>
+
+</html>

@@ -1,54 +1,72 @@
 package com.miti.server.controller.controllerHTML;
 
+import com.miti.server.entity.Ingredient;
 import com.miti.server.entity.IngredientContext;
+import com.miti.server.entity.Recipe;
+import com.miti.server.form.IngredientContextForm;
+import com.miti.server.form.IngredientForm;
 import com.miti.server.service.IngredientContextService;
 import com.miti.server.service.IngredientService;
 import com.miti.server.service.RecipeService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
-import java.util.Map;
 
 @Controller
 public class IngredientContextControllerHTML {
-    private final IngredientContextService ingredientContextService;
-    private final RecipeService recipeService;
-    private final IngredientService ingredientService;
-    private String message = "";
+    private IngredientContextService ingredientContextService;
+    private IngredientService ingredientService;
+    private RecipeService recipeService;
 
     public IngredientContextControllerHTML(IngredientContextService ingredientContextService,
-                                           RecipeService recipeService,
-                                           IngredientService ingredientService) {
+                                           IngredientService ingredientService,
+                                           RecipeService recipeService) {
         this.ingredientContextService = ingredientContextService;
-        this.recipeService = recipeService;
         this.ingredientService = ingredientService;
+        this.recipeService = recipeService;
     }
 
-    @GetMapping("/ingredientContextHTML")
-    public String getAllIngredientContext(Map<String, Object> model) {
+    @Value("${error.message}")
+    private String errorMessage;
+
+    @RequestMapping(value = {"/ingredientContextList"}, method = RequestMethod.GET)
+    public String ingredientContextList(Model model) {
         List<IngredientContext> ingredientContexts = ingredientContextService.getAllIngredientContexts();
-        model.put("ingredientContexts", ingredientContexts);
-        model.put("message", message);
+        model.addAttribute("ingredientContexts", ingredientContexts);
+
+        return "lists/ingredientContextList";
+    }
+
+    @RequestMapping(value = {"/ingredientContext"}, method = RequestMethod.GET)
+    public String showAddIngredientContextPage(Model model) {
+        IngredientContextForm ingredientContextForm = new IngredientContextForm();
+        model.addAttribute("ingredientContextForm", ingredientContextForm);
 
         return "ingredientContext";
     }
 
-    @PostMapping("/ingredientContextHTML")
-    public String addIngredientContext(@RequestParam double count,
-                                       @RequestParam String flag,
-                                       @RequestParam Long recipeId,
-                                       @RequestParam String ingredientName,
-                                       Map<String, Object> model) {
+    @RequestMapping(value = {"/ingredientContext"}, method = RequestMethod.POST)
+    public String addIngredientContext(Model model,
+                                       @ModelAttribute("ingredientContextForm")
+                                               IngredientContextForm ingredientContextForm) {
+        double count = ingredientContextForm.getCount();
+        String flag = ingredientContextForm.getFlag();
+        Ingredient _ingredient = ingredientService.addIngredient(ingredientContextForm.getIngredientName());
+        Recipe _recipe = recipeService.getRecipeById(ingredientContextForm.getRecipeId());
 
-        ingredientContextService.addIngredientContext(count, flag, recipeService.getRecipeById(recipeId), ingredientService.getIngredientByName(ingredientName));
+        if (count > 0 && flag != null && flag.length() > 0
+                && _ingredient != null && _recipe != null) {
+            ingredientContextService.addIngredientContext(count, flag, _recipe, _ingredient);
 
-        List<IngredientContext> ingredientContexts = ingredientContextService.getAllIngredientContexts();
-        model.put("ingredientContexts", ingredientContexts);
-        model.put("message", message);
+            return "redirect:/ingredientContextList";
+        }
 
+        model.addAttribute("errorMessage", errorMessage);
         return "ingredientContext";
 
     }

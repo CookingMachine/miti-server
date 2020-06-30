@@ -1,58 +1,64 @@
 package com.miti.server.controller.controllerHTML;
 
-import com.miti.server.check.CommentChecker;
 import com.miti.server.entity.Comment;
+import com.miti.server.entity.Recipe;
+import com.miti.server.entity.User;
+import com.miti.server.form.CommentForm;
 import com.miti.server.service.CommentService;
+import com.miti.server.service.RecipeService;
 import com.miti.server.service.UserService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
-import java.util.Map;
 
 @Controller
 public class CommentControllerHTML {
-    private final CommentService commentService;
-    private final UserService userService;
+    private CommentService commentService;
+    private UserService userService;
+    private RecipeService recipeService;
 
-    public CommentControllerHTML(CommentService commentService, UserService userService) {
+    public CommentControllerHTML(CommentService commentService, UserService userService, RecipeService recipeService) {
         this.commentService = commentService;
         this.userService = userService;
+        this.recipeService = recipeService;
     }
 
-    @GetMapping("/commentHTML")
-    public String showAllComments(Map<String, Object> model) {
-        String message = "";
+    @Value("${error.message}")
+    private String errorMessage;
+
+    @RequestMapping(value = {"/commentList"}, method = RequestMethod.GET)
+    public String commentList(Model model) {
         List<Comment> comments = commentService.getAllComments();
-        model.put("message", message);
-        model.put("comments", comments);
+        model.addAttribute("comments", comments);
+
+        return "lists/commentList";
+    }
+
+    @RequestMapping(value = {"/comment"}, method = RequestMethod.GET)
+    public String showAddCommentPage(Model model) {
+        CommentForm commentForm = new CommentForm();
+        model.addAttribute("commentForm", commentForm);
 
         return "comment";
     }
 
-    @PostMapping("/commentHTML")
-    public String addComment(@RequestParam String userName,
-                             @RequestParam String comment,
-                             @RequestParam Long recipeId,
-                             Map<String, Object> model) {
-        CommentChecker cc = new CommentChecker();
-        String message = "";
+    @RequestMapping(value = {"/comment"}, method = RequestMethod.POST)
+    public String addComment(Model model, @ModelAttribute("commentForm") CommentForm commentForm) {
+        String comment = commentForm.getCommentText();
+        User _user = userService.getUserById(commentForm.getUserId());
+        Recipe _recipe = recipeService.getRecipeById(commentForm.getRecipeId());
 
-        if (cc.commentChecker(comment,
-                userService.getUserByUserName(userName))) {
-            try {
-                commentService.addComment(comment, userName, recipeId);
-            } catch (Exception e) {
-                message = "Recipe with that id doesnt exist";
-            }
-        } else message = "User doesn't exist";
+        if (_user != null && _recipe != null) {
+            commentService.addComment(comment, _user.getUserName(), _recipe.getId());
 
-        List<Comment> comments = commentService.getAllComments();
-        model.put("message", message);
-        model.put("comments", comments);
-
+            return "redirect:/commentList";
+        }
+        model.addAttribute("errorMessage", errorMessage);
         return "comment";
     }
 }

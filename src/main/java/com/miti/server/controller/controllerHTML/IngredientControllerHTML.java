@@ -1,49 +1,55 @@
 package com.miti.server.controller.controllerHTML;
 
-import com.miti.server.check.IngredientChecker;
 import com.miti.server.entity.Ingredient;
+import com.miti.server.form.IngredientForm;
 import com.miti.server.service.IngredientService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
-import java.util.Map;
 
 @Controller
 public class IngredientControllerHTML {
-
-    private final IngredientService ingredientService;
+    private IngredientService ingredientService;
 
     public IngredientControllerHTML(IngredientService ingredientService) {
         this.ingredientService = ingredientService;
     }
 
-    @GetMapping("/ingredientHTML")
-    public String showAllIngredients(Map<String, Object> model) {
-        String message = "";
+    @Value("${error.message}")
+    private String errorMessage;
+
+    @RequestMapping(value = {"/ingredientList"}, method = RequestMethod.GET)
+    public String ingredientList(Model model) {
         List<Ingredient> ingredients = ingredientService.getAllIngredients();
-        model.put("message", message);
-        model.put("ingredients", ingredients);
+        model.addAttribute("ingredients", ingredients);
+
+        return "lists/ingredientList";
+    }
+
+    @RequestMapping(value = {"/ingredient"}, method = RequestMethod.GET)
+    public String showAddIngredientPage(Model model) {
+        IngredientForm ingredientForm = new IngredientForm();
+        model.addAttribute("ingredientForm", ingredientForm);
 
         return "ingredient";
     }
 
-    @PostMapping("/ingredientHTML")
-    public String addIngredient(@RequestParam String name,
-                                Map<String, Object> model) {
-        String message = "";
+    @RequestMapping(value = {"/ingredient"}, method = RequestMethod.POST)
+    public String addIngredient(Model model, @ModelAttribute("ingredientForm")  IngredientForm ingredientForm) {
+        String name = ingredientForm.getName();
 
-        if (IngredientChecker.check(name) && ingredientService.getIngredientByName(name) == null) {
+        if (name != null && name.length() > 0) {
             ingredientService.addIngredient(name);
-        } else
-            message = "Ingredient already exists";
 
-        List<Ingredient> ingredients = ingredientService.getAllIngredients();
-        model.put("message", message);
-        model.put("ingredients", ingredients);
+            return "redirect:/ingredientList";
+        }
 
+        model.addAttribute("errorMessage", errorMessage);
         return "ingredient";
     }
 }

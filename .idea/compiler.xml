@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="server" />
         <module name="miti-server" />
+        <module name="server_main" />
       </profile>
     </annotationProcessing>
   </component>
@@ -15,6 +16,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="miti-server" options="-parameters" />
       <module name="server" options="-parameters" />
+      <module name="server_main" options="-parameters" />
     </option>
   </component>
 </project>

@@ -25,7 +25,7 @@ public class UserController {
             return null;
     }
 
-    @GetMapping("/getuserById")
+    @GetMapping("/getUserById")
     public User getUserById(@RequestParam Long userId) {
         return userService.getUserById(userId);
     }

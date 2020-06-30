@@ -1,52 +1,63 @@
 package com.miti.server.controller.controllerHTML;
 
-import com.miti.server.check.UserChecker;
 import com.miti.server.entity.User;
+import com.miti.server.form.UserForm;
 import com.miti.server.service.UserService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
-import java.util.Map;
 
 @Controller
 public class UserControllerHTML {
-    private final UserService userService;
-    UserChecker uc = new UserChecker();
+    private UserService userService;
 
     public UserControllerHTML(UserService userService) {
         this.userService = userService;
     }
 
-    @GetMapping("/userHTML")
-    public String showAllUsers(Map<String, Object> model) {
-        String message = "";
+    @Value("${error.message}")
+    private String errorMessage;
+
+    @RequestMapping(value = { "/userList" }, method = RequestMethod.GET)
+    public String userList(Model model) {
         List<User> users = userService.getAllUsers();
-        model.put("users", users);
-        model.put("message", message);
+        model.addAttribute("users", users);
+
+        return "lists/userList";
+    }
+
+    @RequestMapping(value = { "/user" }, method = RequestMethod.GET)
+    public String showAddUserPage(Model model) {
+
+        UserForm userForm = new UserForm();
+        model.addAttribute("userForm", userForm);
 
         return "user";
     }
 
-    @PostMapping("/userHTML")
-    public String addUser(@RequestParam String userName,
-                          @RequestParam String password,
-                          @RequestParam String role,
-                          Map<String, Object> model) {
-        String message = "";
+    @RequestMapping(value = { "/user" }, method = RequestMethod.POST)
+    public String saveUser(Model model, //
+                             @ModelAttribute("userForm") UserForm userForm) {
 
-        if (uc.userChecker(userName, password) && userService.getUserByUserName(userName) == null) {
-            User user = new User(userName, password, role);
-            userService.addUser(user);
-        } else if (message.equals(""))
-            message = "Empty field or login already exist";
+        String username = userForm.getUserName();
+        String password = userForm.getPassword();
+        String role = userForm.getRole();
 
-        List<User> users = userService.getAllUsers();
-        model.put("users", users);
-        model.put("message", message);
+        if (username != null && username.length() > 0
+                && password != null && password.length() > 0
+                && role != null && role.length() > 0) {
+            userService.addUser(username, password, role);
 
+            return "redirect:/userList";
+        }
+
+        model.addAttribute("errorMessage", errorMessage);
         return "user";
     }
+
 }
