@@ -6,7 +6,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{/static/styles/style.css}">
 </head>
 <body>
-    <th:block th:include="/_menu"></th:block>
+<th:block th:insert="_menu :: menu"></th:block>
 
     <h1>Recipe List</h1>
     <a href="recipe">Add recipe</a>
