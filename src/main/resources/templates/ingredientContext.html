@@ -5,7 +5,7 @@
     <title>IngredientContext Controller</title>
 </head>
 <body>
-<th:block th:include="/_menu">...</th:block>
+<th:block th:insert="_menu :: menu"></th:block>
 
 <form th:action="@{/ingredientContext}"
       th:object="${ingredientContextForm}" method="POST">
