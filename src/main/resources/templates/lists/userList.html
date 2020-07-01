@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{/static/styles/style.css}">
 </head>
 <body>
-    <th:block th:include="/_menu"></th:block>
+<th:block th:insert="_menu :: menu"></th:block>
 
     <h1>Users</h1>
     <a href="user">Add User</a>
