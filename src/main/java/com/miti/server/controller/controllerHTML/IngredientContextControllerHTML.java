@@ -56,7 +56,7 @@ public class IngredientContextControllerHTML {
                                                IngredientContextForm ingredientContextForm) {
         double count = ingredientContextForm.getCount();
         String flag = ingredientContextForm.getFlag();
-        Ingredient _ingredient = ingredientService.addIngredient(ingredientContextForm.getIngredientName());
+        Ingredient _ingredient = ingredientService.getIngredientByName(ingredientContextForm.getIngredientName());
         Recipe _recipe = recipeService.getRecipeById(ingredientContextForm.getRecipeId());
 
         if (count > 0 && flag != null && flag.length() > 0
