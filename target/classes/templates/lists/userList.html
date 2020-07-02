@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>User List</title>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/style.css}">
+</head>
+<body>
+<th:block th:insert="_menu :: menu"></th:block>
+
+    <h1>Users</h1>
+    <a href="user">Add User</a>
+    <br/><br/>
+    <div>
+        <table border="1">
+            <tr>
+                <th>ID</th>
+                <th>Login</th>
+                <th>Password</th>
+                <th>Role</th>
+            </tr>
+            <tr th:each="user : ${users}">
+                <td th:utext="${user.getId()}">...</td>
+                <td th:utext="${user.getUserName()}">...</td>
+                <td th:utext="${user.getPassword()}">...</td>
+                <td th:utext="${user.getRole()}">...</td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
