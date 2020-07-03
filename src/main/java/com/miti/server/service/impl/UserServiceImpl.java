@@ -1,7 +1,7 @@
 package com.miti.server.service.impl;
 
-import com.miti.server.entity.User;
-import com.miti.server.entity.dto.UserDTO;
+import com.miti.server.model.entity.User;
+import com.miti.server.model.dto.UserDTO;
 import com.miti.server.enums.UserRole;
 import com.miti.server.repository.UserRepository;
 import com.miti.server.service.UserService;

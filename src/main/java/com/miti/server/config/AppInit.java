@@ -1,8 +1,8 @@
 package com.miti.server.config;
 
-import com.miti.server.entity.*;
-import com.miti.server.entity.dto.UserDTO;
+import com.miti.server.model.dto.UserDTO;
 import com.miti.server.enums.UserRole;
+import com.miti.server.model.entity.*;
 import com.miti.server.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;

@@ -1,6 +1,6 @@
 package com.miti.server.service;
 
-import com.miti.server.entity.Ingredient;
+import com.miti.server.model.entity.Ingredient;
 
 import java.util.List;
 

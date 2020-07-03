@@ -1,6 +1,6 @@
 package com.miti.server.service;
 
-import com.miti.server.entity.User;
+import com.miti.server.model.entity.User;
 import com.miti.server.enums.UserRole;
 
 import java.util.List;

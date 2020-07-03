@@ -1,6 +1,6 @@
 package com.miti.server.service.impl;
 
-import com.miti.server.entity.Category;
+import com.miti.server.model.entity.Category;
 import com.miti.server.repository.CategoryRepository;
 import com.miti.server.service.CategoryService;
 import org.springframework.stereotype.Service;

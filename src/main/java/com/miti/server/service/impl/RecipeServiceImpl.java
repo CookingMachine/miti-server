@@ -1,8 +1,8 @@
 package com.miti.server.service.impl;
 
-import com.miti.server.entity.Category;
-import com.miti.server.entity.Recipe;
-import com.miti.server.entity.User;
+import com.miti.server.model.entity.Category;
+import com.miti.server.model.entity.Recipe;
+import com.miti.server.model.entity.User;
 import com.miti.server.repository.CategoryRepository;
 import com.miti.server.repository.RecipeRepository;
 import com.miti.server.repository.UserRepository;

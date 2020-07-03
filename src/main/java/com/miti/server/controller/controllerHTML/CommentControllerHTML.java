@@ -1,8 +1,8 @@
 package com.miti.server.controller.controllerHTML;
 
-import com.miti.server.entity.Comment;
-import com.miti.server.entity.Recipe;
-import com.miti.server.entity.User;
+import com.miti.server.model.entity.Comment;
+import com.miti.server.model.entity.Recipe;
+import com.miti.server.model.entity.User;
 import com.miti.server.form.CommentForm;
 import com.miti.server.service.CommentService;
 import com.miti.server.service.RecipeService;

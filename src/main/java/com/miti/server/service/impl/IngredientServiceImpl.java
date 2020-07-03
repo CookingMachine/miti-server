@@ -1,6 +1,6 @@
 package com.miti.server.service.impl;
 
-import com.miti.server.entity.Ingredient;
+import com.miti.server.model.entity.Ingredient;
 import com.miti.server.repository.IngredientRepository;
 import com.miti.server.service.IngredientService;
 import org.springframework.stereotype.Service;

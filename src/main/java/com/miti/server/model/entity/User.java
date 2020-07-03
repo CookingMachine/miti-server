@@ -1,7 +1,7 @@
-package com.miti.server.entity;
+package com.miti.server.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.miti.server.entity.dto.UserDTO;
+import com.miti.server.model.dto.UserDTO;
 import com.miti.server.enums.UserRole;
 import lombok.Data;
 

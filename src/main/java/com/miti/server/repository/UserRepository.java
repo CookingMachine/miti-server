@@ -1,6 +1,6 @@
 package com.miti.server.repository;
 
-import com.miti.server.entity.User;
+import com.miti.server.model.entity.User;
 import com.miti.server.enums.UserRole;
 import org.springframework.data.jpa.repository.JpaRepository;
 

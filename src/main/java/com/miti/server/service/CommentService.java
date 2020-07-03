@@ -1,8 +1,6 @@
 package com.miti.server.service;
 
-import com.miti.server.entity.Comment;
-import com.miti.server.entity.Recipe;
-import com.miti.server.entity.User;
+import com.miti.server.model.entity.Comment;
 
 import java.util.List;
 

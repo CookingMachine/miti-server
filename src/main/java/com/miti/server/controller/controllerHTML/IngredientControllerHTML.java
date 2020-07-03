@@ -1,6 +1,6 @@
 package com.miti.server.controller.controllerHTML;
 
-import com.miti.server.entity.Ingredient;
+import com.miti.server.model.entity.Ingredient;
 import com.miti.server.form.IngredientForm;
 import com.miti.server.service.IngredientService;
 import org.springframework.beans.factory.annotation.Value;

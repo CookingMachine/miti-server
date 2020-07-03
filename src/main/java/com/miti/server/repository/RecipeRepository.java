@@ -1,8 +1,8 @@
 package com.miti.server.repository;
 
-import com.miti.server.entity.Category;
-import com.miti.server.entity.Recipe;
-import com.miti.server.entity.User;
+import com.miti.server.model.entity.Category;
+import com.miti.server.model.entity.Recipe;
+import com.miti.server.model.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

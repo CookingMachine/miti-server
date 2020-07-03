@@ -1,6 +1,6 @@
 package com.miti.server.service;
 
-import com.miti.server.entity.Category;
+import com.miti.server.model.entity.Category;
 
 import java.util.List;
 

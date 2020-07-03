@@ -1,6 +1,6 @@
 package com.miti.server.controller.controllerHTML;
 
-import com.miti.server.entity.User;
+import com.miti.server.model.entity.User;
 import com.miti.server.enums.UserRole;
 import com.miti.server.form.UserForm;
 import com.miti.server.service.UserService;
@@ -47,12 +47,11 @@ public class UserControllerHTML {
 
         String username = userForm.getUserName();
         String password = userForm.getPassword();
-        UserRole role = UserRole.USER;
+        UserRole role = UserRole.valueOf(userForm.getRole());
         String email = userForm.getEmail();
 
         if (username != null && username.length() > 0
-                && password != null && password.length() > 0
-                && role != null) {
+                && password != null && password.length() > 0) {
             userService.addUser(username, password, email, role);
 
             return "redirect:/userList";

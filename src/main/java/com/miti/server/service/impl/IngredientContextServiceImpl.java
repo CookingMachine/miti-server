@@ -1,8 +1,8 @@
 package com.miti.server.service.impl;
 
-import com.miti.server.entity.Ingredient;
-import com.miti.server.entity.IngredientContext;
-import com.miti.server.entity.Recipe;
+import com.miti.server.model.entity.Ingredient;
+import com.miti.server.model.entity.IngredientContext;
+import com.miti.server.model.entity.Recipe;
 import com.miti.server.repository.IngredientContextRepository;
 import com.miti.server.repository.RecipeRepository;
 import com.miti.server.service.IngredientContextService;

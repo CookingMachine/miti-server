@@ -1,6 +1,6 @@
 package com.miti.server.controller.controllerRest;
 
-import com.miti.server.entity.Comment;
+import com.miti.server.model.entity.Comment;
 import com.miti.server.service.CommentService;
 import org.springframework.web.bind.annotation.*;
 

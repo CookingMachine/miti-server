@@ -1,6 +1,6 @@
 package com.miti.server.controller.controllerRest;
 
-import com.miti.server.entity.Ingredient;
+import com.miti.server.model.entity.Ingredient;
 import com.miti.server.service.IngredientService;
 import org.springframework.web.bind.annotation.*;
 

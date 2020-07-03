@@ -1,6 +1,6 @@
 package com.miti.server.check;
 
-import com.miti.server.entity.User;
+import com.miti.server.model.entity.User;
 
 public class CommentChecker {
     public boolean commentChecker(String comment, User commentator) {

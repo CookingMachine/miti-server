@@ -1,6 +1,6 @@
 package com.miti.server.controller.controllerHTML;
 
-import com.miti.server.entity.Category;
+import com.miti.server.model.entity.Category;
 import com.miti.server.form.CategoryForm;
 import com.miti.server.service.CategoryService;
 import org.springframework.beans.factory.annotation.Value;

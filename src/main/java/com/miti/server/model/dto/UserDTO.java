@@ -1,4 +1,4 @@
-package com.miti.server.entity.dto;
+package com.miti.server.model.dto;
 
 import com.miti.server.enums.UserRole;
 import lombok.AllArgsConstructor;

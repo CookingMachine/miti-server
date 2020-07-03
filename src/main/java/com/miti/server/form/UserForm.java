@@ -1,6 +1,5 @@
 package com.miti.server.form;
 
-import com.miti.server.enums.UserRole;
 import lombok.Data;
 
 @Data
@@ -10,7 +9,7 @@ public class UserForm {
 
     private String password;
 
-    private UserRole role;
+    private String role;
 
     private String email;
 }
