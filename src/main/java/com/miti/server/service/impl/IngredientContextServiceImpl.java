@@ -3,8 +3,8 @@ package com.miti.server.service.impl;
 import com.miti.server.entity.Ingredient;
 import com.miti.server.entity.IngredientContext;
 import com.miti.server.entity.Recipe;
-import com.miti.server.repo.IngredientContextRepo;
-import com.miti.server.repo.RecipeRepo;
+import com.miti.server.repository.IngredientContextRepository;
+import com.miti.server.repository.RecipeRepository;
 import com.miti.server.service.IngredientContextService;
 import org.springframework.stereotype.Service;
 
@@ -12,17 +12,17 @@ import java.util.List;
 
 @Service
 public class IngredientContextServiceImpl implements IngredientContextService {
-    private final IngredientContextRepo ingredientContextRepo;
-    private final RecipeRepo recipeRepo;
+    private final IngredientContextRepository ingredientContextRepository;
+    private final RecipeRepository recipeRepository;
 
-    public IngredientContextServiceImpl(IngredientContextRepo ingredientContextRepo, RecipeRepo recipeRepo) {
-        this.ingredientContextRepo = ingredientContextRepo;
-        this.recipeRepo = recipeRepo;
+    public IngredientContextServiceImpl(IngredientContextRepository ingredientContextRepository, RecipeRepository recipeRepository) {
+        this.ingredientContextRepository = ingredientContextRepository;
+        this.recipeRepository = recipeRepository;
     }
 
     @Override
     public List<IngredientContext> getIngredientContextByRecipeId(Long recipeId) {
-        Recipe recipe = recipeRepo.findById(recipeId).orElseThrow(()->
+        Recipe recipe = recipeRepository.findById(recipeId).orElseThrow(()->
                 new RuntimeException("Recipe with id: " + recipeId + " is not find!"));
         List<IngredientContext> ingredients = recipe.getIngredientContextList();
         return ingredients;
@@ -30,7 +30,7 @@ public class IngredientContextServiceImpl implements IngredientContextService {
 
     @Override
     public List<IngredientContext> getAllIngredientContexts() {
-        return ingredientContextRepo.findAll();
+        return ingredientContextRepository.findAll();
     }
 
     @Override
@@ -41,12 +41,12 @@ public class IngredientContextServiceImpl implements IngredientContextService {
 
     @Override
     public IngredientContext addIngredientContext(IngredientContext ingredientContext) {
-        return ingredientContextRepo.save(ingredientContext);
+        return ingredientContextRepository.save(ingredientContext);
     }
 
     @Override
     public IngredientContext getIngredientContextById(Long id) {
-        return ingredientContextRepo.findById(id).orElseThrow(()->
+        return ingredientContextRepository.findById(id).orElseThrow(()->
                 new RuntimeException("IngredientContext with id: " + id + " is not found"));
     }
 }

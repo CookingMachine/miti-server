@@ -25,8 +25,7 @@ public class IngredientContext {
     @JoinColumn(name = "recipeId", nullable = false)
     private Recipe recipeIngredients;
 
-    public IngredientContext() {
-    }
+    public IngredientContext() { }
 
     public IngredientContext(double count, String flag, Recipe recipeIngredients, Ingredient ingredient) {
         this.count = count;

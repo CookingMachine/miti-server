@@ -1,7 +1,5 @@
 package com.miti.server.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -9,6 +7,7 @@ import java.util.List;
 
 @Entity
 @Data
+@Table(name = "recipe")
 public class Recipe {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,8 +30,8 @@ public class Recipe {
     @OneToMany(mappedBy = "recipeIngredients")
     private List<IngredientContext> ingredientContextList;
 
-    @OneToMany(mappedBy = "favouriteRecipe")
-    private List<Favourite> favouriteList;
+    @ManyToMany
+    private List<User> favouriteUsers;
 
     public Recipe() {
     }

@@ -10,7 +10,7 @@ import java.util.List;
 @Data
 @Table(name = "usr")
 @JsonIgnoreProperties(ignoreUnknown = true,
-        value = {"recipeList", "commentList"})
+        value = {"recipeList", "commentList", "favouriteList"})
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,11 +28,10 @@ public class User {
     @OneToMany(mappedBy = "commentator")
     private List<Comment> commentList;
 
-    @OneToMany(mappedBy = "user")
-    private List<Favourite> favouriteList;
+    @ManyToMany(mappedBy = "favouriteUsers")
+    private List<Recipe> favouriteList;
 
-    public User() {
-    }
+    public User() { }
 
     public User(String userName, String password, String role) {
         this.userName = userName;

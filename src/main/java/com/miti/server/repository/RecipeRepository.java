@@ -1,4 +1,4 @@
-package com.miti.server.repo;
+package com.miti.server.repository;
 
 import com.miti.server.entity.Category;
 import com.miti.server.entity.Recipe;
@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface RecipeRepo extends JpaRepository<Recipe, Long> {
+public interface RecipeRepository extends JpaRepository<Recipe, Long> {
     List<Recipe> getRecipesByAuthor(User user);
 
     List<Recipe> getRecipesByCategory(Category category);
