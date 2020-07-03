@@ -2,7 +2,7 @@ package com.miti.server.controller.controllerHTML;
 
 import com.miti.server.model.entity.User;
 import com.miti.server.enums.UserRole;
-import com.miti.server.form.UserForm;
+import com.miti.server.model.form.UserForm;
 import com.miti.server.service.UserService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;

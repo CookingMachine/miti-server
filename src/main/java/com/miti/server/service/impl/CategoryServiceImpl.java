@@ -1,5 +1,6 @@
 package com.miti.server.service.impl;
 
+import com.miti.server.model.dto.CategoryDTO;
 import com.miti.server.model.entity.Category;
 import com.miti.server.repository.CategoryRepository;
 import com.miti.server.service.CategoryService;
@@ -16,8 +17,8 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category addCategory(String name) {
-        return addCategory(new Category(name));
+    public Category addCategory(String id, String name) {
+        return addCategory(new Category(new CategoryDTO(id, name)));
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.miti.server.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.miti.server.model.dto.CategoryDTO;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -22,7 +23,9 @@ public class Category {
     public Category() {
     }
 
-    public Category(String name) {
-        this.name = name;
+    public Category(CategoryDTO dto) {
+
+        this.id = dto.getId();
+        this.name = dto.getName();
     }
 }

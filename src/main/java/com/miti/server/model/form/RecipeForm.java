@@ -1,4 +1,4 @@
-package com.miti.server.form;
+package com.miti.server.model.form;
 
 import lombok.Data;
 

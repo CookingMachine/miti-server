@@ -5,7 +5,7 @@ import com.miti.server.model.entity.Category;
 import java.util.List;
 
 public interface CategoryService {
-    Category addCategory(String name);
+    Category addCategory(String id, String name);
 
     Category addCategory(Category category);
 

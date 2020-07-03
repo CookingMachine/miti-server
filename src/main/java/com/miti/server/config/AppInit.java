@@ -1,5 +1,6 @@
 package com.miti.server.config;
 
+import com.miti.server.model.dto.CategoryDTO;
 import com.miti.server.model.dto.UserDTO;
 import com.miti.server.enums.UserRole;
 import com.miti.server.model.entity.*;
@@ -46,13 +47,31 @@ public class AppInit implements ApplicationRunner {
         addUser(users, "moder", "qwerty", "moder@gmail.com", UserRole.MODERATION);
         addUser(users, "user", "qwerty", "user@gmail.com", UserRole.USER);
 
+        addCategory(categories, "firsts", "Первые блюдо");
+        addCategory(categories, "seconds", "Вторые блюдо");
+        addCategory(categories, "soups", "Супы");
+        addCategory(categories, "meat", "Мясо");
+        addCategory(categories, "fish", "Рыба");
+        addCategory(categories, "porridge", "Каши");
+        addCategory(categories, "salads", "Салаты");
+        addCategory(categories, "dessert", "Десерты");
+        addCategory(categories, "snacks", "Закуски");
+        addCategory(categories, "non_alc_drinks", "Безалкогольные напитки");
+        addCategory(categories, "alc_drinks", "Алкогольные напитки");
 
         userRepository.saveAll(users);
+        categoryRepository.saveAll(categories);
     }
 
     private void addUser(List<User> users, String username, String password, String email, UserRole role){
         if(!userRepository.existsByUsername(username)){
             users.add(new User(new UserDTO(username, password, email, role)));
+        }
+    }
+
+    private void addCategory(List<Category> categories, String id, String name){
+        if(!categoryRepository.existsById(id)){
+            categories.add(new Category(new CategoryDTO(id, name)));
         }
     }
 }

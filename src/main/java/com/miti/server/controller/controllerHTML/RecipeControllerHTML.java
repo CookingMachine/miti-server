@@ -3,7 +3,7 @@ package com.miti.server.controller.controllerHTML;
 import com.miti.server.model.entity.Category;
 import com.miti.server.model.entity.Recipe;
 import com.miti.server.model.entity.User;
-import com.miti.server.form.RecipeForm;
+import com.miti.server.model.form.RecipeForm;
 import com.miti.server.service.CategoryService;
 import com.miti.server.service.RecipeService;
 import com.miti.server.service.UserService;

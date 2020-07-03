@@ -3,7 +3,7 @@ package com.miti.server.controller.controllerHTML;
 import com.miti.server.model.entity.Comment;
 import com.miti.server.model.entity.Recipe;
 import com.miti.server.model.entity.User;
-import com.miti.server.form.CommentForm;
+import com.miti.server.model.form.CommentForm;
 import com.miti.server.service.CommentService;
 import com.miti.server.service.RecipeService;
 import com.miti.server.service.UserService;
