@@ -1,6 +1,7 @@
 package com.miti.server.controller.controllerHTML;
 
 import com.miti.server.entity.User;
+import com.miti.server.enums.UserRole;
 import com.miti.server.form.UserForm;
 import com.miti.server.service.UserService;
 import org.springframework.beans.factory.annotation.Value;
@@ -46,12 +47,13 @@ public class UserControllerHTML {
 
         String username = userForm.getUserName();
         String password = userForm.getPassword();
-        String role = userForm.getRole();
+        UserRole role = UserRole.USER;
+        String email = userForm.getEmail();
 
         if (username != null && username.length() > 0
                 && password != null && password.length() > 0
-                && role != null && role.length() > 0) {
-            userService.addUser(username, password, role);
+                && role != null) {
+            userService.addUser(username, password, email, role);
 
             return "redirect:/userList";
         }

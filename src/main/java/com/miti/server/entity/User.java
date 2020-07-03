@@ -1,6 +1,8 @@
 package com.miti.server.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.miti.server.entity.dto.UserDTO;
+import com.miti.server.enums.UserRole;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -16,11 +18,15 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String userName;
+    private String username;
+
     private String password;
 
-    private boolean active;
-    private String role;
+    private String email;
+
+    private boolean isActive = true;
+
+    private UserRole role;
 
     @OneToMany(mappedBy = "author")
     private List<Recipe> recipeList;
@@ -33,10 +39,11 @@ public class User {
 
     public User() { }
 
-    public User(String userName, String password, String role) {
-        this.userName = userName;
-        this.password = password;
-        this.active = true;
-        this.role = role;
+    public User(UserDTO dto) {
+        this.username = dto.getUsername();
+        this.password = dto.getPassword();
+        this.isActive = true;
+        this.role = dto.getRole();
+        this.email = dto.getEmail();
     }
 }

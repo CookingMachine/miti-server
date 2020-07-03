@@ -1,13 +1,14 @@
 package com.miti.server.service;
 
 import com.miti.server.entity.User;
+import com.miti.server.enums.UserRole;
 
 import java.util.List;
 
 public interface UserService {
     User addUser(User user);
 
-    User addUser(String userName, String password, String role);
+    User addUser(String userName, String password, String email, UserRole role);
 
     User getUserByUserName(String userName);
 
@@ -15,5 +16,5 @@ public interface UserService {
 
     List<User> getAllUsers();
 
-    List<User> getUsersByRole(String role);
+    List<User> getUsersByRole(UserRole role);
 }

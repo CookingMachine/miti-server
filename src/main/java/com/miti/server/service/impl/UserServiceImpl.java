@@ -1,6 +1,8 @@
 package com.miti.server.service.impl;
 
 import com.miti.server.entity.User;
+import com.miti.server.entity.dto.UserDTO;
+import com.miti.server.enums.UserRole;
 import com.miti.server.repository.UserRepository;
 import com.miti.server.service.UserService;
 import org.springframework.stereotype.Service;
@@ -19,8 +21,8 @@ public class UserServiceImpl implements UserService {
     public User addUser(User user) { return userRepository.save(user); }
 
     @Override
-    public User addUser(String userName, String password, String role) {
-        User _user = new User(userName, password, role);
+    public User addUser(String username, String password, String email, UserRole role) {
+        User _user = new User(new UserDTO(username, password, email, role));
 
         return addUser(_user);
     }
@@ -33,18 +35,16 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserByUserName(String userName) {
-        return userRepository.getUserByUserName(userName);
+        return userRepository.getUserByUsername(userName);
     }
 
     @Override
     public List<User> getAllUsers() {
-        List<User> users = userRepository.findAll();
-        return users;
+        return userRepository.findAll();
     }
 
     @Override
-    public List<User> getUsersByRole(String role) {
-        List<User> users = userRepository.getUsersByRole(role);
-        return users;
+    public List<User> getUsersByRole(UserRole role) {
+        return userRepository.getUsersByRole(role);
     }
 }

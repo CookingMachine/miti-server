@@ -32,7 +32,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public Comment addComment(String text, String commentator, Long recipeId) {
-        User user = userRepository.getUserByUserName(commentator);
+        User user = userRepository.getUserByUsername(commentator);
         Recipe recipe = recipeRepository.findById(recipeId).orElseThrow(()->
                 new RuntimeException("Recipe with id: " + recipeId + " is not find!"));
         Comment comment = new Comment(text, user, recipe);
@@ -46,7 +46,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public List<Comment> getCommentsByCommentator(String userName) {
-        User user = userRepository.getUserByUserName(userName);
+        User user = userRepository.getUserByUsername(userName);
         List<Comment> comments = commentRepository.getCommentsByCommentator(user);
         return comments;
     }

@@ -54,7 +54,7 @@ public class CommentControllerHTML {
         Recipe _recipe = recipeService.getRecipeById(commentForm.getRecipeId());
 
         if (_user != null && _recipe != null) {
-            commentService.addComment(comment, _user.getUserName(), _recipe.getId());
+            commentService.addComment(comment, _user.getUsername(), _recipe.getId());
 
             return "redirect:/commentList";
         }

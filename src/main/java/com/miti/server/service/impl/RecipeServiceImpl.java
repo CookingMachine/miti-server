@@ -48,7 +48,7 @@ public class RecipeServiceImpl implements RecipeService {
 
     @Override
     public List<Recipe> getRecipesByAuthor(String author) {
-        User user = userRepository.getUserByUserName(author);
+        User user = userRepository.getUserByUsername(author);
         List<Recipe> recipes = recipeRepository.getRecipesByAuthor(user);
         return recipes;
     }

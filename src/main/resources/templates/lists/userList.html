@@ -22,7 +22,7 @@
             </tr>
             <tr th:each="user : ${users}">
                 <td th:utext="${user.getId()}">...</td>
-                <td th:utext="${user.getUserName()}">...</td>
+                <td th:utext="${user.getUsername()}">...</td>
                 <td th:utext="${user.getPassword()}">...</td>
                 <td th:utext="${user.getRole()}">...</td>
             </tr>

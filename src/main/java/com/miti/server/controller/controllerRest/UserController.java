@@ -2,6 +2,7 @@ package com.miti.server.controller.controllerRest;
 
 import com.miti.server.check.UserChecker;
 import com.miti.server.entity.User;
+import com.miti.server.enums.UserRole;
 import com.miti.server.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,15 +37,15 @@ public class UserController {
     }
 
     @GetMapping("/getUserByRole")
-    public List<User> getUserByRole(@RequestParam String role) {
+    public List<User> getUserByRole(@RequestParam UserRole role) {
         return userService.getUsersByRole(role);
     }
 
 
     @RequestMapping(value = "/addUser", method = RequestMethod.POST)
     public User addUser(@RequestBody User user) {
-        if  (uc.userChecker(user.getUserName(), user.getPassword()) &&
-                userService.getUserByUserName(user.getUserName()) == null) {
+        if  (uc.userChecker(user.getUsername(), user.getPassword()) &&
+                userService.getUserByUserName(user.getUsername()) == null) {
             return userService.addUser(user);
         } else
             return null;
