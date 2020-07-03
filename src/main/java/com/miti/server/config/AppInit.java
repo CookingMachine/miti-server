@@ -1,6 +1,7 @@
 package com.miti.server.config;
 
 import com.miti.server.model.dto.CategoryDTO;
+import com.miti.server.model.dto.IngredientDTO;
 import com.miti.server.model.dto.UserDTO;
 import com.miti.server.enums.UserRole;
 import com.miti.server.model.entity.*;
@@ -59,8 +60,17 @@ public class AppInit implements ApplicationRunner {
         addCategory(categories, "non_alc_drinks", "Безалкогольные напитки");
         addCategory(categories, "alc_drinks", "Алкогольные напитки");
 
+        addIngredient(ingredients, "tomato", "Помидор");
+        addIngredient(ingredients, "cucumber", "Огурец свежий");
+        addIngredient(ingredients, "cucumber_salt", "Малосоленный огурец");
+        addIngredient(ingredients, "cucumber_marinade", "Маринованный огурец");
+        addIngredient(ingredients, "paprika_red", "Красный болгарский перец");
+        addIngredient(ingredients, "paprika_green", "Зелёный болгарский перец");
+        addIngredient(ingredients, "paprika_yellow", "Жёлтый болгарский перец");
+
         userRepository.saveAll(users);
         categoryRepository.saveAll(categories);
+        ingredientRepository.saveAll(ingredients);
     }
 
     private void addUser(List<User> users, String username, String password, String email, UserRole role){
@@ -72,6 +82,12 @@ public class AppInit implements ApplicationRunner {
     private void addCategory(List<Category> categories, String id, String name){
         if(!categoryRepository.existsById(id)){
             categories.add(new Category(new CategoryDTO(id, name)));
+        }
+    }
+
+    private void addIngredient(List<Ingredient> ingredients, String id, String name){
+        if(!ingredientRepository.existsById(id)){
+            ingredients.add(new Ingredient(new IngredientDTO(id, name)));
         }
     }
 }

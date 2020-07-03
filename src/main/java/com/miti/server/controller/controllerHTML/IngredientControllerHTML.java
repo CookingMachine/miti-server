@@ -1,7 +1,7 @@
 package com.miti.server.controller.controllerHTML;
 
 import com.miti.server.model.entity.Ingredient;
-import com.miti.server.model.form.IngredientForm;
+import com.miti.server.model.dto.IngredientDTO;
 import com.miti.server.service.IngredientService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -33,18 +33,19 @@ public class IngredientControllerHTML {
 
     @RequestMapping(value = {"/ingredient"}, method = RequestMethod.GET)
     public String showAddIngredientPage(Model model) {
-        IngredientForm ingredientForm = new IngredientForm();
-        model.addAttribute("ingredientForm", ingredientForm);
+        IngredientDTO ingredientDTO = new IngredientDTO();
+        model.addAttribute("ingredientDTO", ingredientDTO);
 
         return "ingredient";
     }
 
     @RequestMapping(value = {"/ingredient"}, method = RequestMethod.POST)
-    public String addIngredient(Model model, @ModelAttribute("ingredientForm")  IngredientForm ingredientForm) {
-        String name = ingredientForm.getName();
+    public String addIngredient(Model model, @ModelAttribute("ingredients") IngredientDTO ingredientDTO) {
+        String id = ingredientDTO.getId();
+        String name = ingredientDTO.getName();
 
         if (name != null && name.length() > 0) {
-            ingredientService.addIngredient(name);
+            ingredientService.addIngredient(new IngredientDTO(id, name));
 
             return "redirect:/ingredientList";
         }

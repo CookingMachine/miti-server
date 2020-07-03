@@ -5,7 +5,7 @@
     <title>UserController</title>
 </head>
 <body>
-<th:block th:insert="_menu :: menu"></th:block>
+<th:block th:insert="_menu :: menu"/>
 
     <form th:action="@{/category}"
           th:object="${categoryForm}" method="POST">

@@ -1,5 +1,6 @@
 package com.miti.server.service.impl;
 
+import com.miti.server.model.dto.IngredientDTO;
 import com.miti.server.model.entity.Ingredient;
 import com.miti.server.repository.IngredientRepository;
 import com.miti.server.service.IngredientService;
@@ -16,8 +17,8 @@ public class IngredientServiceImpl implements IngredientService{
     }
 
     @Override
-    public Ingredient addIngredient(String name) {
-        Ingredient ingredient = new Ingredient(name);
+    public Ingredient addIngredient(IngredientDTO ingredientDTO) {
+        Ingredient ingredient = new Ingredient(ingredientDTO);
         return addIngredient(ingredient);
     }
 
