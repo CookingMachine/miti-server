@@ -1,5 +1,6 @@
 package com.miti.server.service.impl;
 
+import com.miti.server.model.dto.RecipeDTO;
 import com.miti.server.model.entity.Category;
 import com.miti.server.model.entity.Recipe;
 import com.miti.server.model.entity.User;
@@ -30,7 +31,7 @@ public class RecipeServiceImpl implements RecipeService {
 
     @Override
     public Recipe addRecipe(String name, String description, User author, Category category) {
-        Recipe recipe = new Recipe(name, description, author, category);
+        Recipe recipe = new Recipe(new RecipeDTO(name, description, author, category));
         return addRecipe(recipe);
     }
 
@@ -47,9 +48,8 @@ public class RecipeServiceImpl implements RecipeService {
     }
 
     @Override
-    public List<Recipe> getRecipesByAuthor(String author) {
-        User user = userRepository.getUserByUsername(author);
-        List<Recipe> recipes = recipeRepository.getRecipesByAuthor(user);
+    public List<Recipe> getRecipesByAuthor(User author) {;
+        List<Recipe> recipes = recipeRepository.getRecipesByAuthor(author);
         return recipes;
     }
 
@@ -61,14 +61,13 @@ public class RecipeServiceImpl implements RecipeService {
     }
 
     @Override
-    public List<Recipe> getRecipesByCategory(String name) {
-        Category category = categoryRepository.getCategoryByName(name);
+    public List<Recipe> getRecipesByCategory(Category category) {
         List<Recipe> recipes = recipeRepository.getRecipesByCategory(category);
         return recipes;
     }
 
     @Override
-    public List<Recipe> getRecipesByCategoryId(Long categoryId) {
+    public List<Recipe> getRecipesByCategoryId(String categoryId) {
         return recipeRepository.getRecipesByCategoryId(categoryId);
     }
 }

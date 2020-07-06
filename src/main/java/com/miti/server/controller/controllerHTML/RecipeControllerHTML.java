@@ -3,7 +3,7 @@ package com.miti.server.controller.controllerHTML;
 import com.miti.server.model.entity.Category;
 import com.miti.server.model.entity.Recipe;
 import com.miti.server.model.entity.User;
-import com.miti.server.model.form.RecipeForm;
+import com.miti.server.model.dto.RecipeDTO;
 import com.miti.server.service.CategoryService;
 import com.miti.server.service.RecipeService;
 import com.miti.server.service.UserService;
@@ -41,18 +41,18 @@ public class RecipeControllerHTML {
 
     @RequestMapping(value = {"/recipe"}, method = RequestMethod.GET)
     public String showAddRecipePage(Model model) {
-        RecipeForm recipeForm = new RecipeForm();
-        model.addAttribute("recipeForm", recipeForm);
+        RecipeDTO recipeDTO = new RecipeDTO();
+        model.addAttribute("recipeDTO", recipeDTO);
 
         return "recipe";
     }
 
     @RequestMapping(value = {"/recipe"}, method = RequestMethod.POST)
-    public String save(Model model, @ModelAttribute("recipeForm") RecipeForm recipeForm) {
-        String name = recipeForm.getName();
-        String description = recipeForm.getDescription();
-        User _author = userService.getUserByUserName(recipeForm.getAuthorName());
-        Category _category = categoryService.getCategoryByName(recipeForm.getCategory());
+    public String save(Model model, @ModelAttribute("recipeDTO") RecipeDTO recipeDTO) {
+        String name = recipeDTO.getName();
+        String description = recipeDTO.getDescription();
+        User _author = recipeDTO.getAuthor();
+        Category _category = recipeDTO.getCategory();
 
         if (name != null && name.length() > 0
                 && _author != null

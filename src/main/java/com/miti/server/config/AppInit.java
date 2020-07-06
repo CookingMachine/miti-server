@@ -2,6 +2,7 @@ package com.miti.server.config;
 
 import com.miti.server.model.dto.CategoryDTO;
 import com.miti.server.model.dto.IngredientDTO;
+import com.miti.server.model.dto.RecipeDTO;
 import com.miti.server.model.dto.UserDTO;
 import com.miti.server.enums.UserRole;
 import com.miti.server.model.entity.*;
@@ -48,6 +49,8 @@ public class AppInit implements ApplicationRunner {
         addUser(users, "moder", "qwerty", "moder@gmail.com", UserRole.MODERATION);
         addUser(users, "user", "qwerty", "user@gmail.com", UserRole.USER);
 
+        userRepository.saveAll(users);
+
         addCategory(categories, "firsts", "Первые блюдо");
         addCategory(categories, "seconds", "Вторые блюдо");
         addCategory(categories, "soups", "Супы");
@@ -60,6 +63,8 @@ public class AppInit implements ApplicationRunner {
         addCategory(categories, "non_alc_drinks", "Безалкогольные напитки");
         addCategory(categories, "alc_drinks", "Алкогольные напитки");
 
+        categoryRepository.saveAll(categories);
+
         addIngredient(ingredients, "tomato", "Помидор");
         addIngredient(ingredients, "cucumber", "Огурец свежий");
         addIngredient(ingredients, "cucumber_salt", "Малосоленный огурец");
@@ -68,9 +73,16 @@ public class AppInit implements ApplicationRunner {
         addIngredient(ingredients, "paprika_green", "Зелёный болгарский перец");
         addIngredient(ingredients, "paprika_yellow", "Жёлтый болгарский перец");
 
-        userRepository.saveAll(users);
-        categoryRepository.saveAll(categories);
         ingredientRepository.saveAll(ingredients);
+
+        addRecipe(recipes, "Салат оливье", "Классический салат Оливье в советское время готовили исключительно с вареной колбасой, желательно - с  Докторской. Мы не оступили от традиции и приготовили Оливье по канонам  советской гастрономии.",
+                userRepository.getUserById(1L), categoryRepository.getCategoryById("salads"));
+        addRecipe(recipes, "French Fries", "Просто рецепт приготовления картошки фри в сковороде! Картофель фри любим многими!",
+                userRepository.getUserById(2L), categoryRepository.getCategoryById("snacks"));
+        addRecipe(recipes, "Борщ", "Еще не знаете, какое первое блюдо сделать на обед? Я хочу показать вам несложный пошаговый способ, как приготовить самый вкусный борщ. Насыщенный, аппетитный и сытный… чудесная идея для всей семьи! Подробнее: https://povar.ru/recipes/samyi_vkusnyi_borsh-57233.html",
+                userRepository.getUserById(3L), categoryRepository.getCategoryById("firsts"));
+
+        recipeRepository.saveAll(recipes);
     }
 
     private void addUser(List<User> users, String username, String password, String email, UserRole role){
@@ -88,6 +100,12 @@ public class AppInit implements ApplicationRunner {
     private void addIngredient(List<Ingredient> ingredients, String id, String name){
         if(!ingredientRepository.existsById(id)){
             ingredients.add(new Ingredient(new IngredientDTO(id, name)));
+        }
+    }
+
+    private void addRecipe(List<Recipe> recipes, String name, String description, User author, Category category ){
+        if(!recipeRepository.existsByName(name)){
+            recipes.add(new Recipe(new RecipeDTO(name, description, author, category)));
         }
     }
 }

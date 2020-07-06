@@ -15,11 +15,11 @@ public interface RecipeService {
 
     List<Recipe> getAllRecipes();
 
-    List<Recipe> getRecipesByAuthor(String author);
+    List<Recipe> getRecipesByAuthor(User author);
 
     List<Recipe> getRecipesByAuthorId(Long id);
 
-    List<Recipe> getRecipesByCategory(String category);
+    List<Recipe> getRecipesByCategory(Category category);
 
-    List<Recipe> getRecipesByCategoryId(Long categoryId);
+    List<Recipe> getRecipesByCategoryId(String categoryId);
 }

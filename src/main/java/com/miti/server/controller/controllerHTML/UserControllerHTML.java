@@ -1,8 +1,8 @@
 package com.miti.server.controller.controllerHTML;
 
+import com.miti.server.model.dto.UserDTO;
 import com.miti.server.model.entity.User;
 import com.miti.server.enums.UserRole;
-import com.miti.server.model.form.UserForm;
 import com.miti.server.service.UserService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -15,6 +15,7 @@ import java.util.List;
 
 @Controller
 public class UserControllerHTML {
+
     private UserService userService;
 
     public UserControllerHTML(UserService userService) {
@@ -35,20 +36,20 @@ public class UserControllerHTML {
     @RequestMapping(value = { "/user" }, method = RequestMethod.GET)
     public String showAddUserPage(Model model) {
 
-        UserForm userForm = new UserForm();
-        model.addAttribute("userForm", userForm);
+        UserDTO userDTO = new UserDTO();
+        model.addAttribute("userForm", userDTO);
 
         return "user";
     }
 
     @RequestMapping(value = { "/user" }, method = RequestMethod.POST)
     public String saveUser(Model model, //
-                             @ModelAttribute("userForm") UserForm userForm) {
+                           @ModelAttribute("userForm") UserDTO userDTO) {
 
-        String username = userForm.getUserName();
-        String password = userForm.getPassword();
-        UserRole role = UserRole.valueOf(userForm.getRole());
-        String email = userForm.getEmail();
+        String username = userDTO.getUsername();
+        String password = userDTO.getPassword();
+        UserRole role = userDTO.getRole();
+        String email = userDTO.getEmail();
 
         if (username != null && username.length() > 0
                 && password != null && password.length() > 0) {
