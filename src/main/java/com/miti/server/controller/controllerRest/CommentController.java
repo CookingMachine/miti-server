@@ -1,6 +1,6 @@
 package com.miti.server.controller.controllerRest;
 
-import com.miti.server.entity.Comment;
+import com.miti.server.model.entity.Comment;
 import com.miti.server.service.CommentService;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,9 +16,9 @@ public class CommentController {
 
     @PostMapping("/addComment")
     public Comment addComment(@RequestParam String text,
-                              @RequestParam String userName,
+                              @RequestParam Long userId,
                               @RequestParam Long recipeId) {
-        return commentService.addComment(text, userName, recipeId);
+        return commentService.addComment(text, userId, recipeId);
     }
 
     @GetMapping("/getCommentsByUser")

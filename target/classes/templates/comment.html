@@ -8,7 +8,7 @@
 <th:block th:insert="_menu :: menu"></th:block>
 
     <form th:action="@{/comment}"
-          th:object="${commentForm}" method="POST">
+          th:object="${commentDTO}" method="POST">
         Comment: <br/>
         <textarea name="comment" id="comment" cols="30" rows="10"
                   placeholder="Input your comment here" th:field="*{commentText}">...</textarea> <br/>

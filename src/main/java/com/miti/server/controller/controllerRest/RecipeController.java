@@ -1,8 +1,9 @@
 package com.miti.server.controller.controllerRest;
 
-import com.miti.server.check.RecipeChecker;
-import com.miti.server.entity.Category;
-import com.miti.server.entity.Recipe;
+import com.miti.server.config.check.RecipeChecker;
+import com.miti.server.model.dto.RecipeDTO;
+import com.miti.server.model.entity.Category;
+import com.miti.server.model.entity.Recipe;
 import com.miti.server.service.CategoryService;
 import com.miti.server.service.RecipeService;
 import com.miti.server.service.UserService;
@@ -35,12 +36,12 @@ public class RecipeController {
     }
 
     @GetMapping("/getRecipesByCategory")
-    public List<Recipe> getRecipesByCategory(@RequestParam String categoryName) {
-        return recipeService.getRecipesByCategory(categoryName);
+    public List<Recipe> getRecipesByCategory(@RequestParam Category category) {
+        return recipeService.getRecipesByCategory(category);
     }
 
     @GetMapping("/getRecipesByCategoryId")
-    public List<Recipe> getRecipesByCategoryId(@RequestParam Long categoryId) {
+    public List<Recipe> getRecipesByCategoryId(@RequestParam String categoryId) {
         return recipeService.getRecipesByCategoryId(categoryId);
     }
 
@@ -51,10 +52,10 @@ public class RecipeController {
 
     @PostMapping("/addRecipe")
     public Recipe addRecipe(@RequestBody Recipe recipe, @RequestParam String userName, @RequestParam String category) {
-        Recipe newRecipe = new Recipe(recipe.getName(),
+        Recipe newRecipe = new Recipe(new RecipeDTO(recipe.getName(),
                 recipe.getDescription(),
                 userService.getUserByUserName(userName),
-                categoryService.getCategoryByName(category));
+                categoryService.getCategoryByName(category)));
 
             return recipeService.addRecipe(newRecipe);
     }

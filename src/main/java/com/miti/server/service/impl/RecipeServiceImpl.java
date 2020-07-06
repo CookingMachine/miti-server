@@ -1,11 +1,12 @@
 package com.miti.server.service.impl;
 
-import com.miti.server.entity.Category;
-import com.miti.server.entity.Recipe;
-import com.miti.server.entity.User;
-import com.miti.server.repo.CategoryRepo;
-import com.miti.server.repo.RecipeRepo;
-import com.miti.server.repo.UserRepo;
+import com.miti.server.model.dto.RecipeDTO;
+import com.miti.server.model.entity.Category;
+import com.miti.server.model.entity.Recipe;
+import com.miti.server.model.entity.User;
+import com.miti.server.repository.CategoryRepository;
+import com.miti.server.repository.RecipeRepository;
+import com.miti.server.repository.UserRepository;
 import com.miti.server.service.RecipeService;
 import org.springframework.stereotype.Service;
 
@@ -13,62 +14,60 @@ import java.util.List;
 
 @Service
 public class RecipeServiceImpl implements RecipeService {
-    private final RecipeRepo recipeRepo;
-    private final UserRepo userRepo;
-    private final CategoryRepo categoryRepo;
+    private final RecipeRepository recipeRepository;
+    private final UserRepository userRepository;
+    private final CategoryRepository categoryRepository;
 
-    public RecipeServiceImpl(RecipeRepo recipeRepo, UserRepo userRepo, CategoryRepo categoryRepo) {
-        this.recipeRepo = recipeRepo;
-        this.userRepo = userRepo;
-        this.categoryRepo = categoryRepo;
+    public RecipeServiceImpl(RecipeRepository recipeRepository, UserRepository userRepository, CategoryRepository categoryRepository) {
+        this.recipeRepository = recipeRepository;
+        this.userRepository = userRepository;
+        this.categoryRepository = categoryRepository;
     }
 
     @Override
     public Recipe addRecipe(Recipe recipe) {
-        return recipeRepo.save(recipe);
+        return recipeRepository.save(recipe);
     }
 
     @Override
     public Recipe addRecipe(String name, String description, User author, Category category) {
-        Recipe recipe = new Recipe(name, description, author, category);
+        Recipe recipe = new Recipe(new RecipeDTO(name, description, author, category));
         return addRecipe(recipe);
     }
 
     @Override
     public Recipe getRecipeById(Long recipeId) {
-        return recipeRepo.findById(recipeId).orElseThrow(()
+        return recipeRepository.findById(recipeId).orElseThrow(()
                 -> new RuntimeException("Recipe with id: " + recipeId + " doesnt exist!"));
     }
 
     @Override
     public List<Recipe> getAllRecipes() {
-        List<Recipe> recipes = recipeRepo.findAll();
+        List<Recipe> recipes = recipeRepository.findAll();
         return recipes;
     }
 
     @Override
-    public List<Recipe> getRecipesByAuthor(String author) {
-        User user = userRepo.getUserByUserName(author);
-        List<Recipe> recipes = recipeRepo.getRecipesByAuthor(user);
+    public List<Recipe> getRecipesByAuthor(User author) {;
+        List<Recipe> recipes = recipeRepository.getRecipesByAuthor(author);
         return recipes;
     }
 
     @Override
     public List<Recipe> getRecipesByAuthorId(Long id) {
-        User _user = userRepo.findById(id).orElseThrow(()
+        User _user = userRepository.findById(id).orElseThrow(()
                 -> new RuntimeException("User with id: " + id + " doesn't exist!"));
-        return recipeRepo.getRecipesByAuthor(_user);
+        return recipeRepository.getRecipesByAuthor(_user);
     }
 
     @Override
-    public List<Recipe> getRecipesByCategory(String name) {
-        Category category = categoryRepo.getCategoryByName(name);
-        List<Recipe> recipes = recipeRepo.getRecipesByCategory(category);
+    public List<Recipe> getRecipesByCategory(Category category) {
+        List<Recipe> recipes = recipeRepository.getRecipesByCategory(category);
         return recipes;
     }
 
     @Override
-    public List<Recipe> getRecipesByCategoryId(Long categoryId) {
-        return recipeRepo.getRecipesByCategoryId(categoryId);
+    public List<Recipe> getRecipesByCategoryId(String categoryId) {
+        return recipeRepository.getRecipesByCategoryId(categoryId);
     }
 }

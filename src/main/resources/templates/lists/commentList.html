@@ -20,9 +20,9 @@
             <th>Comment</th>
             </tr>
             <tr th:each="comment : ${comments}">
-                <td th:utext="${comment.id}">...</td>
-                <td th:utext="${comment.getRecipe().getId()}">...</td>
-                <td th:utext="${comment.getCommentator().getId()}">...</td>
+                <td th:utext="${comment.getId()}">...</td>
+                <td th:utext="${comment.getCommentedRecipeId()}">...</td>
+                <td th:utext="${comment.getUserId()}">...</td>
                 <td th:utext="${comment.getComment()}">...</td>
             </tr>
         </table>

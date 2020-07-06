@@ -1,8 +1,8 @@
 package com.miti.server.service;
 
-import com.miti.server.entity.Category;
-import com.miti.server.entity.Recipe;
-import com.miti.server.entity.User;
+import com.miti.server.model.entity.Category;
+import com.miti.server.model.entity.Recipe;
+import com.miti.server.model.entity.User;
 
 import java.util.List;
 
@@ -15,11 +15,11 @@ public interface RecipeService {
 
     List<Recipe> getAllRecipes();
 
-    List<Recipe> getRecipesByAuthor(String author);
+    List<Recipe> getRecipesByAuthor(User author);
 
     List<Recipe> getRecipesByAuthorId(Long id);
 
-    List<Recipe> getRecipesByCategory(String category);
+    List<Recipe> getRecipesByCategory(Category category);
 
-    List<Recipe> getRecipesByCategoryId(Long categoryId);
+    List<Recipe> getRecipesByCategoryId(String categoryId);
 }

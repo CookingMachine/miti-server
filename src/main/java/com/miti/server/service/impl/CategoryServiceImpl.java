@@ -1,7 +1,8 @@
 package com.miti.server.service.impl;
 
-import com.miti.server.entity.Category;
-import com.miti.server.repo.CategoryRepo;
+import com.miti.server.model.dto.CategoryDTO;
+import com.miti.server.model.entity.Category;
+import com.miti.server.repository.CategoryRepository;
 import com.miti.server.service.CategoryService;
 import org.springframework.stereotype.Service;
 
@@ -9,29 +10,29 @@ import java.util.List;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
-    private final CategoryRepo categoryRepo;
+    private final CategoryRepository categoryRepository;
 
-    public CategoryServiceImpl(CategoryRepo categoryRepo) {
-        this.categoryRepo = categoryRepo;
+    public CategoryServiceImpl(CategoryRepository categoryRepository) {
+        this.categoryRepository = categoryRepository;
     }
 
     @Override
-    public Category addCategory(String name) {
-        return addCategory(new Category(name));
+    public Category addCategory(String id, String name) {
+        return addCategory(new Category(new CategoryDTO(id, name)));
     }
 
     @Override
     public Category addCategory(Category category) {
-        return categoryRepo.save(category);
+        return categoryRepository.save(category);
     }
 
     @Override
     public Category getCategoryByName(String name) {
-        return categoryRepo.getCategoryByName(name);
+        return categoryRepository.getCategoryByName(name);
     }
 
     @Override
     public List<Category> getAllCategories() {
-        return categoryRepo.findAll();
+        return categoryRepository.findAll();
     }
 }

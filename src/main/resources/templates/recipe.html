@@ -8,14 +8,14 @@
 <th:block th:insert="_menu :: menu"></th:block>
 
     <form th:action="@{/recipe}"
-        th:object="${recipeForm}" method="POST">
+        th:object="${recipeDTO}" method="POST">
 
         Name: <br/>
         <input type="text" placeholder="Input recipe name" th:field="*{name}" size="40px" /> <br/>
         Description: <br/>
         <textarea name="description" id="description" cols="40" rows="3" th:field="*{description}"></textarea> <br/>
         Author: <br/>
-        <input type="text" placeholder="Input author name" th:field="*{authorName}" /> <br/>
+        <input type="text" placeholder="Input author id" th:field="*{author}" /> <br/>
         Category: <br/>
         <input type="text" placeholder="Input recipe category" th:field="*{category}" /> <br/>
         <input type="submit" value="Submit">

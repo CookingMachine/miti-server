@@ -1,7 +1,9 @@
 package com.miti.server.service.impl;
 
-import com.miti.server.entity.User;
-import com.miti.server.repo.UserRepo;
+import com.miti.server.model.entity.User;
+import com.miti.server.model.dto.UserDTO;
+import com.miti.server.enums.UserRole;
+import com.miti.server.repository.UserRepository;
 import com.miti.server.service.UserService;
 import org.springframework.stereotype.Service;
 
@@ -9,42 +11,40 @@ import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
-    private final UserRepo userRepo;
+    private final UserRepository userRepository;
 
-    public UserServiceImpl(UserRepo userRepo) {
-        this.userRepo = userRepo;
+    public UserServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     @Override
-    public User addUser(User user) { return userRepo.save(user); }
+    public User addUser(User user) { return userRepository.save(user); }
 
     @Override
-    public User addUser(String userName, String password, String role) {
-        User _user = new User(userName, password, role);
+    public User addUser(String username, String password, String email, UserRole role) {
+        User _user = new User(new UserDTO(username, password, email, role));
 
         return addUser(_user);
     }
 
     @Override
     public User getUserById(Long userId) {
-        return userRepo.findById(userId).orElseThrow(()
+        return userRepository.findById(userId).orElseThrow(()
                 -> new RuntimeException("User with id: " + userId + " doesn't exist"));
     }
 
     @Override
     public User getUserByUserName(String userName) {
-        return userRepo.getUserByUserName(userName);
+        return userRepository.getUserByUsername(userName);
     }
 
     @Override
     public List<User> getAllUsers() {
-        List<User> users = userRepo.findAll();
-        return users;
+        return userRepository.findAll();
     }
 
     @Override
-    public List<User> getUsersByRole(String role) {
-        List<User> users = userRepo.getUsersByRole(role);
-        return users;
+    public List<User> getUsersByRole(UserRole role) {
+        return userRepository.getUsersByRole(role);
     }
 }

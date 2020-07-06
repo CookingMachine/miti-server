@@ -1,6 +1,6 @@
 package com.miti.server.controller.controllerRest;
 
-import com.miti.server.entity.Category;
+import com.miti.server.model.entity.Category;
 import com.miti.server.service.CategoryService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;

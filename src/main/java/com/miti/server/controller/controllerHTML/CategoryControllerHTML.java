@@ -1,7 +1,7 @@
 package com.miti.server.controller.controllerHTML;
 
-import com.miti.server.entity.Category;
-import com.miti.server.form.CategoryForm;
+import com.miti.server.model.dto.CategoryDTO;
+import com.miti.server.model.entity.Category;
 import com.miti.server.service.CategoryService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -34,18 +34,19 @@ public class CategoryControllerHTML {
 
     @RequestMapping(value = {"/category"}, method = RequestMethod.GET)
     public String showAddCategoryPage(Model model) {
-        CategoryForm categoryForm = new CategoryForm();
-        model.addAttribute("categoryForm", categoryForm);
+        CategoryDTO categoryDTO = new CategoryDTO();
+        model.addAttribute("categoryForm", categoryDTO);
 
         return "category";
     }
 
     @RequestMapping(value = {"/category"}, method = RequestMethod.POST)
-    public String addCategory(Model model, @ModelAttribute("categoryForm") CategoryForm categoryForm) {
-        String name = categoryForm.getName();
+    public String addCategory(Model model, @ModelAttribute("categoryForm") CategoryDTO categoryDTO) {
+        String id = categoryDTO.getId();
+        String name = categoryDTO.getName();
 
         if (name != null && name.length() > 0) {
-            categoryService.addCategory(name);
+            categoryService.addCategory(id, name);
 
             return "redirect:/categoryList";
         }

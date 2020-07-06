@@ -5,10 +5,12 @@
     <title>Comment Controller</title>
 </head>
 <body>
-<th:block th:insert="_menu :: menu"></th:block>
+<th:block th:insert="_menu :: menu"/>
 
     <form th:action="@{/ingredient}"
-          th:object="${ingredientForm}" method="POST">
+          th:object="${ingredientDTO}" method="POST">
+        Id: <br/>
+        <input type="text" placeholder="Input ingredient id" th:field="*{id}" size="40px"> <br/>
         Name: <br/>
         <input type="text" placeholder="Input ingredient name" th:field="*{name}" size="40px"> <br/>
         <input type="submit" value="Submit">

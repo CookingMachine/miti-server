@@ -1,10 +1,9 @@
 package com.miti.server.controller.controllerHTML;
 
-import com.miti.server.entity.Ingredient;
-import com.miti.server.entity.IngredientContext;
-import com.miti.server.entity.Recipe;
-import com.miti.server.form.IngredientContextForm;
-import com.miti.server.form.IngredientForm;
+import com.miti.server.model.entity.Ingredient;
+import com.miti.server.model.entity.IngredientContext;
+import com.miti.server.model.entity.Recipe;
+import com.miti.server.model.form.IngredientContextForm;
 import com.miti.server.service.IngredientContextService;
 import com.miti.server.service.IngredientService;
 import com.miti.server.service.RecipeService;
