@@ -1,9 +1,6 @@
 package com.miti.server.config;
 
-import com.miti.server.model.dto.CategoryDTO;
-import com.miti.server.model.dto.IngredientDTO;
-import com.miti.server.model.dto.RecipeDTO;
-import com.miti.server.model.dto.UserDTO;
+import com.miti.server.model.dto.*;
 import com.miti.server.enums.UserRole;
 import com.miti.server.model.entity.*;
 import com.miti.server.repository.*;
@@ -83,6 +80,12 @@ public class AppInit implements ApplicationRunner {
                 userRepository.getUserById(3L), categoryRepository.getCategoryById("firsts"));
 
         recipeRepository.saveAll(recipes);
+
+        addComments(comments, "Прекрасный рецепт. Спасибо вам огромное", 1L, 2L);
+        addComments(comments, "Очень вкуснуя картошка. А главное - быстро.", 2L, 3L);
+        addComments(comments, "Ммм, Лориса. Борщ просто вещь!", 3L, 1L);
+
+        commentRepository.saveAll(comments);
     }
 
     private void addUser(List<User> users, String username, String password, String email, UserRole role){
@@ -107,5 +110,9 @@ public class AppInit implements ApplicationRunner {
         if(!recipeRepository.existsByName(name)){
             recipes.add(new Recipe(new RecipeDTO(name, description, author, category)));
         }
+    }
+
+    private void addComments(List<Comment> comments, String commentText, Long recipeId, Long userId){
+        comments.add(new Comment(new CommentDTO(commentText, recipeId, userId)));
     }
 }

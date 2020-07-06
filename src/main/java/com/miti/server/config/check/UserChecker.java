@@ -1,4 +1,4 @@
-package com.miti.server.check;
+package com.miti.server.config.check;
 
 public class UserChecker {
     public boolean userChecker(String userName, String password) {

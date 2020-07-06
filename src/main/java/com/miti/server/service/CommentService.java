@@ -7,7 +7,7 @@ import java.util.List;
 public interface CommentService {
     Comment addComment(Comment comment);
 
-    Comment addComment(String text, String commentator, Long recipeId);
+    Comment addComment(String text, Long userId, Long recipeId);
 
     List<Comment> getAllComments();
 

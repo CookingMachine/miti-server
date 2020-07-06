@@ -1,6 +1,6 @@
 package com.miti.server.controller.controllerRest;
 
-import com.miti.server.check.RecipeChecker;
+import com.miti.server.config.check.RecipeChecker;
 import com.miti.server.model.dto.RecipeDTO;
 import com.miti.server.model.entity.Category;
 import com.miti.server.model.entity.Recipe;

@@ -1,6 +1,6 @@
 package com.miti.server.controller.controllerRest;
 
-import com.miti.server.check.UserChecker;
+import com.miti.server.config.check.UserChecker;
 import com.miti.server.model.entity.User;
 import com.miti.server.enums.UserRole;
 import com.miti.server.service.UserService;

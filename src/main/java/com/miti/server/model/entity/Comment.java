@@ -1,6 +1,7 @@
 package com.miti.server.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.miti.server.model.dto.CommentDTO;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -9,30 +10,30 @@ import javax.persistence.*;
 @Data
 @Table(name = "comm")
 @JsonIgnoreProperties(ignoreUnknown = true,
-        value = {"recipe"})
+        value = {"commentator", "recipe"})
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String comment;
-    private Long recipeId;
+
+    private Long commentedRecipeId;
+
+    private Long userId;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "usrId", nullable = false)
     private User commentator;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "rId", nullable = false)
     private Recipe recipe;
 
     public Comment() {
     }
 
-    public Comment(String comment, User commentator, Recipe recipe) {
-        this.comment = comment;
-        this.commentator = commentator;
-        this.recipe = recipe;
-        this.recipeId = recipe.getId();
+    public Comment(CommentDTO dto){
+        this.comment = dto.getCommentText();
+        this.commentedRecipeId = dto.getRecipeId();
+        this.userId = dto.getUserId();
     }
 }

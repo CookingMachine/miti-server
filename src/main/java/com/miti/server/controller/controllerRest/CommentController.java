@@ -16,9 +16,9 @@ public class CommentController {
 
     @PostMapping("/addComment")
     public Comment addComment(@RequestParam String text,
-                              @RequestParam String userName,
+                              @RequestParam Long userId,
                               @RequestParam Long recipeId) {
-        return commentService.addComment(text, userName, recipeId);
+        return commentService.addComment(text, userId, recipeId);
     }
 
     @GetMapping("/getCommentsByUser")

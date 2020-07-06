@@ -3,7 +3,7 @@ package com.miti.server.controller.controllerHTML;
 import com.miti.server.model.entity.Comment;
 import com.miti.server.model.entity.Recipe;
 import com.miti.server.model.entity.User;
-import com.miti.server.model.form.CommentForm;
+import com.miti.server.model.dto.CommentDTO;
 import com.miti.server.service.CommentService;
 import com.miti.server.service.RecipeService;
 import com.miti.server.service.UserService;
@@ -41,20 +41,20 @@ public class CommentControllerHTML {
 
     @RequestMapping(value = {"/comment"}, method = RequestMethod.GET)
     public String showAddCommentPage(Model model) {
-        CommentForm commentForm = new CommentForm();
-        model.addAttribute("commentForm", commentForm);
+        CommentDTO commentDTO = new CommentDTO();
+        model.addAttribute("commentDTO", commentDTO);
 
         return "comment";
     }
 
     @RequestMapping(value = {"/comment"}, method = RequestMethod.POST)
-    public String addComment(Model model, @ModelAttribute("commentForm") CommentForm commentForm) {
-        String comment = commentForm.getCommentText();
-        User _user = userService.getUserById(commentForm.getUserId());
-        Recipe _recipe = recipeService.getRecipeById(commentForm.getRecipeId());
+    public String addComment(Model model, @ModelAttribute("commentDTO") CommentDTO commentDTO) {
+        String comment = commentDTO.getCommentText();
+        User _user = userService.getUserById(commentDTO.getUserId());
+        Recipe _recipe = recipeService.getRecipeById(commentDTO.getRecipeId());
 
         if (_user != null && _recipe != null) {
-            commentService.addComment(comment, _user.getUsername(), _recipe.getId());
+            commentService.addComment(comment, _user.getId(), _recipe.getId());
 
             return "redirect:/commentList";
         }

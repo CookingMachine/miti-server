@@ -1,5 +1,6 @@
 package com.miti.server.service.impl;
 
+import com.miti.server.model.dto.CommentDTO;
 import com.miti.server.model.entity.Comment;
 import com.miti.server.model.entity.Recipe;
 import com.miti.server.model.entity.User;
@@ -31,11 +32,8 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public Comment addComment(String text, String commentator, Long recipeId) {
-        User user = userRepository.getUserByUsername(commentator);
-        Recipe recipe = recipeRepository.findById(recipeId).orElseThrow(()->
-                new RuntimeException("Recipe with id: " + recipeId + " is not find!"));
-        Comment comment = new Comment(text, user, recipe);
+    public Comment addComment(String text, Long userId, Long recipeId) {
+        Comment comment = new Comment(new CommentDTO(text, userId, recipeId));
         return addComment(comment);
     }
 
