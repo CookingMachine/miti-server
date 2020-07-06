@@ -1,0 +1,43 @@
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ExternalStorageConfigurationManager\" enabled=\"true\" />\r\n  <component name=\"FrameworkDetectionExcludesConfiguration\">\r\n    <file type=\"web\" url=\"file://$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"MavenProjectsManager\">\r\n    <option name=\"originalFiles\">\r\n      <list>\r\n        <option value=\"$PROJECT_DIR$/pom.xml\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_1_8\" default=\"false\" project-jdk-name=\"1.8\" project-jdk-type=\"JavaSDK\">\r\n    <output url=\"file://$PROJECT_DIR$/out\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/misc.xml	(revision db09a71f1583cd4f3874f1bdb9f11260c2277a79)
++++ .idea/misc.xml	(date 1594064990267)
+@@ -11,7 +11,7 @@
+       </list>
+     </option>
+   </component>
+-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="false" project-jdk-name="1.8" project-jdk-type="JavaSDK">
++  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="false" project-jdk-name="12" project-jdk-type="JavaSDK">
+     <output url="file://$PROJECT_DIR$/out" />
+   </component>
+ </project>
+\ No newline at end of file
+Index: target/classes/application.properties
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>spring.datasource.url=${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/miti}\r\nspring.datasource.username=${SPRING_DATASOURCE_USERNAME:postgres}\r\nspring.datasource.password=${SPRING_DATASOURCE_PASSWORD:1234}\r\nspring.jpa.generate-ddl=true\r\n\r\nspring.jpa.hibernate.ddl-auto=create\r\n\r\nspring.mustache.expose-request-attributes=true\r\n\r\nspring.thymeleaf.prefix=classpath:/templates/\r\nspring.thymeleaf.cache=false\r\n\r\nwelcome.message=Hello Thymeleaf\r\nerror.message=Error! Input is incorrect.
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>windows-1251
+===================================================================
+--- target/classes/application.properties	(revision db09a71f1583cd4f3874f1bdb9f11260c2277a79)
++++ target/classes/application.properties	(date 1594064990873)
+@@ -2,6 +2,7 @@
+ spring.datasource.username=${SPRING_DATASOURCE_USERNAME:postgres}
+ spring.datasource.password=${SPRING_DATASOURCE_PASSWORD:1234}
+ spring.jpa.generate-ddl=true
++server.port=${PORT:33500}
+ 
+ spring.jpa.hibernate.ddl-auto=create
+ 
+@@ -11,4 +12,4 @@
+ spring.thymeleaf.cache=false
+ 
+ welcome.message=Hello Thymeleaf
+-error.message=Error! Input is incorrect.
+\ No newline at end of file
++error.message=Error! Input is incorrect.

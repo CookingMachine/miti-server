@@ -1,0 +1,39 @@
+<changelist name="Uncommitted_changes_before_Update_at_06_07_2020_22_50_[Default_Changelist]" date="1594065004018" recycled="false" toDelete="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_06_07_2020_22_50_[Default_Changelist]/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before Update at 06.07.2020 22:50 [Default Changelist]" />
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/com/miti/server/entity/Comment.class" />
+    <option name="AFTER_PATH" value="target/classes/com/miti/server/entity/Comment.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_06_07_2020_22_50_[Default_Changelist]/Comment.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/com/miti/server/service/impl/CommentServiceImpl.class" />
+    <option name="AFTER_PATH" value="target/classes/com/miti/server/service/impl/CommentServiceImpl.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_06_07_2020_22_50_[Default_Changelist]/CommentServiceImpl.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/com/miti/server/entity/Recipe.class" />
+    <option name="AFTER_PATH" value="target/classes/com/miti/server/entity/Recipe.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_06_07_2020_22_50_[Default_Changelist]/Recipe.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="miti-server.jar" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/com/miti/server/entity/User.class" />
+    <option name="AFTER_PATH" value="target/classes/com/miti/server/entity/User.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_06_07_2020_22_50_[Default_Changelist]/User.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/com/miti/server/service/impl/UserServiceImpl.class" />
+    <option name="AFTER_PATH" value="target/classes/com/miti/server/service/impl/UserServiceImpl.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_06_07_2020_22_50_[Default_Changelist]/UserServiceImpl.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/com/miti/server/service/impl/RecipeServiceImpl.class" />
+    <option name="AFTER_PATH" value="target/classes/com/miti/server/service/impl/RecipeServiceImpl.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_06_07_2020_22_50_[Default_Changelist]/RecipeServiceImpl.class" />
+  </binary>
+</changelist>
