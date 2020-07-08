@@ -4,6 +4,7 @@ import com.miti.server.model.entity.Category;
 import com.miti.server.model.entity.Recipe;
 import com.miti.server.model.entity.User;
 import com.miti.server.model.dto.RecipeDTO;
+import com.miti.server.model.form.RecipeForm;
 import com.miti.server.service.CategoryService;
 import com.miti.server.service.RecipeService;
 import com.miti.server.service.UserService;
@@ -18,14 +19,10 @@ import java.util.List;
 
 @Controller
 public class RecipeControllerHTML {
-    private RecipeService recipeService;
-    private UserService userService;
-    private CategoryService categoryService;
+    private final RecipeService recipeService;
 
-    public RecipeControllerHTML(RecipeService recipeService, UserService userService, CategoryService categoryService) {
+    public RecipeControllerHTML(RecipeService recipeService) {
         this.recipeService = recipeService;
-        this.userService = userService;
-        this.categoryService = categoryService;
     }
 
     @Value("${error.message}")
@@ -41,27 +38,22 @@ public class RecipeControllerHTML {
 
     @RequestMapping(value = {"/recipe"}, method = RequestMethod.GET)
     public String showAddRecipePage(Model model) {
-        RecipeDTO recipeDTO = new RecipeDTO();
-        model.addAttribute("recipeDTO", recipeDTO);
+        RecipeForm recipeForm = new RecipeForm();
+        model.addAttribute("recipeForm", recipeForm);
 
         return "recipe";
     }
 
     @RequestMapping(value = {"/recipe"}, method = RequestMethod.POST)
-    public String save(Model model, @ModelAttribute("recipeDTO") RecipeDTO recipeDTO) {
-        String name = recipeDTO.getName();
-        String description = recipeDTO.getDescription();
-        User _author = recipeDTO.getAuthor();
-        Category _category = recipeDTO.getCategory();
+    public String save(Model model, @ModelAttribute("recipeForm") RecipeForm recipeForm) {
 
-        if (name != null && name.length() > 0
-                && _author != null
-                && _category != null) {
+        if (recipeService.checkFieldsExist(recipeForm.getAuthorId(), recipeForm.getCategoryId())) {
 
-            recipeService.addRecipe(name, description, _author, _category);
+            recipeService.addRecipeDTO(recipeForm);
 
             return "redirect:/recipeList";
         }
+
         model.addAttribute("errorMessage", errorMessage);
 
         return "recipe";

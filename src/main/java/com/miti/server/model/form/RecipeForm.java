@@ -1,7 +1,5 @@
-package com.miti.server.model.dto;
+package com.miti.server.model.form;
 
-import com.miti.server.model.entity.Category;
-import com.miti.server.model.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,14 +9,14 @@ import javax.validation.constraints.Size;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class RecipeDTO {
+public class RecipeForm {
 
     private String name;
 
     @Size(max = 4000)
     private String description;
 
-    private User author;
+    private Long authorId;
 
-    private Category category;
+    private String categoryId;
 }

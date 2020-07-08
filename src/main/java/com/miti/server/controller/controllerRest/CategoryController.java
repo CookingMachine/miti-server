@@ -2,10 +2,7 @@ package com.miti.server.controller.controllerRest;
 
 import com.miti.server.model.entity.Category;
 import com.miti.server.service.CategoryService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,5 +22,10 @@ public class CategoryController {
     @PostMapping("/addCategory")
     public Category addCategory(@RequestBody Category category) {
         return categoryService.addCategory(category);
+    }
+
+    @GetMapping("/getCategoryById")
+    public Category getCategoryById(@RequestParam String categoryId) {
+        return categoryService.getCategoryById(categoryId);
     }
 }
