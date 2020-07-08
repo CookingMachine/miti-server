@@ -4,10 +4,13 @@ import com.miti.server.model.dto.RecipeDTO;
 import com.miti.server.model.entity.Category;
 import com.miti.server.model.entity.Recipe;
 import com.miti.server.model.entity.User;
+import com.miti.server.model.form.RecipeForm;
 import com.miti.server.repository.CategoryRepository;
 import com.miti.server.repository.RecipeRepository;
 import com.miti.server.repository.UserRepository;
+import com.miti.server.service.CategoryService;
 import com.miti.server.service.RecipeService;
+import com.miti.server.service.UserService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,10 +21,17 @@ public class RecipeServiceImpl implements RecipeService {
     private final UserRepository userRepository;
     private final CategoryRepository categoryRepository;
 
-    public RecipeServiceImpl(RecipeRepository recipeRepository, UserRepository userRepository, CategoryRepository categoryRepository) {
+    private final UserService userService;
+    private final CategoryService categoryService;
+
+    public RecipeServiceImpl(RecipeRepository recipeRepository, UserRepository userRepository, CategoryRepository categoryRepository,
+                             UserService userService, CategoryService categoryService) {
         this.recipeRepository = recipeRepository;
         this.userRepository = userRepository;
         this.categoryRepository = categoryRepository;
+
+        this.userService = userService;
+        this.categoryService = categoryService;
     }
 
     @Override
@@ -30,8 +40,8 @@ public class RecipeServiceImpl implements RecipeService {
     }
 
     @Override
-    public Recipe addRecipe(String name, String description, User author, Category category) {
-        Recipe recipe = new Recipe(new RecipeDTO(name, description, author, category));
+    public Recipe addRecipe(RecipeDTO recipeDTO) {
+        Recipe recipe = new Recipe(recipeDTO);
         return addRecipe(recipe);
     }
 
@@ -69,5 +79,27 @@ public class RecipeServiceImpl implements RecipeService {
     @Override
     public List<Recipe> getRecipesByCategoryId(String categoryId) {
         return recipeRepository.getRecipesByCategoryId(categoryId);
+    }
+
+    @Override
+    public boolean checkFieldsExist(Long userId, String categoryId) {
+        User _user = userService.getUserById(userId);
+        Category _category = categoryService.getCategoryById(categoryId);
+
+        if (_user != null && _category != null)
+            return true;
+        else
+            return false;
+    }
+
+    @Override
+    public Recipe addRecipeDTO(RecipeForm recipeForm) {
+        String _name = recipeForm.getName();
+        String _description = recipeForm.getDescription();
+        User _author = userService.getUserById(recipeForm.getAuthorId());
+        Category _category = categoryService.getCategoryById(recipeForm.getCategoryId());
+
+        RecipeDTO recipeDTO = new RecipeDTO(_name, _description, _author, _category);
+        return addRecipe(recipeDTO);
     }
 }
