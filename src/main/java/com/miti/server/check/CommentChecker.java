@@ -1,4 +1,4 @@
-package com.miti.server.config.check;
+package com.miti.server.check;
 
 import com.miti.server.model.entity.User;
 
