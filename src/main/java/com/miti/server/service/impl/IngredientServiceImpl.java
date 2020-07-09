@@ -1,5 +1,6 @@
 package com.miti.server.service.impl;
 
+import com.miti.server.enums.IngredientCategory;
 import com.miti.server.model.dto.IngredientDTO;
 import com.miti.server.model.entity.Ingredient;
 import com.miti.server.repository.IngredientRepository;
@@ -35,6 +36,19 @@ public class IngredientServiceImpl implements IngredientService{
     @Override
     public List<Ingredient> getAllIngredients() {
         return ingredientRepository.findAll();
+    }
+
+    @Override
+    public List<Ingredient> getIngredientsByCategory(String category) {
+        IngredientCategory _category = IngredientCategory.UNKNOWN;
+
+        for (IngredientCategory ingredientCategory : IngredientCategory.values()) {
+            if (category.equals(ingredientCategory.name())) {
+                _category = ingredientCategory;
+            }
+        }
+
+        return ingredientRepository.getIngredientsByCategory(_category);
     }
 
 }

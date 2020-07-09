@@ -1,5 +1,6 @@
 package com.miti.server.config;
 
+import com.miti.server.enums.IngredientCategory;
 import com.miti.server.model.dto.*;
 import com.miti.server.enums.UserRole;
 import com.miti.server.model.entity.*;
@@ -62,13 +63,13 @@ public class AppInit implements ApplicationRunner {
 
         categoryRepository.saveAll(categories);
 
-        addIngredient(ingredients, "tomato", "Помидор");
-        addIngredient(ingredients, "cucumber", "Огурец свежий");
-        addIngredient(ingredients, "cucumber_salt", "Малосоленный огурец");
-        addIngredient(ingredients, "cucumber_marinade", "Маринованный огурец");
-        addIngredient(ingredients, "paprika_red", "Красный болгарский перец");
-        addIngredient(ingredients, "paprika_green", "Зелёный болгарский перец");
-        addIngredient(ingredients, "paprika_yellow", "Жёлтый болгарский перец");
+        addIngredient(ingredients, "tomato", "Помидор", IngredientCategory.VEGETABLES);
+        addIngredient(ingredients, "cucumber", "Огурец свежий", IngredientCategory.VEGETABLES);
+        addIngredient(ingredients, "cucumber_salt", "Малосоленный огурец", IngredientCategory.VEGETABLES);
+        addIngredient(ingredients, "cucumber_marinade", "Маринованный огурец", IngredientCategory.VEGETABLES);
+        addIngredient(ingredients, "paprika_red", "Красный болгарский перец", IngredientCategory.VEGETABLES);
+        addIngredient(ingredients, "paprika_green", "Зелёный болгарский перец", IngredientCategory.VEGETABLES);
+        addIngredient(ingredients, "paprika_yellow", "Жёлтый болгарский перец", IngredientCategory.VEGETABLES);
 
         ingredientRepository.saveAll(ingredients);
 
@@ -100,9 +101,9 @@ public class AppInit implements ApplicationRunner {
         }
     }
 
-    private void addIngredient(List<Ingredient> ingredients, String id, String name){
+    private void addIngredient(List<Ingredient> ingredients, String id, String name, IngredientCategory category){
         if(!ingredientRepository.existsById(id)){
-            ingredients.add(new Ingredient(new IngredientDTO(id, name)));
+            ingredients.add(new Ingredient(new IngredientDTO(id, name, category)));
         }
     }
 

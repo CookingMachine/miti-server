@@ -17,10 +17,12 @@
             <tr>
                 <th>ID</th>
                 <th>Name</th>
+                <th>Category</th>
             </tr>
             <tr th:each="ingredient : ${ingredients}">
                 <td th:utext="${ingredient.getId()}">...</td>
                 <td th:utext="${ingredient.getName()}">...</td>
+                <td th:utext="${ingredient.getCategory()}">...</td>
             </tr>
         </table>
     </div>
