@@ -41,8 +41,7 @@ public class RecipeServiceImpl implements RecipeService {
 
     @Override
     public Recipe addRecipe(RecipeDTO recipeDTO) {
-        Recipe recipe = new Recipe(recipeDTO);
-        return addRecipe(recipe);
+        return addRecipe(new Recipe(recipeDTO));
     }
 
     @Override

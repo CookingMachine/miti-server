@@ -51,4 +51,10 @@ public class IngredientServiceImpl implements IngredientService{
         return ingredientRepository.getIngredientsByCategory(_category);
     }
 
+    @Override
+    public Ingredient getIngredientById(String id) {
+        return ingredientRepository.findById(id).orElseThrow(()
+                -> new RuntimeException("Ingredient with id: " + id + " doesn't exists"));
+    }
+
 }

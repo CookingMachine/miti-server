@@ -15,4 +15,6 @@ public interface IngredientService {
     List<Ingredient> getAllIngredients();
 
     List<Ingredient> getIngredientsByCategory(String category);
+
+    Ingredient getIngredientById(String id);
 }

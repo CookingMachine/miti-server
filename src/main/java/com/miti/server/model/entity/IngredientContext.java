@@ -1,6 +1,8 @@
 package com.miti.server.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.miti.server.enums.Measure;
+import com.miti.server.model.dto.IngredientContextDTO;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -14,8 +16,8 @@ public class IngredientContext {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private double count;
-    private String flag;
+    private int amount;
+    private Measure measure;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ingredientId", nullable = false)
@@ -27,10 +29,10 @@ public class IngredientContext {
 
     public IngredientContext() { }
 
-    public IngredientContext(double count, String flag, Recipe recipeIngredients, Ingredient ingredient) {
-        this.count = count;
-        this.flag = flag;
-        this.ingredient = ingredient;
-        this.recipeIngredients = recipeIngredients;
+    public IngredientContext(IngredientContextDTO dto) {
+        this.amount = dto.getAmount();
+        this.measure = dto.getMeasure();
+        this.ingredient = dto.getIngredient();
+        this.recipeIngredients = dto.getRecipe();
     }
 }

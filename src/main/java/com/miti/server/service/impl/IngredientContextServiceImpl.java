@@ -1,29 +1,38 @@
 package com.miti.server.service.impl;
 
+import com.miti.server.enums.Measure;
+import com.miti.server.model.dto.IngredientContextDTO;
+import com.miti.server.model.dto.IngredientDTO;
 import com.miti.server.model.entity.Ingredient;
 import com.miti.server.model.entity.IngredientContext;
 import com.miti.server.model.entity.Recipe;
+import com.miti.server.model.form.IngredientContextForm;
 import com.miti.server.repository.IngredientContextRepository;
 import com.miti.server.repository.RecipeRepository;
 import com.miti.server.service.IngredientContextService;
+import com.miti.server.service.IngredientService;
+import com.miti.server.service.RecipeService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class IngredientContextServiceImpl implements IngredientContextService {
-    private final IngredientContextRepository ingredientContextRepository;
-    private final RecipeRepository recipeRepository;
 
-    public IngredientContextServiceImpl(IngredientContextRepository ingredientContextRepository, RecipeRepository recipeRepository) {
+    private final IngredientContextRepository ingredientContextRepository;
+    private final RecipeService recipeService;
+    private final IngredientService ingredientService;
+
+    public IngredientContextServiceImpl(IngredientContextRepository ingredientContextRepository,
+                                        RecipeService recipeService, IngredientService ingredientService) {
         this.ingredientContextRepository = ingredientContextRepository;
-        this.recipeRepository = recipeRepository;
+        this.recipeService = recipeService;
+        this.ingredientService = ingredientService;
     }
 
     @Override
     public List<IngredientContext> getIngredientContextByRecipeId(Long recipeId) {
-        Recipe recipe = recipeRepository.findById(recipeId).orElseThrow(()->
-                new RuntimeException("Recipe with id: " + recipeId + " is not find!"));
+        Recipe recipe = recipeService.getRecipeById(recipeId);
         List<IngredientContext> ingredients = recipe.getIngredientContextList();
         return ingredients;
     }
@@ -34,9 +43,18 @@ public class IngredientContextServiceImpl implements IngredientContextService {
     }
 
     @Override
-    public IngredientContext addIngredientContext(double count, String flag, Recipe recipe, Ingredient ingredient) {
-        IngredientContext ingredientContext = new IngredientContext(count, flag, recipe, ingredient);
-        return addIngredientContext(ingredientContext);
+    public IngredientContext addIngredientContext(IngredientContextDTO dto) {
+        return addIngredientContext(new IngredientContext(dto));
+    }
+
+    @Override
+    public IngredientContext addIngredientContextDTO(IngredientContextForm form) {
+        int amount = form.getAmount();
+        Measure measure = form.getMeasure();
+        Recipe recipe = recipeService.getRecipeById(form.getRecipeId());
+        Ingredient ingredient = ingredientService.getIngredientById(form.getIngredientId());
+        IngredientContextDTO dto = new IngredientContextDTO(amount, measure, ingredient, recipe);
+        return addIngredientContext(dto);
     }
 
     @Override
@@ -48,5 +66,14 @@ public class IngredientContextServiceImpl implements IngredientContextService {
     public IngredientContext getIngredientContextById(Long id) {
         return ingredientContextRepository.findById(id).orElseThrow(()->
                 new RuntimeException("IngredientContext with id: " + id + " is not found"));
+    }
+
+    @Override
+    public boolean checkFieldsExist(Long recipeId, String ingredientId) {
+        if (recipeService.getRecipeById(recipeId) != null &&
+                ingredientService.getIngredientById(ingredientId) != null)
+            return true;
+        else
+            return false;
     }
 }

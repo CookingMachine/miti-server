@@ -1,5 +1,7 @@
 package com.miti.server.controller.controllerHTML;
 
+import com.miti.server.enums.Measure;
+import com.miti.server.model.dto.IngredientContextDTO;
 import com.miti.server.model.entity.Ingredient;
 import com.miti.server.model.entity.IngredientContext;
 import com.miti.server.model.entity.Recipe;
@@ -46,21 +48,18 @@ public class IngredientContextControllerHTML {
         IngredientContextForm ingredientContextForm = new IngredientContextForm();
         model.addAttribute("ingredientContextForm", ingredientContextForm);
 
+        Measure[] measures = Measure.values();
+        model.addAttribute("measures", measures);
+
         return "ingredientContext";
     }
 
     @RequestMapping(value = {"/ingredientContext"}, method = RequestMethod.POST)
     public String addIngredientContext(Model model,
-                                       @ModelAttribute("ingredientContextForm")
-                                               IngredientContextForm ingredientContextForm) {
-        double count = ingredientContextForm.getCount();
-        String flag = ingredientContextForm.getFlag();
-        Ingredient _ingredient = ingredientService.getIngredientByName(ingredientContextForm.getIngredientName());
-        Recipe _recipe = recipeService.getRecipeById(ingredientContextForm.getRecipeId());
+                                       @ModelAttribute("ingredientContext")IngredientContextForm form) {
+        if (ingredientContextService.checkFieldsExist(form.getRecipeId(), form.getIngredientId())) {
 
-        if (count > 0 && flag != null && flag.length() > 0
-                && _ingredient != null && _recipe != null) {
-            ingredientContextService.addIngredientContext(count, flag, _recipe, _ingredient);
+            ingredientContextService.addIngredientContextDTO(form);
 
             return "redirect:/ingredientContextList";
         }

@@ -9,19 +9,18 @@
 
 <form th:action="@{/ingredientContext}"
       th:object="${ingredientContextForm}" method="POST">
-    Count: <br/>
-    <input type="text" placeholder="Input count" th:field="*{count}" size="40px"> <br/>
-    Flag: <br/>
-    <input type="radio" value="L" checked="checked" th:field="*{flag}" /> - L <br/>
-    <input type="radio" value="Gr" th:field="*{flag}" /> - Gr <br/>
-    <input type="radio" value="Kg" th:field="*{flag}" /> - Kg<br/>
-    <input type="radio" value="Co" th:field="*{flag}" /> - SHTUCHKI <br/>
-    <input type="radio" value="Ml" th:field="*{flag}" /> - Ml <br/>
-    <input type="radio" value="Sp" th:field="*{flag}" /> - Tea spoon (ROFLAN EBALO)<br/>
+    Amount and Measure: <br/>
+    <input type="text" placeholder="Input count" th:field="*{amount}" size="40px">
+    <select th:field="*{measure}">
+        <option value="">---</option>
+        <option th:each="measure : ${measures}"
+                th:value="${measure.name()}"
+                th:utext="${measure.name()}"/>
+    </select> <br/>
     RecipeId: <br/>
     <input type="text" placeholder="Input recipeId" th:field="*{recipeId}" size="40px"> <br/>
     Ingredient Name: <br/>
-    <input type="text" placeholder="Input ingredient name" th:field="*{ingredientName}" size="40px"> <br/>
+    <input type="text" placeholder="Input ingredient name" th:field="*{ingredientId}" size="40px"> <br/>
     <input type="submit" value="Submit">
     <input type="reset" value="Reset">
 </form>

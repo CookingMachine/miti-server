@@ -16,15 +16,15 @@
     <table border="1">
         <tr>
             <th>ID</th>
-            <th>Count</th>
-            <th>Flag</th>
+            <th>Amount</th>
+            <th>Measure</th>
             <th>Ingredient Name</th>
             <th>Recipe ID</th>
         </tr>
         <tr th:each="ingredientContext : ${ingredientContexts}">
             <td th:utext="${ingredientContext.getId()}">...</td>
-            <td th:utext="${ingredientContext.getCount()}">...</td>
-            <td th:utext="${ingredientContext.getFlag()}">...</td>
+            <td th:utext="${ingredientContext.getAmount()}">...</td>
+            <td th:utext="${ingredientContext.getMeasure()}">...</td>
             <td th:utext="${ingredientContext.getIngredient().getName()}">...</td>
             <td th:utext="${ingredientContext.getRecipeIngredients().getId()}">...</td>
         </tr>
