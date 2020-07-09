@@ -14,5 +14,7 @@ public interface RecipeRepository extends JpaRepository<Recipe, Long> {
 
     List<Recipe> getRecipesByCategoryId(String categoryId);
 
+    Recipe getRecipeById(Long id);
+
     Boolean existsByName(String name);
 }

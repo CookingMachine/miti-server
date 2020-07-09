@@ -18,7 +18,7 @@
             <option th:each="category : ${categories}"
                     th:value="${category.name()}"
                     th:utext="${category.name()}"/>
-        </select>
+        </select> <br/>
         <input type="submit" value="Submit">
         <input type="reset" value="Reset">
     </form>

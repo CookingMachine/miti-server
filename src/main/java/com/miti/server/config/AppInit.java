@@ -1,6 +1,7 @@
 package com.miti.server.config;
 
 import com.miti.server.enums.IngredientCategory;
+import com.miti.server.enums.Measure;
 import com.miti.server.model.dto.*;
 import com.miti.server.enums.UserRole;
 import com.miti.server.model.entity.*;
@@ -82,6 +83,12 @@ public class AppInit implements ApplicationRunner {
 
         recipeRepository.saveAll(recipes);
 
+        addIngredientContext(ingredientContexts, 1, Measure.Ml, ingredientRepository.getIngredientById("cucumber"),  recipeRepository.getRecipeById(1L));
+        addIngredientContext(ingredientContexts, 2, Measure.Sl, ingredientRepository.getIngredientById("paprika_red"), recipeRepository.getRecipeById(3L));
+        addIngredientContext(ingredientContexts, 10, Measure.Sht, ingredientRepository.getIngredientById("cucumber_marinade"), recipeRepository.getRecipeById(1L));
+
+        ingredientContextRepository.saveAll(ingredientContexts);
+
         addComments(comments, "Прекрасный рецепт. Спасибо вам огромное", 1L, 2L);
         addComments(comments, "Очень вкуснуя картошка. А главное - быстро.", 2L, 3L);
         addComments(comments, "Ммм, Лориса. Борщ просто вещь!", 3L, 1L);
@@ -99,6 +106,11 @@ public class AppInit implements ApplicationRunner {
         if(!categoryRepository.existsById(id)){
             categories.add(new Category(new CategoryDTO(id, name)));
         }
+    }
+
+    private void addIngredientContext(List<IngredientContext> ingredientContexts, int amount,
+                                      Measure measure, Ingredient ingredient, Recipe recipe) {
+        ingredientContexts.add(new IngredientContext(new IngredientContextDTO(amount, measure, ingredient, recipe)));
     }
 
     private void addIngredient(List<Ingredient> ingredients, String id, String name, IngredientCategory category){
