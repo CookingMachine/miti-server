@@ -1,5 +1,6 @@
 package com.miti.server.controller.controllerHTML;
 
+import com.miti.server.enums.IngredientCategory;
 import com.miti.server.model.entity.Ingredient;
 import com.miti.server.model.dto.IngredientDTO;
 import com.miti.server.service.IngredientService;
@@ -36,6 +37,9 @@ public class IngredientControllerHTML {
         IngredientDTO ingredientDTO = new IngredientDTO();
         model.addAttribute("ingredientDTO", ingredientDTO);
 
+        IngredientCategory[] categories = IngredientCategory.values();
+        model.addAttribute("categories", categories);
+
         return "ingredient";
     }
 
@@ -43,9 +47,10 @@ public class IngredientControllerHTML {
     public String addIngredient(Model model, @ModelAttribute("ingredients") IngredientDTO ingredientDTO) {
         String id = ingredientDTO.getId();
         String name = ingredientDTO.getName();
+        IngredientCategory category = ingredientDTO.getCategory();
 
         if (name != null && name.length() > 0) {
-            ingredientService.addIngredient(new IngredientDTO(id, name));
+            ingredientService.addIngredient(new IngredientDTO(id, name, category));
 
             return "redirect:/ingredientList";
         }
