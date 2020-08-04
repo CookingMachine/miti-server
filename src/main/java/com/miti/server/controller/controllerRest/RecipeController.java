@@ -36,7 +36,7 @@ public class RecipeController {
     }
 
     @GetMapping("/getRecipesByCategory")
-    public List<Recipe> getRecipesByCategory(@RequestParam Category category) {
+    public List<Recipe> getRecipesByCategory(@RequestBody Category category) {
         return recipeService.getRecipesByCategory(category);
     }
 
