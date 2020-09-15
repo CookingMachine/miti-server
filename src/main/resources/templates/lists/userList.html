@@ -9,6 +9,10 @@
 <body>
 <th:block th:insert="_menu :: menu"/>
 
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Sign out!">
+</form>
+
     <h1>Users</h1>
     <a href="user">Add User</a>
     <br/><br/>
