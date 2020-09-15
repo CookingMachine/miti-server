@@ -1,7 +1,6 @@
 package com.miti.server.service;
 
 import com.miti.server.model.dto.RecipeDTO;
-import com.miti.server.model.entity.Category;
 import com.miti.server.model.entity.Recipe;
 import com.miti.server.model.entity.User;
 import com.miti.server.model.form.RecipeForm;
@@ -20,8 +19,6 @@ public interface RecipeService {
     List<Recipe> getRecipesByAuthor(User author);
 
     List<Recipe> getRecipesByAuthorId(Long id);
-
-    List<Recipe> getRecipesByCategory(Category category);
 
     List<Recipe> getRecipesByCategoryId(String categoryId);
 

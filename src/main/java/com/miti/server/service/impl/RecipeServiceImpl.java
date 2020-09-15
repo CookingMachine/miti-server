@@ -52,14 +52,12 @@ public class RecipeServiceImpl implements RecipeService {
 
     @Override
     public List<Recipe> getAllRecipes() {
-        List<Recipe> recipes = recipeRepository.findAll();
-        return recipes;
+        return recipeRepository.findAll();
     }
 
     @Override
     public List<Recipe> getRecipesByAuthor(User author) {;
-        List<Recipe> recipes = recipeRepository.getRecipesByAuthor(author);
-        return recipes;
+        return recipeRepository.getRecipesByAuthor(author);
     }
 
     @Override
@@ -67,12 +65,6 @@ public class RecipeServiceImpl implements RecipeService {
         User _user = userRepository.findById(id).orElseThrow(()
                 -> new RuntimeException("User with id: " + id + " doesn't exist!"));
         return recipeRepository.getRecipesByAuthor(_user);
-    }
-
-    @Override
-    public List<Recipe> getRecipesByCategory(Category category) {
-        List<Recipe> recipes = recipeRepository.getRecipesByCategory(category);
-        return recipes;
     }
 
     @Override
@@ -85,10 +77,7 @@ public class RecipeServiceImpl implements RecipeService {
         User _user = userService.getUserById(userId);
         Category _category = categoryService.getCategoryById(categoryId);
 
-        if (_user != null && _category != null)
-            return true;
-        else
-            return false;
+        return _user != null && _category != null;
     }
 
     @Override

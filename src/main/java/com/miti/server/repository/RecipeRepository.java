@@ -10,8 +10,6 @@ import java.util.List;
 public interface RecipeRepository extends JpaRepository<Recipe, Long> {
     List<Recipe> getRecipesByAuthor(User user);
 
-    List<Recipe> getRecipesByCategory(Category category);
-
     List<Recipe> getRecipesByCategoryId(String categoryId);
 
     Recipe getRecipeById(Long id);
