@@ -44,7 +44,7 @@ public class AppInit implements ApplicationRunner {
         List<Ingredient> ingredients = new ArrayList<>();
         List<Comment> comments = new ArrayList<>();
 
-        addUser(users, "admin", "qwerty", "admin@gmail.com", UserRole.ADMINISTRATION);
+        addUser(users, "admin", "$2y$12$x7e5iHinkRsboSwCh3SAQudnKUQ0ml2gkDhJv2DelXTTDAzbDOuii", "admin@gmail.com", UserRole.ADMINISTRATION);
         addUser(users, "moder", "qwerty", "moder@gmail.com", UserRole.MODERATION);
         addUser(users, "user", "qwerty", "user@gmail.com", UserRole.USER);
 

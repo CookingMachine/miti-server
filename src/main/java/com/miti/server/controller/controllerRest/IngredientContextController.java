@@ -2,17 +2,16 @@ package com.miti.server.controller.controllerRest;
 
 import com.miti.server.model.entity.IngredientContext;
 import com.miti.server.service.IngredientContextService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class IngredientContextController {
     private final IngredientContextService ingredientContextService;
-
-    public IngredientContextController(IngredientContextService ingredientContextService) {
-        this.ingredientContextService = ingredientContextService;
-    }
 
     @PostMapping("/addIngredientContext")
     public IngredientContext addIngredientContext(@RequestBody IngredientContext ingredientContext) {

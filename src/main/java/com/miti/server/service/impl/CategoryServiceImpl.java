@@ -4,17 +4,16 @@ import com.miti.server.model.dto.CategoryDTO;
 import com.miti.server.model.entity.Category;
 import com.miti.server.repository.CategoryRepository;
 import com.miti.server.service.CategoryService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class CategoryServiceImpl implements CategoryService {
     private final CategoryRepository categoryRepository;
-
-    public CategoryServiceImpl(CategoryRepository categoryRepository) {
-        this.categoryRepository = categoryRepository;
-    }
 
     @Override
     public Category addCategory(String id, String name) {

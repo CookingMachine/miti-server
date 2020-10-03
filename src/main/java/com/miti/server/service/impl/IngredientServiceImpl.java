@@ -5,17 +5,16 @@ import com.miti.server.model.dto.IngredientDTO;
 import com.miti.server.model.entity.Ingredient;
 import com.miti.server.repository.IngredientRepository;
 import com.miti.server.service.IngredientService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class IngredientServiceImpl implements IngredientService{
     private final IngredientRepository ingredientRepository;
-
-    public IngredientServiceImpl(IngredientRepository ingredientRepository) {
-        this.ingredientRepository = ingredientRepository;
-    }
 
     @Override
     public Ingredient addIngredient(IngredientDTO ingredientDTO) {

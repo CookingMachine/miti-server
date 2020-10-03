@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title th:utext="${title}"></title>
-
+    <meta name="_jwt" th:content="${yourToken}"/>
 </head>
 
 <body>
@@ -11,6 +11,17 @@
 <th:block th:insert="_menu :: menu"></th:block>
 
 <h2>Message : <span th:utext="${message}"></span></h2>
+<div th:text="${token}" id="token"></div>
+
+<script>
+    $(function(){
+        var _token = $('meta[name="_jwt"]').attr('content');
+
+        $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
+            jqXHR.setRequestHeader("Autorization", _token);
+        });
+    });
+</script>
 
 </body>
 </html>
