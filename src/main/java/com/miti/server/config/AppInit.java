@@ -6,6 +6,7 @@ import com.miti.server.model.dto.*;
 import com.miti.server.enums.UserRole;
 import com.miti.server.model.entity.*;
 import com.miti.server.repository.*;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -15,25 +16,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class AppInit implements ApplicationRunner {
-
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private RecipeRepository recipeRepository;
-
-    @Autowired
-    private CategoryRepository categoryRepository;
-
-    @Autowired
-    private IngredientContextRepository ingredientContextRepository;
-
-    @Autowired
-    private IngredientRepository ingredientRepository;
-
-    @Autowired
-    private CommentRepository commentRepository;
+    private final UserRepository userRepository;
+    private final RecipeRepository recipeRepository;
+    private final CategoryRepository categoryRepository;
+    private final IngredientContextRepository ingredientContextRepository;
+    private final IngredientRepository ingredientRepository;
+    private final CommentRepository commentRepository;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
@@ -44,7 +34,7 @@ public class AppInit implements ApplicationRunner {
         List<Ingredient> ingredients = new ArrayList<>();
         List<Comment> comments = new ArrayList<>();
 
-        addUser(users, "admin", "qwerty", "admin@gmail.com", UserRole.ADMINISTRATION);
+        addUser(users, "admin", "$2y$12$x7e5iHinkRsboSwCh3SAQudnKUQ0ml2gkDhJv2DelXTTDAzbDOuii", "admin@gmail.com", UserRole.ADMINISTRATION);
         addUser(users, "moder", "qwerty", "moder@gmail.com", UserRole.MODERATION);
         addUser(users, "user", "qwerty", "user@gmail.com", UserRole.USER);
 

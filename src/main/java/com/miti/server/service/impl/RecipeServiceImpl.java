@@ -11,11 +11,14 @@ import com.miti.server.repository.UserRepository;
 import com.miti.server.service.CategoryService;
 import com.miti.server.service.RecipeService;
 import com.miti.server.service.UserService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class RecipeServiceImpl implements RecipeService {
     private final RecipeRepository recipeRepository;
     private final UserRepository userRepository;
@@ -23,16 +26,6 @@ public class RecipeServiceImpl implements RecipeService {
 
     private final UserService userService;
     private final CategoryService categoryService;
-
-    public RecipeServiceImpl(RecipeRepository recipeRepository, UserRepository userRepository, CategoryRepository categoryRepository,
-                             UserService userService, CategoryService categoryService) {
-        this.recipeRepository = recipeRepository;
-        this.userRepository = userRepository;
-        this.categoryRepository = categoryRepository;
-
-        this.userService = userService;
-        this.categoryService = categoryService;
-    }
 
     @Override
     public Recipe addRecipe(Recipe recipe) {

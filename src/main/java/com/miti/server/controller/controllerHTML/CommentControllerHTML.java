@@ -7,6 +7,8 @@ import com.miti.server.model.dto.CommentDTO;
 import com.miti.server.service.CommentService;
 import com.miti.server.service.RecipeService;
 import com.miti.server.service.UserService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,16 +19,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class CommentControllerHTML {
-    private CommentService commentService;
-    private UserService userService;
-    private RecipeService recipeService;
-
-    public CommentControllerHTML(CommentService commentService, UserService userService, RecipeService recipeService) {
-        this.commentService = commentService;
-        this.userService = userService;
-        this.recipeService = recipeService;
-    }
+    private final CommentService commentService;
+    private final UserService userService;
+    private final RecipeService recipeService;
 
     @Value("${error.message}")
     private String errorMessage;

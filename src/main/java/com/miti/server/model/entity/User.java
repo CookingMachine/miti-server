@@ -4,12 +4,14 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.miti.server.model.dto.UserDTO;
 import com.miti.server.enums.UserRole;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Data
+@NoArgsConstructor
 @Table(name = "usr")
 @JsonIgnoreProperties(ignoreUnknown = true,
         value = {"recipeList", "commentList", "favouriteList"})
@@ -36,8 +38,6 @@ public class User {
 
     @ManyToMany(mappedBy = "favouriteUsers")
     private List<Recipe> favouriteList;
-
-    public User() { }
 
     public User(UserDTO dto) {
         this.username = dto.getUsername();

@@ -2,18 +2,17 @@ package com.miti.server.controller.controllerRest;
 
 import com.miti.server.model.entity.Category;
 import com.miti.server.service.CategoryService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*")
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class CategoryController {
     private final CategoryService categoryService;
-
-    public CategoryController(CategoryService categoryService) {
-        this.categoryService = categoryService;
-    }
 
     @GetMapping("/getAllCategories")
     public List<Category> getAllCategories () {

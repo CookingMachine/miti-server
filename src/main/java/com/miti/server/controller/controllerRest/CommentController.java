@@ -2,17 +2,16 @@ package com.miti.server.controller.controllerRest;
 
 import com.miti.server.model.entity.Comment;
 import com.miti.server.service.CommentService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class CommentController {
     private final CommentService commentService;
-
-    public CommentController(CommentService commentService) {
-        this.commentService = commentService;
-    }
 
     @PostMapping("/addComment")
     public Comment addComment(@RequestParam String text,

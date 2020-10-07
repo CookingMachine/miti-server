@@ -10,9 +10,20 @@
 <!-- Include _menu.html -->
 <th:block th:insert="_menu :: menu"></th:block>
 
-<h2>Message : <span th:utext="${message}"></span></h2>
-<div th:text="${token}" id="token"></div>
 
+<form th:action="@{/authentication}"
+      th:object="${auth}" method="POST">
+    Id: <br/>
+    <input type="text" placeholder="Input category id" th:field="*{username}" size="40px" /> <br/>
+    Name: <br/>
+    <input type="text" placeholder="Input category name" th:field="*{password}" size="40px" /> <br/>
+
+    <input type="submit" value="Submit" id="btnSubmit">
+    <input type="reset" value="Reset">
+
+    <div th:text="${token}" id="token"></div>
+
+</form>
 <script>
     $(function(){
         var _token = $('meta[name="_jwt"]').attr('content');
@@ -22,6 +33,5 @@
         });
     });
 </script>
-
 </body>
 </html>

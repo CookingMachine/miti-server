@@ -12,23 +12,19 @@ import com.miti.server.repository.RecipeRepository;
 import com.miti.server.service.IngredientContextService;
 import com.miti.server.service.IngredientService;
 import com.miti.server.service.RecipeService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class IngredientContextServiceImpl implements IngredientContextService {
 
     private final IngredientContextRepository ingredientContextRepository;
     private final RecipeService recipeService;
     private final IngredientService ingredientService;
-
-    public IngredientContextServiceImpl(IngredientContextRepository ingredientContextRepository,
-                                        RecipeService recipeService, IngredientService ingredientService) {
-        this.ingredientContextRepository = ingredientContextRepository;
-        this.recipeService = recipeService;
-        this.ingredientService = ingredientService;
-    }
 
     @Override
     public List<IngredientContext> getIngredientContextByRecipeId(Long recipeId) {

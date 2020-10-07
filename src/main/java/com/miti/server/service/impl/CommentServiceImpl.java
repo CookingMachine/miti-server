@@ -8,23 +8,18 @@ import com.miti.server.repository.CommentRepository;
 import com.miti.server.repository.RecipeRepository;
 import com.miti.server.repository.UserRepository;
 import com.miti.server.service.CommentService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class CommentServiceImpl implements CommentService {
     private final CommentRepository commentRepository;
     private final UserRepository userRepository;
     private final RecipeRepository recipeRepository;
-
-    CommentServiceImpl(CommentRepository commentRepository,
-                       UserRepository userRepository,
-                       RecipeRepository recipeRepository) {
-        this.commentRepository = commentRepository;
-        this.userRepository = userRepository;
-        this.recipeRepository = recipeRepository;
-    }
 
     @Override
     public Comment addComment(Comment comment) {

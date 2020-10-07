@@ -1,22 +1,22 @@
 package com.miti.server.controller.controllerRest;
 
 import com.miti.server.check.UserChecker;
+import com.miti.server.model.dto.UserDTO;
 import com.miti.server.model.entity.User;
 import com.miti.server.enums.UserRole;
 import com.miti.server.service.UserService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class UserController {
     private final UserService userService;
 
     private UserChecker uc = new UserChecker();
-
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
 
     @RequestMapping(value = "/getUser", method = RequestMethod.GET)
     public User getUserByUserName(@RequestParam String userName) {
@@ -43,11 +43,7 @@ public class UserController {
 
 
     @RequestMapping(value = "/addUser", method = RequestMethod.POST)
-    public User addUser(@RequestBody User user) {
-        if  (uc.userChecker(user.getUsername(), user.getPassword()) &&
-                userService.getUserByUserName(user.getUsername()) == null) {
-            return userService.addUser(user);
-        } else
-            return null;
+    public User addUser(@RequestBody UserDTO userDTO) {
+        return userService.addUser(userDTO);
     }
 }
