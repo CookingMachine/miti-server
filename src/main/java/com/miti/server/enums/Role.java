@@ -1,6 +1,6 @@
 package com.miti.server.enums;
 
-public enum UserRole {
+public enum Role {
     USER,
     MODERATION,
     ADMINISTRATION;

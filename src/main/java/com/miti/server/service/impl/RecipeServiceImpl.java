@@ -1,86 +1,102 @@
 package com.miti.server.service.impl;
 
-import com.miti.server.model.dto.RecipeDTO;
-import com.miti.server.model.entity.Category;
 import com.miti.server.model.entity.Recipe;
-import com.miti.server.model.entity.User;
-import com.miti.server.model.form.RecipeForm;
-import com.miti.server.repository.CategoryRepository;
 import com.miti.server.repository.RecipeRepository;
-import com.miti.server.repository.UserRepository;
 import com.miti.server.service.CategoryService;
 import com.miti.server.service.RecipeService;
 import com.miti.server.service.UserService;
+import com.miti.server.util.Check;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class RecipeServiceImpl implements RecipeService {
     private final RecipeRepository recipeRepository;
-    private final UserRepository userRepository;
-    private final CategoryRepository categoryRepository;
-
     private final UserService userService;
     private final CategoryService categoryService;
 
     @Override
     public Recipe addRecipe(Recipe recipe) {
-        return recipeRepository.save(recipe);
+        if (checkFields(recipe.getName()))
+            return recipeRepository.save(new Recipe(
+                    recipe.getName(),
+                    recipe.getDescription(),
+                    recipe.getAuthor(),
+                    recipe.getCategory()
+            ));
+        throw new RuntimeException("Recipe with name: " + recipe.getName() + " already exists!");
     }
 
     @Override
-    public Recipe addRecipe(RecipeDTO recipeDTO) {
-        return addRecipe(new Recipe(recipeDTO));
+    public void addAllRecipes(List<Recipe> recipes) {
+        List<Recipe> _recipes = new ArrayList<>();
+        for (int i = 0; i < recipes.size(); i++) {
+            if (checkFields(recipes.get(i).getName()))
+                _recipes.add(recipes.get(i));
+        }
+        recipeRepository.saveAll(_recipes);
     }
 
     @Override
     public Recipe getRecipeById(Long recipeId) {
         return recipeRepository.findById(recipeId).orElseThrow(()
-                -> new RuntimeException("Recipe with id: " + recipeId + " doesnt exist!"));
+                -> new RuntimeException("Recipe with id: " + recipeId + " doesn't exist!"));
+    }
+
+    @Override
+    public Recipe getRecipeByName(String name) {
+        if (Check.param(name)) {
+            Recipe recipe = recipeRepository.getRecipeByName(name);
+            if (recipe != null)
+                return recipe;
+            throw new RuntimeException("Recipe with name: " + name + " doesn't exist!");
+        }
+        throw new RuntimeException("Name: " + name + " is incorrect!");
     }
 
     @Override
     public List<Recipe> getAllRecipes() {
-        return recipeRepository.findAll();
+        List<Recipe> recipes = recipeRepository.findAll();
+        if (recipes != null)
+            return recipes;
+        throw new RuntimeException("Table is empty!\nRecipes don't exist!");
     }
 
     @Override
-    public List<Recipe> getRecipesByAuthor(User author) {;
-        return recipeRepository.getRecipesByAuthor(author);
-    }
-
-    @Override
-    public List<Recipe> getRecipesByAuthorId(Long id) {
-        User _user = userRepository.findById(id).orElseThrow(()
-                -> new RuntimeException("User with id: " + id + " doesn't exist!"));
-        return recipeRepository.getRecipesByAuthor(_user);
+    public List<Recipe> getRecipesByAuthorId(Long authorId) {
+        if (Check.param(authorId)) {
+            List<Recipe> recipes = recipeRepository.getRecipesByAuthor(userService.getUserById(authorId));
+            if (recipes != null)
+                return recipes;
+            throw new RuntimeException("Recipe with authorId: " + authorId + " doesn't exist!");
+        }
+        throw new RuntimeException("AuthorId: " + authorId + " is incorrect!");
     }
 
     @Override
     public List<Recipe> getRecipesByCategoryId(String categoryId) {
-        return recipeRepository.getRecipesByCategoryId(categoryId);
+        if (Check.param(categoryId)) {
+            List<Recipe> recipes = recipeRepository.getRecipesByCategory(categoryService.getCategoryById(categoryId));
+            if (recipes != null)
+                return recipes;
+            throw new RuntimeException("Recipe with categoryId: " + categoryId + " doesn't exist!");
+        }
+        throw new RuntimeException("CategoryId: " + categoryId + " is incorrect!");
     }
 
     @Override
-    public boolean checkFieldsExist(Long userId, String categoryId) {
-        User _user = userService.getUserById(userId);
-        Category _category = categoryService.getCategoryById(categoryId);
-
-        return _user != null && _category != null;
+    public void deleteRecipeById(Long recipeId) {
+        recipeRepository.deleteById(recipeId);
     }
 
-    @Override
-    public Recipe addRecipeDTO(RecipeForm recipeForm) {
-        String _name = recipeForm.getName();
-        String _description = recipeForm.getDescription();
-        User _author = userService.getUserById(recipeForm.getAuthorId());
-        Category _category = categoryService.getCategoryById(recipeForm.getCategoryId());
-
-        RecipeDTO recipeDTO = new RecipeDTO(_name, _description, _author, _category);
-        return addRecipe(recipeDTO);
+    private boolean checkFields(String name) {
+        if (recipeRepository.existsByName(name))
+            return false;
+        return true;
     }
 }

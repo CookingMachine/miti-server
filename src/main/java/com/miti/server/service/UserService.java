@@ -1,23 +1,20 @@
 package com.miti.server.service;
 
-import com.miti.server.model.dto.UserDTO;
 import com.miti.server.model.entity.User;
-import com.miti.server.enums.UserRole;
 
 import java.util.List;
 
 public interface UserService {
     User addUser(User user);
-
-    User addUser(String userName, String password, String email, UserRole role);
-
-    User addUser(UserDTO userDTO);
-
-    User getUserByUserName(String userName);
+    void addAllUsers(List<User> users);
 
     User getUserById(Long userId);
+    User getUserByUsername(String username);
+    User getUserByEmail(String email);
 
     List<User> getAllUsers();
+    List<User> getUsersByRole(String roleName);
+    List<User> getUsersByStatus(Boolean status);
 
-    List<User> getUsersByRole(UserRole role);
+    void deleteById(Long userId);
 }

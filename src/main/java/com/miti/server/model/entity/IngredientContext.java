@@ -2,23 +2,22 @@ package com.miti.server.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.miti.server.enums.Measure;
-import com.miti.server.model.dto.IngredientContextDTO;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
-@Data
+@Table(name = "ingredientContext_table")
 @NoArgsConstructor
-@JsonIgnoreProperties(ignoreUnknown = true,
-        value = {"ingredients", "recipeIngredients"})
+@Data
+@JsonIgnoreProperties(ignoreUnknown = true, value = {"ingredients", "recipeIngredients"})
 public class IngredientContext {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private int amount;
+    private Integer amount;
     private Measure measure;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -29,10 +28,10 @@ public class IngredientContext {
     @JoinColumn(name = "recipeId", nullable = false)
     private Recipe recipeIngredients;
 
-    public IngredientContext(IngredientContextDTO dto) {
-        this.amount = dto.getAmount();
-        this.measure = dto.getMeasure();
-        this.ingredient = dto.getIngredient();
-        this.recipeIngredients = dto.getRecipe();
+    public IngredientContext(Integer amount, Measure measure, Ingredient ingredient, Recipe recipe) {
+        this.amount = amount;
+        this.measure = measure;
+        this.ingredient = ingredient;
+        this.recipeIngredients = recipe;
     }
 }

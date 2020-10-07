@@ -1,4 +1,4 @@
-package com.miti.server.controller.controllerRest;
+package com.miti.server.controller;
 
 import com.miti.server.config.jwt.JwtUserDetailsService;
 import com.miti.server.config.jwt.JwtUtil;

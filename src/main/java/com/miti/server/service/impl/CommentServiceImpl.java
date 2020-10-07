@@ -1,55 +1,73 @@
 package com.miti.server.service.impl;
 
-import com.miti.server.model.dto.CommentDTO;
 import com.miti.server.model.entity.Comment;
-import com.miti.server.model.entity.Recipe;
-import com.miti.server.model.entity.User;
 import com.miti.server.repository.CommentRepository;
-import com.miti.server.repository.RecipeRepository;
-import com.miti.server.repository.UserRepository;
 import com.miti.server.service.CommentService;
+import com.miti.server.service.RecipeService;
+import com.miti.server.service.UserService;
+import com.miti.server.util.Check;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class CommentServiceImpl implements CommentService {
     private final CommentRepository commentRepository;
-    private final UserRepository userRepository;
-    private final RecipeRepository recipeRepository;
+    private final UserService userService;
+    private final RecipeService recipeService;
 
     @Override
     public Comment addComment(Comment comment) {
-        return commentRepository.save(comment);
+        return commentRepository.save(new Comment(
+                comment.getComment(),
+                comment.getCommentator(),
+                comment.getRecipe()
+        ));
     }
 
     @Override
-    public Comment addComment(String text, Long userId, Long recipeId) {
-        Comment comment = new Comment(new CommentDTO(text, userId, recipeId));
-        return addComment(comment);
+    public void addAllComments(List<Comment> comments) {
+        List<Comment> _comments = new ArrayList<>();
+        for (int i = 0; i < comments.size(); i++) {
+            _comments.add(comments.get(i));
+        }
+        commentRepository.saveAll(_comments);
     }
 
     @Override
-    public List<Comment> getAllComments() {
-        return commentRepository.findAll();
+    public Comment getCommentById(Long commentId) {
+        return commentRepository.findById(commentId).orElseThrow(()
+                -> new RuntimeException("Comment with id: " + commentId + " doesn't exist!"));
     }
 
     @Override
-    public List<Comment> getCommentsByCommentator(String userName) {
-        User user = userRepository.getUserByUsername(userName);
-        List<Comment> comments = commentRepository.getCommentsByCommentator(user);
-        return comments;
+    public List<Comment> getCommentsByUserId(Long userId) {
+        if (Check.param(userId)) {
+            List<Comment> comments = commentRepository.getCommentsByCommentator(userService.getUserById(userId));
+            if (comments != null)
+                return comments;
+            throw new RuntimeException("Comments with userId: " + userId + " doesn't exist!");
+        }
+        throw new RuntimeException("UserId: " + userId + " is incorrect!");
     }
 
     @Override
-    public List<Comment> getCommentsByRecipe(Long recipeId) {
-        Recipe recipe = recipeRepository.findById(recipeId).orElseThrow(()->
-                new RuntimeException("Recipe with recipeId:" + recipeId + "doesnt exists"));
-        List<Comment> comments = commentRepository.getCommentsByRecipe(recipe);
-        return comments;
+    public List<Comment> getCommentsByRecipeId(Long recipeId) {
+        if (Check.param(recipeId)) {
+            List<Comment> comments = commentRepository.getCommentsByRecipe(recipeService.getRecipeById(recipeId));
+            if (comments != null)
+                return comments;
+            throw new RuntimeException("Comments with recipeId: " + recipeId + " doesn't exist!");
+        }
+        throw new RuntimeException("RecipeId: " + recipeId + " is incorrect!");
     }
 
+    @Override
+    public void deleteCommentById(Long commentId) {
+        commentRepository.deleteById(commentId);
+    }
 }

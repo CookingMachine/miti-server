@@ -1,4 +1,4 @@
-package com.miti.server.controller.controllerRest;
+package com.miti.server.controller;
 
 import com.miti.server.model.entity.Ingredient;
 import com.miti.server.service.IngredientService;
@@ -18,18 +18,24 @@ public class IngredientController {
         return ingredientService.addIngredient(ingredient);
     }
 
-    @GetMapping("/getIngredient")
+    @GetMapping("/getIngredientById")
+    public Ingredient getIngredientById(@RequestParam String ingredientId) {
+        return ingredientService.getIngredientById(ingredientId);
+    }
+
+    @GetMapping("/getIngredientByName")
     public Ingredient getIngredientByName(@RequestParam String name) {
         return ingredientService.getIngredientByName(name);
     }
 
-    @GetMapping("/getAllIngredients")
-    public List<Ingredient> getAllIngredients() {
-        return ingredientService.getAllIngredients();
+    @GetMapping("/getIngrentsByCategory")
+    public List<Ingredient> getIngredientsByCategory(@RequestParam String categoryName) {
+        return ingredientService.getIngredientsByCategory(categoryName);
     }
 
-    @GetMapping("/getIngredientsByCategory")
-    public List<Ingredient> getIngredientsByCategory(@RequestParam String category) {
-        return ingredientService.getIngredientsByCategory(category);
+    @DeleteMapping("/deleteIngredientById")
+    public String deleteIngredientById(@RequestParam String ingredientId) {
+        ingredientService.deleteIngredientById(ingredientId);
+        return "Done!";
     }
 }

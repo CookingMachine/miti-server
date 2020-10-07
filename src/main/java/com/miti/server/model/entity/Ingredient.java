@@ -2,32 +2,32 @@ package com.miti.server.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.miti.server.enums.IngredientCategory;
-import com.miti.server.model.dto.IngredientDTO;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.util.List;
 
 @Entity
-@Data
+@Table(name = "ingredient_table")
 @NoArgsConstructor
-@JsonIgnoreProperties(ignoreUnknown = true,
-        value = {"ingredientContextList"})
+@Data
+@JsonIgnoreProperties(ignoreUnknown = true, value = {"ingredientContextList"})
 public class Ingredient {
     @Id
     private String id;
-
     private String name;
-
     private IngredientCategory category;
 
     @OneToMany(mappedBy = "ingredient")
     private List<IngredientContext> ingredientContextList;
 
-    public Ingredient(IngredientDTO dto) {
-        this.id = dto.getId();
-        this.name = dto.getName();
-        this.category = dto.getCategory();
+    public Ingredient(String id, String name, IngredientCategory category) {
+        this.id = id;
+        this.name = name;
+        this.category = category;
     }
 }

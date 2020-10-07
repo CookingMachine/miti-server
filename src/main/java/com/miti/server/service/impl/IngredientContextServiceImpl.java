@@ -1,75 +1,143 @@
 package com.miti.server.service.impl;
 
 import com.miti.server.enums.Measure;
-import com.miti.server.model.dto.IngredientContextDTO;
-import com.miti.server.model.dto.IngredientDTO;
-import com.miti.server.model.entity.Ingredient;
 import com.miti.server.model.entity.IngredientContext;
-import com.miti.server.model.entity.Recipe;
-import com.miti.server.model.form.IngredientContextForm;
 import com.miti.server.repository.IngredientContextRepository;
-import com.miti.server.repository.RecipeRepository;
 import com.miti.server.service.IngredientContextService;
 import com.miti.server.service.IngredientService;
 import com.miti.server.service.RecipeService;
+import com.miti.server.util.Check;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class IngredientContextServiceImpl implements IngredientContextService {
-
     private final IngredientContextRepository ingredientContextRepository;
     private final RecipeService recipeService;
     private final IngredientService ingredientService;
 
     @Override
-    public List<IngredientContext> getIngredientContextByRecipeId(Long recipeId) {
-        Recipe recipe = recipeService.getRecipeById(recipeId);
-        List<IngredientContext> ingredients = recipe.getIngredientContextList();
-        return ingredients;
+    public IngredientContext addIngredientContext(IngredientContext ingredientContext) {
+        if (checkFields(
+                ingredientContext.getRecipeIngredients().getId(),
+                ingredientContext.getIngredient().getId()
+        ))
+            return ingredientContextRepository.save(new IngredientContext(
+                    ingredientContext.getAmount(),
+                    ingredientContext.getMeasure(),
+                    ingredientContext.getIngredient(),
+                    ingredientContext.getRecipeIngredients()
+            ));
+        throw new RuntimeException("In recipe with id: " + ingredientContext.getRecipeIngredients().getId() + " " +
+                "already exist ingredient with id: " + ingredientContext.getIngredient().getId());
+    }
+
+    @Override
+    public void addAllIngredientContexts(List<IngredientContext> ingredientContexts) {
+        List<IngredientContext> _ingredientContexts = new ArrayList<>();
+        for (int i = 0; i < ingredientContexts.size(); i++) {
+            if (checkFields(
+                    ingredientContexts.get(i).getRecipeIngredients().getId(),
+                    ingredientContexts.get(i).getIngredient().getId()
+            ))
+            _ingredientContexts.add(ingredientContexts.get(i));
+        }
+        ingredientContextRepository.saveAll(_ingredientContexts);
+    }
+
+    @Override
+    public IngredientContext getIngredientContextById(Long ingredientContextId) {
+        return ingredientContextRepository.findById(ingredientContextId).orElseThrow(()
+                ->new RuntimeException("IngredientContext with id: " + ingredientContextId + " doesn't exist!"));
     }
 
     @Override
     public List<IngredientContext> getAllIngredientContexts() {
-        return ingredientContextRepository.findAll();
+        List<IngredientContext> ingredientContexts = ingredientContextRepository.findAll();
+        if (ingredientContexts != null)
+            return ingredientContexts;
+        throw new RuntimeException("Table is empty!\nIngredientContexts don't exist!");
     }
 
     @Override
-    public IngredientContext addIngredientContext(IngredientContextDTO dto) {
-        return addIngredientContext(new IngredientContext(dto));
+    public List<IngredientContext> getIngredientContextsByAmountLessThan(Integer amount) {
+        if (Check.param(amount)) {
+            List<IngredientContext> ingredientContexts = ingredientContextRepository.
+                    getIngredientContextsByAmountLessThan(amount);
+            if (ingredientContexts != null)
+                return ingredientContexts;
+            throw new RuntimeException("Nothing is less than: " + amount);
+        }
+        throw new RuntimeException("Amount: " + amount + " is incorrect!");
     }
 
     @Override
-    public IngredientContext addIngredientContextDTO(IngredientContextForm form) {
-        int amount = form.getAmount();
-        Measure measure = form.getMeasure();
-        Recipe recipe = recipeService.getRecipeById(form.getRecipeId());
-        Ingredient ingredient = ingredientService.getIngredientById(form.getIngredientId());
-        IngredientContextDTO dto = new IngredientContextDTO(amount, measure, ingredient, recipe);
-        return addIngredientContext(dto);
+    public List<IngredientContext> getIngredientContextByAmountGreaterThan(Integer amount) {
+        if (Check.param(amount)) {
+            List<IngredientContext> ingredientContexts = ingredientContextRepository.
+                    getIngredientContextByAmountGreaterThan(amount);
+            if (ingredientContexts != null)
+                return ingredientContexts;
+            throw new RuntimeException("Nothing is greater than: " + amount);
+        }
+        throw new RuntimeException("Amount: " + amount + " is incorrect!");
+
     }
 
     @Override
-    public IngredientContext addIngredientContext(IngredientContext ingredientContext) {
-        return ingredientContextRepository.save(ingredientContext);
+    public List<IngredientContext> getIngredientContextsByMeasure(String measureName) {
+        if (Check.param(measureName)) {
+            Measure measure = Measure.valueOf(measureName);
+            List<IngredientContext> ingredientContexts = ingredientContextRepository.
+                    getIngredientContextsByMeasure(measure);
+            if (ingredientContexts != null)
+                return ingredientContexts;
+            throw new RuntimeException("IngredientContexts with measure: " + measureName + " don't exist!");
+        }
+        throw new RuntimeException("MeasureName: " + measureName + " is incorrect!");
+
     }
 
     @Override
-    public IngredientContext getIngredientContextById(Long id) {
-        return ingredientContextRepository.findById(id).orElseThrow(()->
-                new RuntimeException("IngredientContext with id: " + id + " is not found"));
+    public List<IngredientContext> getIngredientContextsByIngredientId(String ingredientId) {
+        if (Check.param(ingredientId)) {
+            List<IngredientContext> ingredientContexts = ingredientContextRepository.
+                    getIngredientContextsByIngredient(ingredientService.getIngredientById(ingredientId));
+            if (ingredientContexts != null)
+                return ingredientContexts;
+            throw new RuntimeException("IngredientContexts with ingredientId: " + ingredientId + " don't exist!");
+        }
+        throw new RuntimeException("IngredientId: " + ingredientId + " is incorrect!");
     }
 
     @Override
-    public boolean checkFieldsExist(Long recipeId, String ingredientId) {
-        if (recipeService.getRecipeById(recipeId) != null &&
-                ingredientService.getIngredientById(ingredientId) != null)
-            return true;
-        else
+    public List<IngredientContext> getIngredientContextsByRecipeId(Long recipeId) {
+        if (Check.param(recipeId)) {
+            List<IngredientContext> ingredientContexts = ingredientContextRepository.
+                    getIngredientContextsByRecipeIngredients(recipeService.getRecipeById(recipeId));
+            if (ingredientContexts != null)
+                return ingredientContexts;
+            throw new RuntimeException("IngredientContexts with recipeId: " + recipeId + " don't exist!");
+        }
+        throw new RuntimeException("RecipeId: " + recipeId + " is incorrect!");
+    }
+
+    @Override
+    public void deleteIngredientContextById(Long ingredientContextId) {
+        ingredientContextRepository.deleteById(ingredientContextId);
+    }
+
+    private boolean checkFields(Long recipeId, String ingredientId) {
+        if (ingredientContextRepository.existsByIngredientAndRecipeIngredients(
+                ingredientService.getIngredientById(ingredientId),
+                recipeService.getRecipeById(recipeId)
+        ))
             return false;
+        return true;
     }
 }

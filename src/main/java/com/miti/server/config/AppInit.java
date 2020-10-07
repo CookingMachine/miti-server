@@ -2,10 +2,9 @@ package com.miti.server.config;
 
 import com.miti.server.enums.IngredientCategory;
 import com.miti.server.enums.Measure;
-import com.miti.server.model.dto.*;
-import com.miti.server.enums.UserRole;
+import com.miti.server.enums.Role;
 import com.miti.server.model.entity.*;
-import com.miti.server.repository.*;
+import com.miti.server.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -18,12 +17,12 @@ import java.util.List;
 @Component
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class AppInit implements ApplicationRunner {
-    private final UserRepository userRepository;
-    private final RecipeRepository recipeRepository;
-    private final CategoryRepository categoryRepository;
-    private final IngredientContextRepository ingredientContextRepository;
-    private final IngredientRepository ingredientRepository;
-    private final CommentRepository commentRepository;
+    private final UserService userService;
+    private final RecipeService recipeService;
+    private final CategoryService categoryService;
+    private final IngredientContextService ingredientContextService;
+    private final IngredientService ingredientService;
+    private final CommentService commentService;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
@@ -34,11 +33,11 @@ public class AppInit implements ApplicationRunner {
         List<Ingredient> ingredients = new ArrayList<>();
         List<Comment> comments = new ArrayList<>();
 
-        addUser(users, "admin", "$2y$12$x7e5iHinkRsboSwCh3SAQudnKUQ0ml2gkDhJv2DelXTTDAzbDOuii", "admin@gmail.com", UserRole.ADMINISTRATION);
-        addUser(users, "moder", "qwerty", "moder@gmail.com", UserRole.MODERATION);
-        addUser(users, "user", "qwerty", "user@gmail.com", UserRole.USER);
+        addUser(users, "admin", "$2y$12$lMziH.7icjkdRRpDVtaj4uAaG8qlVkBi/Hjl0e7aKsMXQY8i4HQNu", "admin@gmail.com", Role.ADMINISTRATION);
+        addUser(users, "moder", "$2y$12$zbcKnFG.OX.7r2k3nqEyj.9psdQhVzIy5eBvtVQegbPGVHupC0NHS", "moder@gmail.com", Role.MODERATION);
+        addUser(users, "user", "$2y$12$hrib5eAGooCIRrfViL4tju04yqpKdynd67YFqhCaTTPyOdjwEz1ia", "user@gmail.com", Role.USER);
 
-        userRepository.saveAll(users);
+        userService.addAllUsers(users);
 
         addCategory(categories, "firsts", "Первые блюдо");
         addCategory(categories, "seconds", "Вторые блюдо");
@@ -52,7 +51,7 @@ public class AppInit implements ApplicationRunner {
         addCategory(categories, "non_alc_drinks", "Безалкогольные напитки");
         addCategory(categories, "alc_drinks", "Алкогольные напитки");
 
-        categoryRepository.saveAll(categories);
+        categoryService.addAllCategories(categories);
 
         addIngredient(ingredients, "tomato", "Помидор", IngredientCategory.VEGETABLES);
         addIngredient(ingredients, "cucumber", "Огурец свежий", IngredientCategory.VEGETABLES);
@@ -62,60 +61,52 @@ public class AppInit implements ApplicationRunner {
         addIngredient(ingredients, "paprika_green", "Зелёный болгарский перец", IngredientCategory.VEGETABLES);
         addIngredient(ingredients, "paprika_yellow", "Жёлтый болгарский перец", IngredientCategory.VEGETABLES);
 
-        ingredientRepository.saveAll(ingredients);
+        ingredientService.addAllIngredients(ingredients);
 
         addRecipe(recipes, "Салат оливье", "Классический салат Оливье в советское время готовили исключительно с вареной колбасой, желательно - с  Докторской. Мы не оступили от традиции и приготовили Оливье по канонам  советской гастрономии.",
-                userRepository.getUserById(1L), categoryRepository.getCategoryById("salads"));
+                userService.getUserById(1L), categoryService.getCategoryById("salads"));
         addRecipe(recipes, "French Fries", "Просто рецепт приготовления картошки фри в сковороде! Картофель фри любим многими!",
-                userRepository.getUserById(2L), categoryRepository.getCategoryById("snacks"));
+                userService.getUserById(2L), categoryService.getCategoryById("snacks"));
         addRecipe(recipes, "Борщ", "Еще не знаете, какое первое блюдо сделать на обед? Я хочу показать вам несложный пошаговый способ, как приготовить самый вкусный борщ. Насыщенный, аппетитный и сытный… чудесная идея для всей семьи! Подробнее: https://povar.ru/recipes/samyi_vkusnyi_borsh-57233.html",
-                userRepository.getUserById(3L), categoryRepository.getCategoryById("firsts"));
+                userService.getUserById(3L), categoryService.getCategoryById("firsts"));
 
-        recipeRepository.saveAll(recipes);
+        recipeService.addAllRecipes(recipes);
 
-        addIngredientContext(ingredientContexts, 1, Measure.Ml, ingredientRepository.getIngredientById("cucumber"),  recipeRepository.getRecipeById(1L));
-        addIngredientContext(ingredientContexts, 2, Measure.Sl, ingredientRepository.getIngredientById("paprika_red"), recipeRepository.getRecipeById(3L));
-        addIngredientContext(ingredientContexts, 10, Measure.Sht, ingredientRepository.getIngredientById("cucumber_marinade"), recipeRepository.getRecipeById(1L));
+        addIngredientContext(ingredientContexts, 1, Measure.Ml, ingredientService.getIngredientById("cucumber"),  recipeService.getRecipeById(1L));
+        addIngredientContext(ingredientContexts, 2, Measure.Sl, ingredientService.getIngredientById("paprika_red"), recipeService.getRecipeById(3L));
+        addIngredientContext(ingredientContexts, 10, Measure.Sht, ingredientService.getIngredientById("cucumber_marinade"), recipeService.getRecipeById(1L));
 
-        ingredientContextRepository.saveAll(ingredientContexts);
+        ingredientContextService.addAllIngredientContexts(ingredientContexts);
 
-        addComments(comments, "Прекрасный рецепт. Спасибо вам огромное", 1L, 2L);
-        addComments(comments, "Очень вкуснуя картошка. А главное - быстро.", 2L, 3L);
-        addComments(comments, "Ммм, Лориса. Борщ просто вещь!", 3L, 1L);
+        addComments(comments, "Прекрасный рецепт. Спасибо вам огромное", recipeService.getRecipeById(1L), userService.getUserById(2L));
+        addComments(comments, "Очень вкуснуя картошка. А главное - быстро.", recipeService.getRecipeById(2L), userService.getUserById(3L));
+        addComments(comments, "Ммм, Лориса. Борщ просто вещь!", recipeService.getRecipeById(3L), userService.getUserById(1L));
 
-        commentRepository.saveAll(comments);
+        commentService.addAllComments(comments);
     }
 
-    private void addUser(List<User> users, String username, String password, String email, UserRole role){
-        if(!userRepository.existsByUsername(username)){
-            users.add(new User(new UserDTO(username, password, email, role)));
-        }
+    private void addUser(List<User> users, String username, String password, String email, Role role){
+        users.add(new User(username, password, email, role));
     }
 
     private void addCategory(List<Category> categories, String id, String name){
-        if(!categoryRepository.existsById(id)){
-            categories.add(new Category(new CategoryDTO(id, name)));
-        }
+            categories.add(new Category(id, name));
     }
 
-    private void addIngredientContext(List<IngredientContext> ingredientContexts, int amount,
+    private void addIngredientContext(List<IngredientContext> ingredientContexts, Integer amount,
                                       Measure measure, Ingredient ingredient, Recipe recipe) {
-        ingredientContexts.add(new IngredientContext(new IngredientContextDTO(amount, measure, ingredient, recipe)));
+        ingredientContexts.add(new IngredientContext(amount, measure, ingredient, recipe));
     }
 
     private void addIngredient(List<Ingredient> ingredients, String id, String name, IngredientCategory category){
-        if(!ingredientRepository.existsById(id)){
-            ingredients.add(new Ingredient(new IngredientDTO(id, name, category)));
-        }
+            ingredients.add(new Ingredient(id, name, category));
     }
 
     private void addRecipe(List<Recipe> recipes, String name, String description, User author, Category category ){
-        if(!recipeRepository.existsByName(name)){
-            recipes.add(new Recipe(new RecipeDTO(name, description, author, category)));
-        }
+        recipes.add(new Recipe(name, description, author, category));
     }
 
-    private void addComments(List<Comment> comments, String commentText, Long recipeId, Long userId){
-        comments.add(new Comment(new CommentDTO(commentText, recipeId, userId)));
+    private void addComments(List<Comment> comments, String commentText, Recipe recipe, User user){
+        comments.add(new Comment(commentText, user, recipe));
     }
 }
