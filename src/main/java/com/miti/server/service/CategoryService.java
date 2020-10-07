@@ -5,13 +5,11 @@ import com.miti.server.model.entity.Category;
 import java.util.List;
 
 public interface CategoryService {
-    Category addCategory(String id, String name);
+  Category addCategory(Category category);
+  void addAllCategories(List<Category> categories);
 
-    Category addCategory(Category category);
+  Category getCategoryById(String categoryId);
+  Category getCategoryByName(String name);
 
-    Category getCategoryByName(String name);
-
-    Category getCategoryById(String categoryId);
-
-    List<Category> getAllCategories();
+  void deleteCategoryById(String categoryId);
 }

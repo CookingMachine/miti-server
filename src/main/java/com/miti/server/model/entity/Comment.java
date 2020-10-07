@@ -1,38 +1,31 @@
 package com.miti.server.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.miti.server.model.dto.CommentDTO;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
-@Data
-@Table(name = "comm")
+@Table(name = "comment_table")
 @NoArgsConstructor
-@JsonIgnoreProperties(ignoreUnknown = true,
-        value = {"commentator", "recipe"})
+@Data
+@JsonIgnoreProperties(ignoreUnknown = true, value = {"commentator", "recipe"})
 public class Comment {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
+  private String comment;
 
-    private String comment;
+  @ManyToOne(fetch = FetchType.EAGER)
+  private User commentator;
 
-    private Long commentedRecipeId;
+  @ManyToOne(fetch = FetchType.EAGER)
+  private Recipe recipe;
 
-    private Long userId;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    private User commentator;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Recipe recipe;
-
-    public Comment(CommentDTO dto){
-        this.comment = dto.getCommentText();
-        this.commentedRecipeId = dto.getRecipeId();
-        this.userId = dto.getUserId();
-    }
+  public Comment(String comment, User commentator, Recipe recipe) {
+    this.comment = comment;
+    this.commentator = commentator;
+    this.recipe = recipe;
+  }
 }

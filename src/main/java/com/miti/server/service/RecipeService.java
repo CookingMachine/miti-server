@@ -1,28 +1,19 @@
 package com.miti.server.service;
 
-import com.miti.server.model.dto.RecipeDTO;
 import com.miti.server.model.entity.Recipe;
-import com.miti.server.model.entity.User;
-import com.miti.server.model.form.RecipeForm;
 
 import java.util.List;
 
 public interface RecipeService {
-    Recipe addRecipe(Recipe recipe);
+  Recipe addRecipe(Recipe recipe);
+  void addAllRecipes(List<Recipe> recipes);
 
-    Recipe addRecipe(RecipeDTO recipeDTO);
+  Recipe getRecipeById(Long recipeId);
+  Recipe getRecipeByName(String name);
 
-    Recipe getRecipeById(Long recipeId);
+  List<Recipe> getAllRecipes();
+  List<Recipe> getRecipesByAuthorId(Long authorId);
+  List<Recipe> getRecipesByCategoryId(String categoryId);
 
-    List<Recipe> getAllRecipes();
-
-    List<Recipe> getRecipesByAuthor(User author);
-
-    List<Recipe> getRecipesByAuthorId(Long id);
-
-    List<Recipe> getRecipesByCategoryId(String categoryId);
-
-    boolean checkFieldsExist(Long userId, String categoryId);
-
-    Recipe addRecipeDTO(RecipeForm recipeForm);
+  void deleteRecipeById(Long recipeId);
 }

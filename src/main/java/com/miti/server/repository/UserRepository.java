@@ -1,17 +1,20 @@
 package com.miti.server.repository;
 
+import com.miti.server.enums.Role;
 import com.miti.server.model.entity.User;
-import com.miti.server.enums.UserRole;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-    User getUserByUsername(String userName);
+  User getUserByUsername(String username);
+  User getUserByEmail(String email);
 
-    List<User> getUsersByRole(UserRole role);
+  List<User> getUsersByStatus(Boolean status);
+  List<User> getUsersByRole(Role role);
 
-    User getUserById(Long id);
-
-    boolean existsByUsername(String name);
+  boolean existsByUsername(String username);
+  boolean existsByEmail(String email);
 }

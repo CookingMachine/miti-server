@@ -5,13 +5,13 @@ import com.miti.server.model.entity.Comment;
 import java.util.List;
 
 public interface CommentService {
-    Comment addComment(Comment comment);
+  Comment addComment(Comment comment);
+  void addAllComments(List<Comment> comments);
 
-    Comment addComment(String text, Long userId, Long recipeId);
+  Comment getCommentById(Long commentId);
 
-    List<Comment> getAllComments();
+  List<Comment> getCommentsByUserId(Long userId);
+  List<Comment> getCommentsByRecipeId(Long recipeId);
 
-    List<Comment> getCommentsByCommentator(String userName);
-
-    List<Comment> getCommentsByRecipe(Long recipeId);
+  void deleteCommentById(Long commentId);
 }

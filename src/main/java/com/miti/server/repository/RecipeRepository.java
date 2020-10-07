@@ -4,15 +4,16 @@ import com.miti.server.model.entity.Category;
 import com.miti.server.model.entity.Recipe;
 import com.miti.server.model.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface RecipeRepository extends JpaRepository<Recipe, Long> {
-    List<Recipe> getRecipesByAuthor(User user);
+  Recipe getRecipeByName(String name);
 
-    List<Recipe> getRecipesByCategoryId(String categoryId);
+  List<Recipe> getRecipesByAuthor(User author);
+  List<Recipe> getRecipesByCategory(Category category);
 
-    Recipe getRecipeById(Long id);
-
-    Boolean existsByName(String name);
+  boolean existsByName(String name);
 }

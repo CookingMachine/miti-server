@@ -1,8 +1,7 @@
 package com.miti.server.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.miti.server.model.dto.UserDTO;
-import com.miti.server.enums.UserRole;
+import com.miti.server.enums.Role;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,40 +9,34 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Data
+@Table(name = "user_table")
 @NoArgsConstructor
-@Table(name = "usr")
-@JsonIgnoreProperties(ignoreUnknown = true,
-        value = {"recipeList", "commentList", "favouriteList"})
+@Data
+@JsonIgnoreProperties(ignoreUnknown = true, value = {"recipeList", "commentList", "favouriteList"})
 public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
+  private String username;
+  private String password;
+  private String email;
+  private Boolean status;
+  private Role role;
 
-    private String username;
+  @OneToMany(mappedBy = "author")
+  private List<Recipe> recipeList;
 
-    private String password;
+  @OneToMany(mappedBy = "commentator")
+  private List<Comment> commentList;
 
-    private String email;
+  @ManyToMany(mappedBy = "favouriteUsers")
+  private List<Recipe> favouriteList;
 
-    private boolean isActive = true;
-
-    private UserRole role;
-
-    @OneToMany(mappedBy = "author")
-    private List<Recipe> recipeList;
-
-    @OneToMany(mappedBy = "commentator")
-    private List<Comment> commentList;
-
-    @ManyToMany(mappedBy = "favouriteUsers")
-    private List<Recipe> favouriteList;
-
-    public User(UserDTO dto) {
-        this.username = dto.getUsername();
-        this.password = dto.getPassword();
-        this.isActive = true;
-        this.role = dto.getRole();
-        this.email = dto.getEmail();
-    }
+  public User(String username, String password, String email, Role role) {
+    this.username = username;
+    this.password = password;
+    this.email = email;
+    this.status = true;
+    this.role = role;
+  }
 }
