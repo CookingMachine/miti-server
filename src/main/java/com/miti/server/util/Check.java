@@ -2,26 +2,18 @@ package com.miti.server.util;
 
 public class Check {
     public static boolean param(String parameter) {
-        if (parameter.isEmpty() || parameter.equals(null))
-            return false;
-        return true;
+        return !parameter.isEmpty();
     }
 
     public static boolean param(Boolean parameter) {
-        if (parameter == null)
-            return false;
-        return true;
+        return parameter != null;
     }
 
     public static boolean param(Long parameter) {
-        if (parameter == null)
-            return false;
-        return true;
+        return parameter != null;
     }
 
     public static boolean param(Integer parameter) {
-        if (parameter == null)
-            return  false;
-        return true;
+        return parameter != null;
     }
 }
