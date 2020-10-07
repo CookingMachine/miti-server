@@ -3,6 +3,7 @@ package com.miti.server.model.entity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.miti.server.model.dto.RecipeDTO;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
@@ -10,6 +11,7 @@ import java.util.List;
 
 @Entity
 @Data
+@NoArgsConstructor
 @Table(name = "recipe")
 @JsonIgnoreProperties(ignoreUnknown = true,
         value = {"commentList", "ingredientContextList", "favouriteUsers"})
@@ -39,9 +41,6 @@ public class Recipe {
 
     @ManyToMany
     private List<User> favouriteUsers;
-
-    public Recipe() {
-    }
 
     public Recipe(RecipeDTO dto){
         this.name = dto.getName();

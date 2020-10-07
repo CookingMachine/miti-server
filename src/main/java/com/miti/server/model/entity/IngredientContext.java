@@ -4,11 +4,13 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.miti.server.enums.Measure;
 import com.miti.server.model.dto.IngredientContextDTO;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
 @Data
+@NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true,
         value = {"ingredients", "recipeIngredients"})
 public class IngredientContext {
@@ -26,8 +28,6 @@ public class IngredientContext {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "recipeId", nullable = false)
     private Recipe recipeIngredients;
-
-    public IngredientContext() { }
 
     public IngredientContext(IngredientContextDTO dto) {
         this.amount = dto.getAmount();

@@ -3,12 +3,14 @@ package com.miti.server.model.entity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.miti.server.model.dto.CommentDTO;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
 @Data
 @Table(name = "comm")
+@NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true,
         value = {"commentator", "recipe"})
 public class Comment {
@@ -27,9 +29,6 @@ public class Comment {
 
     @ManyToOne(fetch = FetchType.EAGER)
     private Recipe recipe;
-
-    public Comment() {
-    }
 
     public Comment(CommentDTO dto){
         this.comment = dto.getCommentText();

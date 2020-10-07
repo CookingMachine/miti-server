@@ -4,6 +4,8 @@ import com.miti.server.enums.IngredientCategory;
 import com.miti.server.model.entity.Ingredient;
 import com.miti.server.model.dto.IngredientDTO;
 import com.miti.server.service.IngredientService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,12 +16,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class IngredientControllerHTML {
-    private IngredientService ingredientService;
-
-    public IngredientControllerHTML(IngredientService ingredientService) {
-        this.ingredientService = ingredientService;
-    }
+    private final IngredientService ingredientService;
 
     @Value("${error.message}")
     private String errorMessage;

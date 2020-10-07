@@ -9,6 +9,8 @@ import com.miti.server.model.form.IngredientContextForm;
 import com.miti.server.service.IngredientContextService;
 import com.miti.server.service.IngredientService;
 import com.miti.server.service.RecipeService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,18 +21,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class IngredientContextControllerHTML {
-    private IngredientContextService ingredientContextService;
-    private IngredientService ingredientService;
-    private RecipeService recipeService;
-
-    public IngredientContextControllerHTML(IngredientContextService ingredientContextService,
-                                           IngredientService ingredientService,
-                                           RecipeService recipeService) {
-        this.ingredientContextService = ingredientContextService;
-        this.ingredientService = ingredientService;
-        this.recipeService = recipeService;
-    }
+    private final IngredientContextService ingredientContextService;
+    private final IngredientService ingredientService;
+    private final RecipeService recipeService;
 
     @Value("${error.message}")
     private String errorMessage;
