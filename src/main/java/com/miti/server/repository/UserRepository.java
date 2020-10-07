@@ -9,12 +9,12 @@ import java.util.List;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-    User getUserByUsername(String username);
-    User getUserByEmail(String email);
+  User getUserByUsername(String username);
+  User getUserByEmail(String email);
 
-    List<User> getUsersByStatus(Boolean status);
-    List<User> getUsersByRole(Role role);
+  List<User> getUsersByStatus(Boolean status);
+  List<User> getUsersByRole(Role role);
 
-    boolean existsByUsername(String username);
-    boolean existsByEmail(String email);
+  boolean existsByUsername(String username);
+  boolean existsByEmail(String email);
 }

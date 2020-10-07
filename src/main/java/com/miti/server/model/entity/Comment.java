@@ -12,20 +12,20 @@ import javax.persistence.*;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true, value = {"commentator", "recipe"})
 public class Comment {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String comment;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
+  private String comment;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    private User commentator;
+  @ManyToOne(fetch = FetchType.EAGER)
+  private User commentator;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Recipe recipe;
+  @ManyToOne(fetch = FetchType.EAGER)
+  private Recipe recipe;
 
-    public Comment(String comment, User commentator, Recipe recipe) {
-        this.comment = comment;
-        this.commentator = commentator;
-        this.recipe = recipe;
-    }
+  public Comment(String comment, User commentator, Recipe recipe) {
+    this.comment = comment;
+    this.commentator = commentator;
+    this.recipe = recipe;
+  }
 }

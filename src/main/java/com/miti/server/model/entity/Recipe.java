@@ -14,35 +14,35 @@ import java.util.List;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true, value = {"commentList", "ingredientContextList", "favouriteUsers"})
 public class Recipe {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String name;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
+  private String name;
 
-    @Size(max = 4000)
-    private String description;
+  @Size(max = 4000)
+  private String description;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User author;
+  @ManyToOne(fetch = FetchType.EAGER)
+  @JoinColumn(name = "user_id", nullable = false)
+  private User author;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "category", nullable = false)
-    private Category category;
+  @ManyToOne(fetch = FetchType.EAGER)
+  @JoinColumn(name = "category", nullable = false)
+  private Category category;
 
-    @OneToMany(mappedBy = "recipe")
-    private List<Comment> commentList;
+  @OneToMany(mappedBy = "recipe")
+  private List<Comment> commentList;
 
-    @OneToMany(mappedBy = "recipeIngredients")
-    private List<IngredientContext> ingredientContextList;
+  @OneToMany(mappedBy = "recipeIngredients")
+  private List<IngredientContext> ingredientContextList;
 
-    @ManyToMany
-    private List<User> favouriteUsers;
+  @ManyToMany
+  private List<User> favouriteUsers;
 
-    public Recipe(String name, String description, User author, Category category) {
-        this.name = name;
-        this.description = description;
-        this.author = author;
-        this.category = category;
-    }
+  public Recipe(String name, String description, User author, Category category) {
+    this.name = name;
+    this.description = description;
+    this.author = author;
+    this.category = category;
+  }
 }

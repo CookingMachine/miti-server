@@ -11,31 +11,31 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class CommentController {
-    private final CommentService commentService;
+  private final CommentService commentService;
 
-    @PostMapping("/addComment")
-    public Comment addComment(@RequestBody Comment comment) {
-        return commentService.addComment(comment);
-    }
+  @PostMapping("/addComment")
+  public Comment addComment(@RequestBody Comment comment) {
+    return commentService.addComment(comment);
+  }
 
-    @GetMapping("/getCommentById")
-    public Comment getCommentById(@RequestParam Long commentId) {
-        return commentService.getCommentById(commentId);
-    }
+  @GetMapping("/getCommentById")
+  public Comment getCommentById(@RequestParam Long commentId) {
+    return commentService.getCommentById(commentId);
+  }
 
-    @GetMapping("/getCommentsByUserId")
-    public List<Comment> getCommentsByUserId(@RequestParam Long userId) {
-        return commentService.getCommentsByUserId(userId);
-    }
+  @GetMapping("/getCommentsByUserId")
+  public List<Comment> getCommentsByUserId(@RequestParam Long userId) {
+    return commentService.getCommentsByUserId(userId);
+  }
 
-    @GetMapping("/getCommentsByRecipeId")
-    public List<Comment> getCommentsByRecipeId(@RequestParam Long recipeId) {
-        return commentService.getCommentsByRecipeId(recipeId);
-    }
+  @GetMapping("/getCommentsByRecipeId")
+  public List<Comment> getCommentsByRecipeId(@RequestParam Long recipeId) {
+    return commentService.getCommentsByRecipeId(recipeId);
+  }
 
-    @DeleteMapping("/deleteCommentById")
-    public String deleteCommentById(@RequestParam Long commentId) {
-        commentService.deleteCommentById(commentId);
-        return "Done!";
-    }
+  @DeleteMapping("/deleteCommentById")
+  public String deleteCommentById(@RequestParam Long commentId) {
+    commentService.deleteCommentById(commentId);
+    return "Done!";
+  }
 }

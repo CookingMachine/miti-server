@@ -11,11 +11,11 @@ import java.util.List;
 
 @Repository
 public interface IngredientContextRepository extends JpaRepository<IngredientContext, Long> {
-    List<IngredientContext> getIngredientContextsByAmountLessThan(Integer amount);
-    List<IngredientContext> getIngredientContextByAmountGreaterThan(Integer amount);
-    List<IngredientContext> getIngredientContextsByMeasure(Measure measure);
-    List<IngredientContext> getIngredientContextsByIngredient(Ingredient ingredient);
-    List<IngredientContext> getIngredientContextsByRecipeIngredients(Recipe recipe);
+  List<IngredientContext> getIngredientContextsByAmountLessThan(Integer amount);
+  List<IngredientContext> getIngredientContextByAmountGreaterThan(Integer amount);
+  List<IngredientContext> getIngredientContextsByMeasure(Measure measure);
+  List<IngredientContext> getIngredientContextsByIngredient(Ingredient ingredient);
+  List<IngredientContext> getIngredientContextsByRecipeIngredients(Recipe recipe);
 
-    boolean existsByIngredientAndRecipeIngredients(Ingredient ingredient, Recipe recipe);
+  boolean existsByIngredientAndRecipeIngredients(Ingredient ingredient, Recipe recipe);
 }

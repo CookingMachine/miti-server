@@ -16,15 +16,15 @@ import java.util.List;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true, value = {"recipeList"})
 public class Category {
-    @Id
-    private String id;
-    private String name;
+  @Id
+  private String id;
+  private String name;
 
-    @OneToMany(mappedBy = "category")
-    private List<Recipe> recipeList;
+  @OneToMany(mappedBy = "category")
+  private List<Recipe> recipeList;
 
-    public Category(String id, String name) {
-        this.id = id;
-        this.name = name;
-    }
+  public Category(String id, String name) {
+    this.id = id;
+    this.name = name;
+  }
 }

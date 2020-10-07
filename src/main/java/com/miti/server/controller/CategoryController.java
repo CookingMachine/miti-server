@@ -9,26 +9,26 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class CategoryController {
-    private final CategoryService categoryService;
+  private final CategoryService categoryService;
 
-    @PostMapping("/addCategory")
-    public Category addCategory(@RequestBody Category category) {
-        return categoryService.addCategory(category);
-    }
+  @PostMapping("/addCategory")
+  public Category addCategory(@RequestBody Category category) {
+    return categoryService.addCategory(category);
+  }
 
-    @GetMapping("/getCategoryById")
-    public Category getCategoryById(@RequestParam String categoryId) {
-        return categoryService.getCategoryById(categoryId);
-    }
+  @GetMapping("/getCategoryById")
+  public Category getCategoryById(@RequestParam String categoryId) {
+    return categoryService.getCategoryById(categoryId);
+  }
 
-    @GetMapping("/getCategoryByName")
-    public Category getCategoryByName(@RequestParam String name) {
-        return categoryService.getCategoryByName(name);
-    }
+  @GetMapping("/getCategoryByName")
+  public Category getCategoryByName(@RequestParam String name) {
+    return categoryService.getCategoryByName(name);
+  }
 
-    @DeleteMapping("/deleteCategoryById")
-    public String deleteCategoryById(@RequestParam String categoryId) {
-        categoryService.deleteCategoryById(categoryId);
-        return "Done!";
-    }
+  @DeleteMapping("/deleteCategoryById")
+  public String deleteCategoryById(@RequestParam String categoryId) {
+    categoryService.deleteCategoryById(categoryId);
+    return "Done!";
+  }
 }

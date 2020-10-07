@@ -17,17 +17,17 @@ import java.util.List;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true, value = {"ingredientContextList"})
 public class Ingredient {
-    @Id
-    private String id;
-    private String name;
-    private IngredientCategory category;
+  @Id
+  private String id;
+  private String name;
+  private IngredientCategory category;
 
-    @OneToMany(mappedBy = "ingredient")
-    private List<IngredientContext> ingredientContextList;
+  @OneToMany(mappedBy = "ingredient")
+  private List<IngredientContext> ingredientContextList;
 
-    public Ingredient(String id, String name, IngredientCategory category) {
-        this.id = id;
-        this.name = name;
-        this.category = category;
-    }
+  public Ingredient(String id, String name, IngredientCategory category) {
+    this.id = id;
+    this.name = name;
+    this.category = category;
+  }
 }

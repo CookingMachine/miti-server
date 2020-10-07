@@ -5,13 +5,13 @@ import com.miti.server.model.entity.Ingredient;
 import java.util.List;
 
 public interface IngredientService {
-    Ingredient addIngredient(Ingredient ingredient);
-    void addAllIngredients(List<Ingredient> ingredients);
+  Ingredient addIngredient(Ingredient ingredient);
+  void addAllIngredients(List<Ingredient> ingredients);
 
-    Ingredient getIngredientById(String ingredientId);
-    Ingredient getIngredientByName(String name);
+  Ingredient getIngredientById(String ingredientId);
+  Ingredient getIngredientByName(String name);
 
-    List<Ingredient> getIngredientsByCategory(String categoryName);
+  List<Ingredient> getIngredientsByCategory(String categoryName);
 
-    void deleteIngredientById(String ingredientId);
+  void deleteIngredientById(String ingredientId);
 }

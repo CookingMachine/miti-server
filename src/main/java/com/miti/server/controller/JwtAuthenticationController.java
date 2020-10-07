@@ -18,28 +18,28 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class JwtAuthenticationController {
-    private final AuthenticationManager authenticationManager;
-    private final JwtUtil jwtUtil;
-    private final JwtUserDetailsService userDetailsService;
+  private final AuthenticationManager authenticationManager;
+  private final JwtUtil jwtUtil;
+  private final JwtUserDetailsService userDetailsService;
 
-    @RequestMapping(value = "/auth", method = RequestMethod.POST)
-    public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
-        authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
-        final UserDetails userDetails = userDetailsService
-                .loadUserByUsername(authenticationRequest.getUsername());
+  @RequestMapping(value = "/auth", method = RequestMethod.POST)
+  public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
+    authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
+    final UserDetails userDetails = userDetailsService
+        .loadUserByUsername(authenticationRequest.getUsername());
 
-        final String token = jwtUtil.generateToken(userDetails);
+    final String token = jwtUtil.generateToken(userDetails);
 
-        return ResponseEntity.ok(new JwtResponse(token));
+    return ResponseEntity.ok(new JwtResponse(token));
+  }
+
+  private void authenticate (String username, String password) throws Exception {
+    try {
+      authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+    } catch (DisabledException de) {
+      throw new Exception("USER_DISABLED", de);
+    } catch (BadCredentialsException bce) {
+      throw new Exception("INVALID_CREDENTIALS", bce);
     }
-
-    private void authenticate (String username, String password) throws Exception {
-        try {
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-        } catch (DisabledException de) {
-            throw new Exception("USER_DISABLED", de);
-        } catch (BadCredentialsException bce) {
-            throw new Exception("INVALID_CREDENTIALS", bce);
-        }
-    }
+  }
 }

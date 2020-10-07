@@ -10,6 +10,6 @@ import java.util.List;
 
 @Repository
 public interface CommentRepository extends JpaRepository<Comment, Long> {
-    List<Comment> getCommentsByCommentator(User commentator);
-    List<Comment> getCommentsByRecipe(Recipe recipe);
+  List<Comment> getCommentsByCommentator(User commentator);
+  List<Comment> getCommentsByRecipe(Recipe recipe);
 }

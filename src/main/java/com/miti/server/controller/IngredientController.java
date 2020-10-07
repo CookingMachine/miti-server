@@ -11,31 +11,31 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class IngredientController {
-    private final IngredientService ingredientService;
+  private final IngredientService ingredientService;
 
-    @PostMapping("/addIngredient")
-    public Ingredient addIngredient(@RequestBody Ingredient ingredient) {
-        return ingredientService.addIngredient(ingredient);
-    }
+  @PostMapping("/addIngredient")
+  public Ingredient addIngredient(@RequestBody Ingredient ingredient) {
+    return ingredientService.addIngredient(ingredient);
+  }
 
-    @GetMapping("/getIngredientById")
-    public Ingredient getIngredientById(@RequestParam String ingredientId) {
-        return ingredientService.getIngredientById(ingredientId);
-    }
+  @GetMapping("/getIngredientById")
+  public Ingredient getIngredientById(@RequestParam String ingredientId) {
+    return ingredientService.getIngredientById(ingredientId);
+  }
 
-    @GetMapping("/getIngredientByName")
-    public Ingredient getIngredientByName(@RequestParam String name) {
-        return ingredientService.getIngredientByName(name);
-    }
+  @GetMapping("/getIngredientByName")
+  public Ingredient getIngredientByName(@RequestParam String name) {
+    return ingredientService.getIngredientByName(name);
+  }
 
-    @GetMapping("/getIngrentsByCategory")
-    public List<Ingredient> getIngredientsByCategory(@RequestParam String categoryName) {
-        return ingredientService.getIngredientsByCategory(categoryName);
-    }
+  @GetMapping("/getIngrentsByCategory")
+  public List<Ingredient> getIngredientsByCategory(@RequestParam String categoryName) {
+    return ingredientService.getIngredientsByCategory(categoryName);
+  }
 
-    @DeleteMapping("/deleteIngredientById")
-    public String deleteIngredientById(@RequestParam String ingredientId) {
-        ingredientService.deleteIngredientById(ingredientId);
-        return "Done!";
-    }
+  @DeleteMapping("/deleteIngredientById")
+  public String deleteIngredientById(@RequestParam String ingredientId) {
+    ingredientService.deleteIngredientById(ingredientId);
+    return "Done!";
+  }
 }

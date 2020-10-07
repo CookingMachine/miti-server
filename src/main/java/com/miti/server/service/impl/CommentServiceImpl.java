@@ -16,58 +16,58 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class CommentServiceImpl implements CommentService {
-    private final CommentRepository commentRepository;
-    private final UserService userService;
-    private final RecipeService recipeService;
+  private final CommentRepository commentRepository;
+  private final UserService userService;
+  private final RecipeService recipeService;
 
-    @Override
-    public Comment addComment(Comment comment) {
-        return commentRepository.save(new Comment(
-                comment.getComment(),
-                comment.getCommentator(),
-                comment.getRecipe()
-        ));
-    }
+  @Override
+  public Comment addComment(Comment comment) {
+    return commentRepository.save(new Comment(
+        comment.getComment(),
+        comment.getCommentator(),
+        comment.getRecipe()
+    ));
+  }
 
-    @Override
-    public void addAllComments(List<Comment> comments) {
-        List<Comment> _comments = new ArrayList<>();
-        for (int i = 0; i < comments.size(); i++) {
-            _comments.add(comments.get(i));
-        }
-        commentRepository.saveAll(_comments);
+  @Override
+  public void addAllComments(List<Comment> comments) {
+    List<Comment> _comments = new ArrayList<>();
+    for (Comment comment : comments) {
+      _comments.add(comment);
     }
+    commentRepository.saveAll(_comments);
+  }
 
-    @Override
-    public Comment getCommentById(Long commentId) {
-        return commentRepository.findById(commentId).orElseThrow(()
-                -> new RuntimeException("Comment with id: " + commentId + " doesn't exist!"));
-    }
+  @Override
+  public Comment getCommentById(Long commentId) {
+    return commentRepository.findById(commentId).orElseThrow(()
+        -> new RuntimeException("Comment with id: " + commentId + " doesn't exist!"));
+  }
 
-    @Override
-    public List<Comment> getCommentsByUserId(Long userId) {
-        if (Check.param(userId)) {
-            List<Comment> comments = commentRepository.getCommentsByCommentator(userService.getUserById(userId));
-            if (comments != null)
-                return comments;
-            throw new RuntimeException("Comments with userId: " + userId + " doesn't exist!");
-        }
-        throw new RuntimeException("UserId: " + userId + " is incorrect!");
+  @Override
+  public List<Comment> getCommentsByUserId(Long userId) {
+    if (Check.param(userId)) {
+      List<Comment> comments = commentRepository.getCommentsByCommentator(userService.getUserById(userId));
+      if (comments != null)
+        return comments;
+      throw new RuntimeException("Comments with userId: " + userId + " doesn't exist!");
     }
+    throw new RuntimeException("UserId: " + userId + " is incorrect!");
+  }
 
-    @Override
-    public List<Comment> getCommentsByRecipeId(Long recipeId) {
-        if (Check.param(recipeId)) {
-            List<Comment> comments = commentRepository.getCommentsByRecipe(recipeService.getRecipeById(recipeId));
-            if (comments != null)
-                return comments;
-            throw new RuntimeException("Comments with recipeId: " + recipeId + " doesn't exist!");
-        }
-        throw new RuntimeException("RecipeId: " + recipeId + " is incorrect!");
+  @Override
+  public List<Comment> getCommentsByRecipeId(Long recipeId) {
+    if (Check.param(recipeId)) {
+      List<Comment> comments = commentRepository.getCommentsByRecipe(recipeService.getRecipeById(recipeId));
+      if (comments != null)
+        return comments;
+      throw new RuntimeException("Comments with recipeId: " + recipeId + " doesn't exist!");
     }
+    throw new RuntimeException("RecipeId: " + recipeId + " is incorrect!");
+  }
 
-    @Override
-    public void deleteCommentById(Long commentId) {
-        commentRepository.deleteById(commentId);
-    }
+  @Override
+  public void deleteCommentById(Long commentId) {
+    commentRepository.deleteById(commentId);
+  }
 }

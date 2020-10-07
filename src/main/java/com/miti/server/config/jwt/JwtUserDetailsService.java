@@ -12,11 +12,11 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class JwtUserDetailsService implements UserDetailsService {
-    private final UserRepository userRepository;
+  private final UserRepository userRepository;
 
-    @Override
-    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        User user = userRepository.getUserByUsername(s);
-        return JwtUserDetails.fromUserEntityToCustomUserDetails(user);
-    }
+  @Override
+  public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+    User user = userRepository.getUserByUsername(s);
+    return JwtUserDetails.fromUserEntityToCustomUserDetails(user);
+  }
 }

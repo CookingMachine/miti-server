@@ -5,17 +5,17 @@ import com.miti.server.model.entity.IngredientContext;
 import java.util.List;
 
 public interface IngredientContextService {
-    IngredientContext addIngredientContext(IngredientContext ingredientContext);
-    void addAllIngredientContexts(List<IngredientContext> ingredientContexts);
+  IngredientContext addIngredientContext(IngredientContext ingredientContext);
+  void addAllIngredientContexts(List<IngredientContext> ingredientContexts);
 
-    IngredientContext getIngredientContextById(Long ingredientContextId);
+  IngredientContext getIngredientContextById(Long ingredientContextId);
 
-    List<IngredientContext> getAllIngredientContexts();
-    List<IngredientContext> getIngredientContextsByAmountLessThan(Integer amount);
-    List<IngredientContext> getIngredientContextByAmountGreaterThan(Integer amount);
-    List<IngredientContext> getIngredientContextsByMeasure(String measureName);
-    List<IngredientContext> getIngredientContextsByIngredientId(String ingredientId);
-    List<IngredientContext> getIngredientContextsByRecipeId(Long recipeId);
+  List<IngredientContext> getAllIngredientContexts();
+  List<IngredientContext> getIngredientContextsByAmountLessThan(Integer amount);
+  List<IngredientContext> getIngredientContextByAmountGreaterThan(Integer amount);
+  List<IngredientContext> getIngredientContextsByMeasure(String measureName);
+  List<IngredientContext> getIngredientContextsByIngredientId(String ingredientId);
+  List<IngredientContext> getIngredientContextsByRecipeId(Long recipeId);
 
-    void deleteIngredientContextById(Long ingredientContextId);
+  void deleteIngredientContextById(Long ingredientContextId);
 }
