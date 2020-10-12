@@ -20,7 +20,7 @@
 |GET `/getAllUsers`|none|{<br>"id": 1,<br>"username": "admin",<br>"password": "$2a$10$BoPu...",<br>"email": "qwerty@miti.ar",<br>"status": true,<br>"role": "ADMIN"<br>}||
 |GET `/getAllUsersByStatus`|Param: link.com/<br>getUsersByStatus?status=true|{<br>"id": 1,<br>"username": "admin",<br>"password": "$2a$10$BoPu...",<br>"email": "qwerty@miti.ar",<br>"status": true,<br>"role": "ADMIN"<br>}|Status:<br>true - active<br>false - inactive|
 |GET `/getAllUsersByRole`|Param: link.com/<br>getUsersByRole?roleName=USER|{<br>"id": 1,<br>"username": "admin",<br>"password": "$2a$10$BoPu...",<br>"email": "qwerty@miti.ar",<br>"status": true,<br>"role": "USER"<br>}|Rolename: <br>USER<br>MODERATION<br>ADMINISTRATION|
-|DELETE `/deleteUserById`|Param: link.com/<br>deleteUserById?userId=1|"Done!" if user was deleted!<br>NULL if bad request!||
+|DELETE `/deleteUserById`|Param: link.com/<br>deleteUserById?userId=1|"Done!" if user has been deleted!||
 ## Запросы к таблице Recipe
 |Request's name|Request param/body|Response format|Description|
 |---|---|---|---|
@@ -29,3 +29,5 @@
 |GET `/getRecipeByName`|Param: link.com/<br>getRecipeByName?name=Борщ|{<br>"id": 3,<br>"name": "Борщ",<br>"description": "Еще",<br>"author": {<br>"id": 3,<br>"username": "user",<br>"password": "$2y$12$hri...",<br>"email": "user@gmail.com",<br>"status": true,<br>"role": "USER"<br>},<br>"category": {<br>"id": "firsts",<br>"name": "Первые блюдо"<br>},<br>"ingredientContextList": null<br>}||
 |GET `/getAllRecipes`|none|{<br>"id": 3,<br>"name": "Борщ",<br>"description": "Еще",<br>"author": {<br>"id": 3,<br>"username": "user",<br>"password": "$2y$12$hri...",<br>"email": "user@gmail.com",<br>"status": true,<br>"role": "USER"<br>},<br>"category": {<br>"id": "firsts",<br>"name": "Первые блюдо"<br>},<br>"ingredientContextList": null<br>}||
 |GET `/getRecipesByAuthorId`|Param: link.com/<br>getRecipesByAuthorId?authorId=3|{<br>"id": 3,<br>"name": "Борщ",<br>"description": "Еще",<br>"author": {<br>"id": 3,<br>"username": "user",<br>"password": "$2y$12$hri...",<br>"email": "user@gmail.com",<br>"status": true,<br>"role": "USER"<br>},<br>"category": {<br>"id": "firsts",<br>"name": "Первые блюдо"<br>},<br>"ingredientContextList": null<br>}||
+|GET `/getRecipesByCategoryId`|Param: link.com/<br>getRecipesByCategoryId?categoryId=salads|{<br>"id": 1,<br>"name": "Салат оливье",<br>"description": "Кл",<br>"author": {<br>"id": 1,<br>"username": "admin",<br>"password": "$2y$1...",<br>"email": "admin@gmail.com",<br>"status": true,<br>"role": "ADMINISTRATION"<br>},<br>"category": {<br>"id": "salads",<br>"name": "Салаты",<br>},<br>"ingredientContextList": null<br>}|categoryId является строчным полем|
+|DELETE `/deleteRecipeById`|Param: link.com/<br>deleteRecipeById?recipeId=1|"Done!" if recipe has been deleted||
