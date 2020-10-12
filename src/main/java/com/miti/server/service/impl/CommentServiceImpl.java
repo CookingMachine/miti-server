@@ -31,11 +31,7 @@ public class CommentServiceImpl implements CommentService {
 
   @Override
   public void addAllComments(List<Comment> comments) {
-    List<Comment> _comments = new ArrayList<>();
-    for (Comment comment : comments) {
-      _comments.add(comment);
-    }
-    commentRepository.saveAll(_comments);
+    commentRepository.saveAll(comments);
   }
 
   @Override

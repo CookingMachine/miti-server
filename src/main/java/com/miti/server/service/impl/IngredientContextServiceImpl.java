@@ -1,6 +1,7 @@
 package com.miti.server.service.impl;
 
 import com.miti.server.enums.Measure;
+import com.miti.server.model.dto.IngredientContextDTO;
 import com.miti.server.model.entity.IngredientContext;
 import com.miti.server.repository.IngredientContextRepository;
 import com.miti.server.service.IngredientContextService;
@@ -22,19 +23,19 @@ public class IngredientContextServiceImpl implements IngredientContextService {
   private final IngredientService ingredientService;
 
   @Override
-  public IngredientContext addIngredientContext(IngredientContext ingredientContext) {
+  public IngredientContext addIngredientContext(IngredientContextDTO ingredientContext) {
     if (checkFields(
-        ingredientContext.getRecipeIngredients().getId(),
-        ingredientContext.getIngredient().getId()
+        ingredientContext.getRecipeId(),
+        ingredientContext.getIngredientId()
     ))
       return ingredientContextRepository.save(new IngredientContext(
           ingredientContext.getAmount(),
           ingredientContext.getMeasure(),
-          ingredientContext.getIngredient(),
-          ingredientContext.getRecipeIngredients()
+          ingredientService.getIngredientById(ingredientContext.getIngredientId()),
+          recipeService.getRecipeById(ingredientContext.getRecipeId())
       ));
-    throw new RuntimeException("In recipe with id: " + ingredientContext.getRecipeIngredients().getId() + " " +
-        "already exist ingredient with id: " + ingredientContext.getIngredient().getId());
+    throw new RuntimeException("In recipe with id: " + ingredientContext.getRecipeId() + " " +
+        "already exist ingredient with id: " + ingredientContext.getIngredientId());
   }
 
   @Override
@@ -62,7 +63,7 @@ public class IngredientContextServiceImpl implements IngredientContextService {
   }
 
   @Override
-  public List<IngredientContext> getIngredientContextsByAmountLessThan(Integer amount) {
+  public List<IngredientContext> getIngredientContextsByAmountLessThan(Long amount) {
     if (Check.param(amount)) {
       List<IngredientContext> ingredientContexts = ingredientContextRepository.
           getIngredientContextsByAmountLessThan(amount);
@@ -74,7 +75,7 @@ public class IngredientContextServiceImpl implements IngredientContextService {
   }
 
   @Override
-  public List<IngredientContext> getIngredientContextByAmountGreaterThan(Integer amount) {
+  public List<IngredientContext> getIngredientContextByAmountGreaterThan(Long amount) {
     if (Check.param(amount)) {
       List<IngredientContext> ingredientContexts = ingredientContextRepository.
           getIngredientContextByAmountGreaterThan(amount);

@@ -12,7 +12,7 @@ import java.util.List;
 @Table(name = "recipe_table")
 @NoArgsConstructor
 @Data
-@JsonIgnoreProperties(ignoreUnknown = true, value = {"commentList", "ingredientContextList", "favouriteUsers"})
+@JsonIgnoreProperties(ignoreUnknown = true, value = {"favouriteUsers"})
 public class Recipe {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

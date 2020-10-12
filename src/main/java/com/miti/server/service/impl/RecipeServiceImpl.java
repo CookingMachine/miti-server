@@ -1,10 +1,12 @@
 package com.miti.server.service.impl;
 
+import com.miti.server.model.entity.Comment;
+import com.miti.server.model.entity.IngredientContext;
 import com.miti.server.model.entity.Recipe;
+import com.miti.server.repository.CommentRepository;
+import com.miti.server.repository.IngredientContextRepository;
 import com.miti.server.repository.RecipeRepository;
-import com.miti.server.service.CategoryService;
-import com.miti.server.service.RecipeService;
-import com.miti.server.service.UserService;
+import com.miti.server.service.*;
 import com.miti.server.util.Check;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,9 @@ import java.util.List;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class RecipeServiceImpl implements RecipeService {
   private final RecipeRepository recipeRepository;
+  private final CommentRepository commentRepository;
+  private final IngredientContextRepository ingredientContextRepository;
+
   private final UserService userService;
   private final CategoryService categoryService;
 
@@ -61,8 +66,7 @@ public class RecipeServiceImpl implements RecipeService {
 
   @Override
   public List<Recipe> getAllRecipes() {
-    List<Recipe> recipes = recipeRepository.findAll();
-    return recipes;
+    return recipeRepository.findAll();
   }
 
   @Override
@@ -89,7 +93,27 @@ public class RecipeServiceImpl implements RecipeService {
 
   @Override
   public void deleteRecipeById(Long recipeId) {
-    recipeRepository.deleteById(recipeId);
+    Recipe recipe = recipeRepository.findById(recipeId).orElseThrow(()
+        -> new RuntimeException("Recipe with id: " + recipeId + " doesn't exist!"));
+    List<Comment> comments = recipe.getCommentList();
+    List<IngredientContext> ingredientContexts = recipe.getIngredientContextList();
+    for (Comment comment : comments) {
+      deleteCommentById(comment.getId());
+    }
+    for (IngredientContext ingredientContext : ingredientContexts) {
+      deleteIngredientContextById(ingredientContext.getId());
+    }
+      recipeRepository.deleteById(recipeId);
+  }
+
+  @Override
+  public void deleteCommentById(Long commentId) {
+    commentRepository.deleteById(commentId);
+  }
+
+  @Override
+  public void deleteIngredientContextById(Long ingredientContextId) {
+    ingredientContextRepository.deleteById(ingredientContextId);
   }
 
   private boolean checkFields(String name) {

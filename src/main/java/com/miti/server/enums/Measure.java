@@ -8,5 +8,5 @@ public enum Measure {
   Sht,
   St,
   Sl,
-  Chl;
+  Chl
 }

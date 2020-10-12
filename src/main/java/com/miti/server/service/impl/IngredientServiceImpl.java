@@ -59,6 +59,11 @@ public class IngredientServiceImpl implements IngredientService{
   }
 
   @Override
+  public List<Ingredient> getAllIngredients() {
+    return ingredientRepository.findAll();
+  }
+
+  @Override
   public List<Ingredient> getIngredientsByCategory(String categoryName) {
     if (Check.param(categoryName)) {
       IngredientCategory category = IngredientCategory.valueOf(categoryName);

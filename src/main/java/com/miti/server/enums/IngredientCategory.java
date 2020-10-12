@@ -11,5 +11,5 @@ public enum IngredientCategory {
   GREENERY,
   OILS,
   EXTRA,
-  UNKNOWN;
+  UNKNOWN
 }

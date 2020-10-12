@@ -8,27 +8,27 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "ingredientContext_table")
+@Table(name = "ingredient_context_table")
 @NoArgsConstructor
 @Data
-@JsonIgnoreProperties(ignoreUnknown = true, value = {"ingredients", "recipeIngredients"})
+@JsonIgnoreProperties(ignoreUnknown = true, value = {"recipeIngredients"})
 public class IngredientContext {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  private Integer amount;
+  private Long amount;
   private Measure measure;
 
   @ManyToOne(fetch = FetchType.EAGER)
-  @JoinColumn(name = "ingredientId", nullable = false)
+  @JoinColumn(name = "ingredient_id", nullable = false)
   private Ingredient ingredient;
 
   @ManyToOne(fetch = FetchType.EAGER)
-  @JoinColumn(name = "recipeId", nullable = false)
+  @JoinColumn(name = "recipe_id", nullable = false)
   private Recipe recipeIngredients;
 
-  public IngredientContext(Integer amount, Measure measure, Ingredient ingredient, Recipe recipe) {
+  public IngredientContext(Long amount, Measure measure, Ingredient ingredient, Recipe recipe) {
     this.amount = amount;
     this.measure = measure;
     this.ingredient = ingredient;

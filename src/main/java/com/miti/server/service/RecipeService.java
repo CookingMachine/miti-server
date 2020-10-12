@@ -16,4 +16,6 @@ public interface RecipeService {
   List<Recipe> getRecipesByCategoryId(String categoryId);
 
   void deleteRecipeById(Long recipeId);
+  void deleteCommentById(Long commentId);
+  void deleteIngredientContextById(Long id);
 }

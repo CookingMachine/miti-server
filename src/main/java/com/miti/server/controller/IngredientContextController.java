@@ -1,5 +1,6 @@
 package com.miti.server.controller;
 
+import com.miti.server.model.dto.IngredientContextDTO;
 import com.miti.server.model.entity.IngredientContext;
 import com.miti.server.service.IngredientContextService;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +15,7 @@ public class IngredientContextController {
   private final IngredientContextService ingredientContextService;
 
   @PostMapping("/addIngredientContext")
-  public IngredientContext addIngredientContext(@RequestBody IngredientContext ingredientContext) {
+  public IngredientContext addIngredientContext(@RequestBody IngredientContextDTO ingredientContext) {
     return ingredientContextService.addIngredientContext(ingredientContext);
   }
 
@@ -29,12 +30,12 @@ public class IngredientContextController {
   }
 
   @GetMapping("/getIngredientContextsByAmountLessThan")
-  public List<IngredientContext> getIngredientContextByAmountLessThan(@RequestParam Integer amount) {
+  public List<IngredientContext> getIngredientContextByAmountLessThan(@RequestParam Long amount) {
     return ingredientContextService.getIngredientContextsByAmountLessThan(amount);
   }
 
   @GetMapping("/getIngredientContextsByAmountGreaterThan")
-  public List<IngredientContext> getIngredientContextByAmountGreaterThan(@RequestParam Integer amount) {
+  public List<IngredientContext> getIngredientContextByAmountGreaterThan(@RequestParam Long amount) {
     return ingredientContextService.getIngredientContextByAmountGreaterThan(amount);
   }
 
