@@ -1,7 +1,6 @@
 package com.miti.server.service.impl;
 
 import com.miti.server.enums.Measure;
-import com.miti.server.model.dto.IngredientContextDTO;
 import com.miti.server.model.entity.IngredientContext;
 import com.miti.server.repository.IngredientContextRepository;
 import com.miti.server.service.IngredientContextService;
@@ -23,19 +22,19 @@ public class IngredientContextServiceImpl implements IngredientContextService {
   private final IngredientService ingredientService;
 
   @Override
-  public IngredientContext addIngredientContext(IngredientContextDTO ingredientContext) {
+  public IngredientContext addIngredientContext(IngredientContext ingredientContext) {
     if (checkFields(
-        ingredientContext.getRecipeId(),
-        ingredientContext.getIngredientId()
+        ingredientContext.getIngredient().getId(),
+        ingredientContext.getRecipe().getId()
     ))
       return ingredientContextRepository.save(new IngredientContext(
           ingredientContext.getAmount(),
           ingredientContext.getMeasure(),
-          ingredientService.getIngredientById(ingredientContext.getIngredientId()),
-          recipeService.getRecipeById(ingredientContext.getRecipeId())
+          ingredientService.getIngredientById(ingredientContext.getIngredient().getId()),
+          recipeService.getRecipeById(ingredientContext.getRecipe().getId())
       ));
-    throw new RuntimeException("In recipe with id: " + ingredientContext.getRecipeId() + " " +
-        "already exist ingredient with id: " + ingredientContext.getIngredientId());
+    throw new RuntimeException("In recipe with id: " + ingredientContext.getRecipe().getId() + " " +
+        "already exist ingredient with id: " + ingredientContext.getIngredient().getId());
   }
 
   @Override
@@ -43,8 +42,8 @@ public class IngredientContextServiceImpl implements IngredientContextService {
     List<IngredientContext> _ingredientContexts = new ArrayList<>();
     for (IngredientContext ingredientContext : ingredientContexts) {
       if (checkFields(
-          ingredientContext.getRecipeIngredients().getId(),
-          ingredientContext.getIngredient().getId()
+          ingredientContext.getIngredient().getId(),
+          ingredientContext.getRecipe().getId()
       ))
         _ingredientContexts.add(ingredientContext);
     }
@@ -117,7 +116,7 @@ public class IngredientContextServiceImpl implements IngredientContextService {
   public List<IngredientContext> getIngredientContextsByRecipeId(Long recipeId) {
     if (Check.param(recipeId)) {
       List<IngredientContext> ingredientContexts = ingredientContextRepository.
-          getIngredientContextsByRecipeIngredients(recipeService.getRecipeById(recipeId));
+          getIngredientContextsByRecipe(recipeService.getRecipeById(recipeId));
       if (ingredientContexts != null)
         return ingredientContexts;
       throw new RuntimeException("IngredientContexts with recipeId: " + recipeId + " don't exist!");
@@ -130,8 +129,8 @@ public class IngredientContextServiceImpl implements IngredientContextService {
     ingredientContextRepository.deleteById(ingredientContextId);
   }
 
-  private boolean checkFields(Long recipeId, String ingredientId) {
-    return !ingredientContextRepository.existsByIngredientAndRecipeIngredients(
+  private boolean checkFields(String ingredientId, Long recipeId) {
+    return !ingredientContextRepository.existsByIngredientAndRecipe(
         ingredientService.getIngredientById(ingredientId),
         recipeService.getRecipeById(recipeId)
     );

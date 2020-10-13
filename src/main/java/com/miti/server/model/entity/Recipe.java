@@ -12,7 +12,7 @@ import java.util.List;
 @Table(name = "recipe_table")
 @NoArgsConstructor
 @Data
-@JsonIgnoreProperties(ignoreUnknown = true, value = {"favouriteUsers"})
+@JsonIgnoreProperties(ignoreUnknown = true, value = {"commentList", "ingredientContextList", "favouriteUsers"})
 public class Recipe {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,7 +33,7 @@ public class Recipe {
   @OneToMany(mappedBy = "recipe")
   private List<Comment> commentList;
 
-  @OneToMany(mappedBy = "recipeIngredients")
+  @OneToMany(mappedBy = "recipe")
   private List<IngredientContext> ingredientContextList;
 
   @ManyToMany

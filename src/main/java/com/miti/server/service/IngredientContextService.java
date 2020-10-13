@@ -1,12 +1,11 @@
 package com.miti.server.service;
 
-import com.miti.server.model.dto.IngredientContextDTO;
 import com.miti.server.model.entity.IngredientContext;
 
 import java.util.List;
 
 public interface IngredientContextService {
-  IngredientContext addIngredientContext(IngredientContextDTO ingredientContext);
+  IngredientContext addIngredientContext(IngredientContext ingredientContext);
   void addAllIngredientContexts(List<IngredientContext> ingredientContexts);
 
   IngredientContext getIngredientContextById(Long ingredientContextId);

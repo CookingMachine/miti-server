@@ -1,6 +1,5 @@
 package com.miti.server.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,7 +9,6 @@ import javax.persistence.*;
 @Table(name = "comment_table")
 @NoArgsConstructor
 @Data
-@JsonIgnoreProperties(ignoreUnknown = true, value = {"commentator", "recipe"})
 public class Comment {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

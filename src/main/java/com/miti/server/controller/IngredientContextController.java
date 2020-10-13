@@ -1,6 +1,5 @@
 package com.miti.server.controller;
 
-import com.miti.server.model.dto.IngredientContextDTO;
 import com.miti.server.model.entity.IngredientContext;
 import com.miti.server.service.IngredientContextService;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +14,7 @@ public class IngredientContextController {
   private final IngredientContextService ingredientContextService;
 
   @PostMapping("/addIngredientContext")
-  public IngredientContext addIngredientContext(@RequestBody IngredientContextDTO ingredientContext) {
+  public IngredientContext addIngredientContext(@RequestBody IngredientContext ingredientContext) {
     return ingredientContextService.addIngredientContext(ingredientContext);
   }
 

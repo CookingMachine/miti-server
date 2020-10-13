@@ -15,7 +15,7 @@ public interface IngredientContextRepository extends JpaRepository<IngredientCon
   List<IngredientContext> getIngredientContextByAmountGreaterThan(Long amount);
   List<IngredientContext> getIngredientContextsByMeasure(Measure measure);
   List<IngredientContext> getIngredientContextsByIngredient(Ingredient ingredient);
-  List<IngredientContext> getIngredientContextsByRecipeIngredients(Recipe recipe);
+  List<IngredientContext> getIngredientContextsByRecipe(Recipe recipe);
 
-  boolean existsByIngredientAndRecipeIngredients(Ingredient ingredient, Recipe recipe);
+  boolean existsByIngredientAndRecipe(Ingredient ingredient, Recipe recipe);
 }
