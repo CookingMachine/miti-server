@@ -1,7 +1,13 @@
 package com.miti.server.service.impl;
 
 import com.miti.server.enums.Role;
+import com.miti.server.model.entity.Comment;
+import com.miti.server.model.entity.ContextIngredient;
+import com.miti.server.model.entity.Recipe;
 import com.miti.server.model.entity.User;
+import com.miti.server.repository.CommentRepository;
+import com.miti.server.repository.ContextIngredientRepository;
+import com.miti.server.repository.RecipeRepository;
 import com.miti.server.repository.UserRepository;
 import com.miti.server.service.UserService;
 import com.miti.server.util.Check;
@@ -17,6 +23,9 @@ import java.util.List;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class UserServiceImpl implements UserService {
   private final UserRepository userRepository;
+  private final RecipeRepository recipeRepository;
+  private final CommentRepository commentRepository;
+  private final ContextIngredientRepository contextIngredientRepository;
   private final PasswordEncoder passwordEncoder;
 
   @Override
@@ -101,7 +110,37 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public void deleteById(Long userId) {
+    User user = getUserById(userId);
+    List<Recipe> recipes = user.getRecipeList();
+    for (Recipe recipe : recipes) {
+      List<ContextIngredient> contextIngredients = recipe.getContextIngredientList();
+      List<Comment> comments = recipe.getCommentList();
+      for (ContextIngredient contextIngredient : contextIngredients)
+        deleteIngredientContextById(contextIngredient.getId());
+      for (Comment comment : comments)
+        deleteCommentById(comment.getId());
+      deleteRecipeById(recipe.getId());
+    }
+
+    List<Comment> comments = user.getCommentList();
+    for (Comment comment : comments)
+      deleteCommentById(comment.getId());
     userRepository.deleteById(userId);
+  }
+
+  @Override
+  public void deleteRecipeById(Long recipeId) {
+    recipeRepository.deleteById(recipeId);
+  }
+
+  @Override
+  public void deleteCommentById(Long commentId) {
+    commentRepository.deleteById(commentId);
+  }
+
+  @Override
+  public void deleteIngredientContextById(Long id) {
+    contextIngredientRepository.deleteById(id);
   }
 
   public boolean existsByUsernameAndEmail(String username, String email) {

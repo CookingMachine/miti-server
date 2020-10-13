@@ -8,7 +8,7 @@ public interface ContextIngredientService {
   ContextIngredient addContextIngredient(ContextIngredient contextIngredient);
   void addAllContextIngredients(List<ContextIngredient> contextIngredients);
 
-  ContextIngredient getContextIngredientById(Long ingredientContextId);
+  ContextIngredient getContextIngredientById(Long contextIngredientId);
 
   List<ContextIngredient> getAllContextIngredients();
   List<ContextIngredient> getContextIngredientsByAmountLessThan(Long amount);
@@ -17,5 +17,5 @@ public interface ContextIngredientService {
   List<ContextIngredient> getContextIngredientsByIngredientId(String ingredientId);
   List<ContextIngredient> getContextIngredientsByRecipeId(Long recipeId);
 
-  void deleteContextIngredientById(Long ingredientContextId);
+  void deleteContextIngredientById(Long contextIngredientId);
 }

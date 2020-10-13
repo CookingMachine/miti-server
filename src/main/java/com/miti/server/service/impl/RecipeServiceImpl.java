@@ -31,8 +31,8 @@ public class RecipeServiceImpl implements RecipeService {
       return recipeRepository.save(new Recipe(
           recipe.getName(),
           recipe.getDescription(),
-          recipe.getAuthor(),
-          recipe.getCategory()
+          userService.getUserById(recipe.getAuthor().getId()),
+          categoryService.getCategoryById(recipe.getCategory().getId())
       ));
     throw new RuntimeException("Recipe with name: " + recipe.getName() + " already exists!");
   }
@@ -93,17 +93,14 @@ public class RecipeServiceImpl implements RecipeService {
 
   @Override
   public void deleteRecipeById(Long recipeId) {
-    Recipe recipe = recipeRepository.findById(recipeId).orElseThrow(()
-        -> new RuntimeException("Recipe with id: " + recipeId + " doesn't exist!"));
+    Recipe recipe = getRecipeById(recipeId);
     List<Comment> comments = recipe.getCommentList();
     List<ContextIngredient> contextIngredients = recipe.getContextIngredientList();
-    for (Comment comment : comments) {
+    for (Comment comment : comments)
       deleteCommentById(comment.getId());
-    }
-    for (ContextIngredient contextIngredient : contextIngredients) {
+    for (ContextIngredient contextIngredient : contextIngredients)
       deleteIngredientContextById(contextIngredient.getId());
-    }
-      recipeRepository.deleteById(recipeId);
+    recipeRepository.deleteById(recipeId);
   }
 
   @Override

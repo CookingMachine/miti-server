@@ -51,9 +51,9 @@ public class ContextIngredientServiceImpl implements ContextIngredientService {
   }
 
   @Override
-  public ContextIngredient getContextIngredientById(Long ingredientContextId) {
-    return contextIngredientRepository.findById(ingredientContextId).orElseThrow(()
-        ->new RuntimeException("IngredientContext with id: " + ingredientContextId + " doesn't exist!"));
+  public ContextIngredient getContextIngredientById(Long contextIngredientId) {
+    return contextIngredientRepository.findById(contextIngredientId).orElseThrow(()
+        ->new RuntimeException("ContextIngredient with id: " + contextIngredientId + " doesn't exist!"));
   }
 
   @Override
@@ -94,7 +94,7 @@ public class ContextIngredientServiceImpl implements ContextIngredientService {
           getContextIngredientsByMeasure(measure);
       if (contextIngredients != null)
         return contextIngredients;
-      throw new RuntimeException("IngredientContexts with measure: " + measureName + " don't exist!");
+      throw new RuntimeException("ContextIngredient with measure: " + measureName + " don't exist!");
     }
     throw new RuntimeException("MeasureName: " + measureName + " is incorrect!");
 
@@ -107,7 +107,7 @@ public class ContextIngredientServiceImpl implements ContextIngredientService {
           getContextIngredientsByIngredient(ingredientService.getIngredientById(ingredientId));
       if (contextIngredients != null)
         return contextIngredients;
-      throw new RuntimeException("IngredientContexts with ingredientId: " + ingredientId + " don't exist!");
+      throw new RuntimeException("ContextIngredient with ingredientId: " + ingredientId + " don't exist!");
     }
     throw new RuntimeException("IngredientId: " + ingredientId + " is incorrect!");
   }
@@ -119,14 +119,14 @@ public class ContextIngredientServiceImpl implements ContextIngredientService {
           getContextIngredientsByRecipe(recipeService.getRecipeById(recipeId));
       if (contextIngredients != null)
         return contextIngredients;
-      throw new RuntimeException("IngredientContexts with recipeId: " + recipeId + " don't exist!");
+      throw new RuntimeException("ContextIngredient with recipeId: " + recipeId + " don't exist!");
     }
     throw new RuntimeException("RecipeId: " + recipeId + " is incorrect!");
   }
 
   @Override
-  public void deleteContextIngredientById(Long ingredientContextId) {
-    contextIngredientRepository.deleteById(ingredientContextId);
+  public void deleteContextIngredientById(Long contextIngredientId) {
+    contextIngredientRepository.deleteById(contextIngredientId);
   }
 
   private boolean existsByIngredientIdAndRecipeId(String ingredientId, Long recipeId) {
