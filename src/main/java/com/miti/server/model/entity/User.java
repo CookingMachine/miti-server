@@ -1,6 +1,7 @@
 package com.miti.server.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.miti.server.enums.Role;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,6 +22,7 @@ public class User {
   @Column(name = "USERNAME")
   private String username;
   @Column(name = "PASSWORD")
+  @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
   private String password;
   @Column(name = "EMAIL")
   private String email;
