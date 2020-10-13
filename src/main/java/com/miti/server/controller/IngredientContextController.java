@@ -1,7 +1,7 @@
 package com.miti.server.controller;
 
-import com.miti.server.model.entity.IngredientContext;
-import com.miti.server.service.IngredientContextService;
+import com.miti.server.model.entity.ContextIngredient;
+import com.miti.server.service.ContextIngredientService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -11,51 +11,51 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class IngredientContextController {
-  private final IngredientContextService ingredientContextService;
+  private final ContextIngredientService contextIngredientService;
 
-  @PostMapping("/addIngredientContext")
-  public IngredientContext addIngredientContext(@RequestBody IngredientContext ingredientContext) {
-    return ingredientContextService.addIngredientContext(ingredientContext);
+  @PostMapping("/addContextIngredient")
+  public ContextIngredient addIngredientContext(@RequestBody ContextIngredient contextIngredient) {
+    return contextIngredientService.addContextIngredient(contextIngredient);
   }
 
-  @GetMapping("/getIngredientContextById")
-  public IngredientContext getIngredientContextById(@RequestParam Long ingredientContextId) {
-    return ingredientContextService.getIngredientContextById(ingredientContextId);
+  @GetMapping("/getContextIngredientsById")
+  public ContextIngredient getIngredientContextById(@RequestParam Long ingredientContextId) {
+    return contextIngredientService.getContextIngredientById(ingredientContextId);
   }
 
-  @GetMapping("/getAllIngredientContexts")
-  public List<IngredientContext> getAllIngredientContexts() {
-    return ingredientContextService.getAllIngredientContexts();
+  @GetMapping("/getAllContextIngredients")
+  public List<ContextIngredient> getAllIngredientContexts() {
+    return contextIngredientService.getAllContextIngredients();
   }
 
-  @GetMapping("/getIngredientContextsByAmountLessThan")
-  public List<IngredientContext> getIngredientContextByAmountLessThan(@RequestParam Long amount) {
-    return ingredientContextService.getIngredientContextsByAmountLessThan(amount);
+  @GetMapping("/getContextIngredientsByAmountLessThan")
+  public List<ContextIngredient> getIngredientContextByAmountLessThan(@RequestParam Long amount) {
+    return contextIngredientService.getContextIngredientsByAmountLessThan(amount);
   }
 
-  @GetMapping("/getIngredientContextsByAmountGreaterThan")
-  public List<IngredientContext> getIngredientContextByAmountGreaterThan(@RequestParam Long amount) {
-    return ingredientContextService.getIngredientContextByAmountGreaterThan(amount);
+  @GetMapping("/getContextIngredientsByAmountGreaterThan")
+  public List<ContextIngredient> getIngredientContextByAmountGreaterThan(@RequestParam Long amount) {
+    return contextIngredientService.getContextIngredientsByAmountGreaterThan(amount);
   }
 
-  @GetMapping("/getIngredientContextsByMeasure")
-  public List<IngredientContext> getIngredientContextsByMeasure(@RequestParam String measureName) {
-    return ingredientContextService.getIngredientContextsByMeasure(measureName);
+  @GetMapping("/getContextIngredientsByMeasure")
+  public List<ContextIngredient> getIngredientContextsByMeasure(@RequestParam String measureName) {
+    return contextIngredientService.getContextIngredientsByMeasure(measureName);
   }
 
-  @GetMapping("/getIngredientContextsByIngredientId")
-  public List<IngredientContext> getIngredientContextsByIngredientId(@RequestParam String ingredientId) {
-    return ingredientContextService.getIngredientContextsByIngredientId(ingredientId);
+  @GetMapping("/getContextIngredientsByIngredientId")
+  public List<ContextIngredient> getIngredientContextsByIngredientId(@RequestParam String ingredientId) {
+    return contextIngredientService.getContextIngredientsByIngredientId(ingredientId);
   }
 
-  @GetMapping("/getIngredientContextsByRecipeId")
-  public List<IngredientContext> getIngredientContextsByRecipeId(@RequestParam Long recipeId) {
-    return ingredientContextService.getIngredientContextsByRecipeId(recipeId);
+  @GetMapping("/getContextIngredientsByRecipeId")
+  public List<ContextIngredient> getIngredientContextsByRecipeId(@RequestParam Long recipeId) {
+    return contextIngredientService.getContextIngredientsByRecipeId(recipeId);
   }
 
-  @DeleteMapping("/deleteIngredientContextById")
+  @DeleteMapping("/deleteContextIngredientById")
   public String deleteIngredientContextById(@RequestParam Long ingredientContextId) {
-    ingredientContextService.deleteIngredientContextById(ingredientContextId);
+    contextIngredientService.deleteContextIngredientById(ingredientContextId);
     return "Done!";
   }
 }

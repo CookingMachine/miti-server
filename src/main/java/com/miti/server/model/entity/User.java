@@ -9,18 +9,24 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "user_table")
+@Table(name = "USR")
 @NoArgsConstructor
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true, value = {"recipeList", "commentList", "favouriteList"})
 public class User {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "ID")
   private Long id;
+  @Column(name = "USERNAME")
   private String username;
+  @Column(name = "PASSWORD")
   private String password;
+  @Column(name = "EMAIL")
   private String email;
+  @Column(name = "STATUS")
   private Boolean status;
+  @Column(name = "ROLE")
   private Role role;
 
   @OneToMany(mappedBy = "author")

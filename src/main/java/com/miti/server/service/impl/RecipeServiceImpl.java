@@ -1,10 +1,10 @@
 package com.miti.server.service.impl;
 
 import com.miti.server.model.entity.Comment;
-import com.miti.server.model.entity.IngredientContext;
+import com.miti.server.model.entity.ContextIngredient;
 import com.miti.server.model.entity.Recipe;
 import com.miti.server.repository.CommentRepository;
-import com.miti.server.repository.IngredientContextRepository;
+import com.miti.server.repository.ContextIngredientRepository;
 import com.miti.server.repository.RecipeRepository;
 import com.miti.server.service.*;
 import com.miti.server.util.Check;
@@ -20,7 +20,7 @@ import java.util.List;
 public class RecipeServiceImpl implements RecipeService {
   private final RecipeRepository recipeRepository;
   private final CommentRepository commentRepository;
-  private final IngredientContextRepository ingredientContextRepository;
+  private final ContextIngredientRepository contextIngredientRepository;
 
   private final UserService userService;
   private final CategoryService categoryService;
@@ -96,12 +96,12 @@ public class RecipeServiceImpl implements RecipeService {
     Recipe recipe = recipeRepository.findById(recipeId).orElseThrow(()
         -> new RuntimeException("Recipe with id: " + recipeId + " doesn't exist!"));
     List<Comment> comments = recipe.getCommentList();
-    List<IngredientContext> ingredientContexts = recipe.getIngredientContextList();
+    List<ContextIngredient> contextIngredients = recipe.getContextIngredientList();
     for (Comment comment : comments) {
       deleteCommentById(comment.getId());
     }
-    for (IngredientContext ingredientContext : ingredientContexts) {
-      deleteIngredientContextById(ingredientContext.getId());
+    for (ContextIngredient contextIngredient : contextIngredients) {
+      deleteIngredientContextById(contextIngredient.getId());
     }
       recipeRepository.deleteById(recipeId);
   }
@@ -113,7 +113,7 @@ public class RecipeServiceImpl implements RecipeService {
 
   @Override
   public void deleteIngredientContextById(Long ingredientContextId) {
-    ingredientContextRepository.deleteById(ingredientContextId);
+    contextIngredientRepository.deleteById(ingredientContextId);
   }
 
   private boolean checkFields(String name) {
