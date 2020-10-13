@@ -82,14 +82,14 @@ public class AppInit implements ApplicationRunner {
 
     recipeService.addAllRecipes(recipes);
 
-    addIngredientContext(contextIngredients, 1L, Measure.Ml, ingredientService.getIngredientById("cucumber"),  recipeService.getRecipeById(1L));
-    addIngredientContext(contextIngredients, 2L, Measure.Sl, ingredientService.getIngredientById("paprika_red"), recipeService.getRecipeById(3L));
-    addIngredientContext(contextIngredients, 10L, Measure.Sht, ingredientService.getIngredientById("cucumber_marinade"), recipeService.getRecipeById(1L));
-    addIngredientContext(contextIngredients, 1L, Measure.Kg, ingredientService.getIngredientById("cucumber"), recipeService.getRecipeById(2L));
-    addIngredientContext(contextIngredients, 1L, Measure.Chl, ingredientService.getIngredientById("paprika_red"), recipeService.getRecipeById(1L));
-    addIngredientContext(contextIngredients, 1L, Measure.Gr, ingredientService.getIngredientById("paprika_yellow"), recipeService.getRecipeById(1L));
-    addIngredientContext(contextIngredients, 1L, Measure.Lit, ingredientService.getIngredientById("tomato"), recipeService.getRecipeById(3L));
-    addIngredientContext(contextIngredients, 1L, Measure.St, ingredientService.getIngredientById("cucumber_salt"), recipeService.getRecipeById(1L));
+    addContextIngredient(contextIngredients, 1L, Measure.Ml, ingredientService.getIngredientById("cucumber"),  recipeService.getRecipeById(1L));
+    addContextIngredient(contextIngredients, 2L, Measure.Sl, ingredientService.getIngredientById("paprika_red"), recipeService.getRecipeById(3L));
+    addContextIngredient(contextIngredients, 10L, Measure.Sht, ingredientService.getIngredientById("cucumber_marinade"), recipeService.getRecipeById(1L));
+    addContextIngredient(contextIngredients, 1L, Measure.Kg, ingredientService.getIngredientById("cucumber"), recipeService.getRecipeById(2L));
+    addContextIngredient(contextIngredients, 1L, Measure.Chl, ingredientService.getIngredientById("paprika_red"), recipeService.getRecipeById(1L));
+    addContextIngredient(contextIngredients, 1L, Measure.Gr, ingredientService.getIngredientById("paprika_yellow"), recipeService.getRecipeById(1L));
+    addContextIngredient(contextIngredients, 1L, Measure.Lit, ingredientService.getIngredientById("tomato"), recipeService.getRecipeById(3L));
+    addContextIngredient(contextIngredients, 1L, Measure.St, ingredientService.getIngredientById("cucumber_salt"), recipeService.getRecipeById(1L));
 
     contextIngredientService.addAllContextIngredients(contextIngredients);
 
@@ -108,7 +108,7 @@ public class AppInit implements ApplicationRunner {
     categories.add(new Category(id, name));
   }
 
-  private void addIngredientContext(List<ContextIngredient> contextIngredients, Long amount,
+  private void addContextIngredient(List<ContextIngredient> contextIngredients, Long amount,
                                     Measure measure, Ingredient ingredient, Recipe recipe) {
     contextIngredients.add(new ContextIngredient(amount, measure, ingredient, recipe));
   }
