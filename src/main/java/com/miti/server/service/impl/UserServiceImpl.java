@@ -1,7 +1,13 @@
 package com.miti.server.service.impl;
 
 import com.miti.server.enums.Role;
+import com.miti.server.model.entity.Comment;
+import com.miti.server.model.entity.ContextIngredient;
+import com.miti.server.model.entity.Recipe;
 import com.miti.server.model.entity.User;
+import com.miti.server.repository.CommentRepository;
+import com.miti.server.repository.ContextIngredientRepository;
+import com.miti.server.repository.RecipeRepository;
 import com.miti.server.repository.UserRepository;
 import com.miti.server.service.UserService;
 import com.miti.server.util.Check;
@@ -17,11 +23,14 @@ import java.util.List;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class UserServiceImpl implements UserService {
   private final UserRepository userRepository;
+  private final RecipeRepository recipeRepository;
+  private final CommentRepository commentRepository;
+  private final ContextIngredientRepository contextIngredientRepository;
   private final PasswordEncoder passwordEncoder;
 
   @Override
   public User addUser(User user) {
-    if (checkFields(user.getUsername(), user.getEmail()))
+    if (existsByUsernameAndEmail(user.getUsername(), user.getEmail()))
       return userRepository.save(new User(
           user.getUsername(),
           passwordEncoder.encode(user.getPassword()),
@@ -36,7 +45,7 @@ public class UserServiceImpl implements UserService {
   public void addAllUsers(List<User> users) {
     List<User> _users = new ArrayList<>();
     for (User user : users) {
-      if (checkFields(user.getUsername(), user.getEmail()))
+      if (existsByUsernameAndEmail(user.getUsername(), user.getEmail()))
         _users.add(user);
     }
     userRepository.saveAll(_users);
@@ -72,8 +81,7 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public List<User> getAllUsers() {
-    List<User> users = userRepository.findAll();
-    return users;
+    return userRepository.findAll();
   }
 
   @Override
@@ -102,10 +110,40 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public void deleteById(Long userId) {
+    User user = getUserById(userId);
+    List<Recipe> recipes = user.getRecipeList();
+    for (Recipe recipe : recipes) {
+      List<ContextIngredient> contextIngredients = recipe.getContextIngredientList();
+      List<Comment> comments = recipe.getCommentList();
+      for (ContextIngredient contextIngredient : contextIngredients)
+        deleteIngredientContextById(contextIngredient.getId());
+      for (Comment comment : comments)
+        deleteCommentById(comment.getId());
+      deleteRecipeById(recipe.getId());
+    }
+
+    List<Comment> comments = user.getCommentList();
+    for (Comment comment : comments)
+      deleteCommentById(comment.getId());
     userRepository.deleteById(userId);
   }
 
-  public boolean checkFields(String username, String email) {
+  @Override
+  public void deleteRecipeById(Long recipeId) {
+    recipeRepository.deleteById(recipeId);
+  }
+
+  @Override
+  public void deleteCommentById(Long commentId) {
+    commentRepository.deleteById(commentId);
+  }
+
+  @Override
+  public void deleteIngredientContextById(Long id) {
+    contextIngredientRepository.deleteById(id);
+  }
+
+  public boolean existsByUsernameAndEmail(String username, String email) {
     if (userRepository.existsByUsername(username))
       return false;
     return !userRepository.existsByEmail(email);

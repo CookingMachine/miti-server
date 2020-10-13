@@ -19,7 +19,7 @@ public class IngredientServiceImpl implements IngredientService{
 
   @Override
   public Ingredient addIngredient(Ingredient ingredient) {
-    if (checkFields(ingredient.getId(), ingredient.getName()))
+    if (existsByIdAndName(ingredient.getId(), ingredient.getName()))
       return ingredientRepository.save(new Ingredient(
           ingredient.getId(),
           ingredient.getName(),
@@ -32,7 +32,7 @@ public class IngredientServiceImpl implements IngredientService{
   public void addAllIngredients(List<Ingredient> ingredients) {
     List<Ingredient> _ingredients = new ArrayList<>();
     for (Ingredient ingredient : ingredients) {
-      if (checkFields(
+      if (existsByIdAndName(
           ingredient.getId(),
           ingredient.getName()
       ))
@@ -59,6 +59,11 @@ public class IngredientServiceImpl implements IngredientService{
   }
 
   @Override
+  public List<Ingredient> getAllIngredients() {
+    return ingredientRepository.findAll();
+  }
+
+  @Override
   public List<Ingredient> getIngredientsByCategory(String categoryName) {
     if (Check.param(categoryName)) {
       IngredientCategory category = IngredientCategory.valueOf(categoryName);
@@ -75,7 +80,7 @@ public class IngredientServiceImpl implements IngredientService{
     ingredientRepository.deleteById(ingredientId);
   }
 
-  public boolean checkFields(String id, String name) {
+  public boolean existsByIdAndName(String id, String name) {
     if (ingredientRepository.existsById(id))
       return false;
     return !ingredientRepository.existsByName(name);

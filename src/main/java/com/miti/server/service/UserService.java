@@ -17,4 +17,7 @@ public interface UserService {
   List<User> getUsersByStatus(Boolean status);
 
   void deleteById(Long userId);
+  void deleteRecipeById(Long recipeId);
+  void deleteCommentById(Long commentId);
+  void deleteIngredientContextById(Long id);
 }

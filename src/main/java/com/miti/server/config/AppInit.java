@@ -20,7 +20,7 @@ public class AppInit implements ApplicationRunner {
   private final UserService userService;
   private final RecipeService recipeService;
   private final CategoryService categoryService;
-  private final IngredientContextService ingredientContextService;
+  private final ContextIngredientService contextIngredientService;
   private final IngredientService ingredientService;
   private final CommentService commentService;
 
@@ -29,7 +29,7 @@ public class AppInit implements ApplicationRunner {
     List<User> users = new ArrayList<>();
     List<Recipe> recipes = new ArrayList<>();
     List<Category> categories = new ArrayList<>();
-    List<IngredientContext> ingredientContexts = new ArrayList<>();
+    List<ContextIngredient> contextIngredients = new ArrayList<>();
     List<Ingredient> ingredients = new ArrayList<>();
     List<Comment> comments = new ArrayList<>();
 
@@ -53,13 +53,23 @@ public class AppInit implements ApplicationRunner {
 
     categoryService.addAllCategories(categories);
 
-    addIngredient(ingredients, "tomato", "Помидор");
-    addIngredient(ingredients, "cucumber", "Огурец свежий");
-    addIngredient(ingredients, "cucumber_salt", "Малосоленный огурец");
-    addIngredient(ingredients, "cucumber_marinade", "Маринованный огурец");
-    addIngredient(ingredients, "paprika_red", "Красный болгарский перец");
-    addIngredient(ingredients, "paprika_green", "Зелёный болгарский перец");
-    addIngredient(ingredients, "paprika_yellow", "Жёлтый болгарский перец");
+    addIngredient(ingredients, "tomato", "Помидор", IngredientCategory.VEGETABLES);
+    addIngredient(ingredients, "cucumber", "Огурец свежий", IngredientCategory.VEGETABLES);
+    addIngredient(ingredients, "cucumber_salt", "Малосоленный огурец", IngredientCategory.VEGETABLES);
+    addIngredient(ingredients, "cucumber_marinade", "Маринованный огурец", IngredientCategory.VEGETABLES);
+    addIngredient(ingredients, "paprika_red", "Красный болгарский перец", IngredientCategory.VEGETABLES);
+    addIngredient(ingredients, "paprika_green", "Зелёный болгарский перец", IngredientCategory.VEGETABLES);
+    addIngredient(ingredients, "paprika_yellow", "Жёлтый болгарский перец", IngredientCategory.VEGETABLES);
+    addIngredient(ingredients, "apple", "яблоко", IngredientCategory.FRUITS);
+    addIngredient(ingredients, "milk", "молоко", IngredientCategory.MILK_PRODUCTS);
+    addIngredient(ingredients, "mussels", "мидии", IngredientCategory.SEA_PRODUCTS);
+    addIngredient(ingredients, "beef", "говядина", IngredientCategory.MEAT);
+    addIngredient(ingredients, "salmon", "лосось", IngredientCategory.FISH);
+    addIngredient(ingredients, "italian", "итальянские специи", IngredientCategory.FLAVORING);
+    addIngredient(ingredients, "basil", "базелик", IngredientCategory.GREENERY);
+    addIngredient(ingredients, "olive_oil", "оливковое масло", IngredientCategory.OILS);
+    addIngredient(ingredients, "paper", "перец", IngredientCategory.EXTRA);
+    addIngredient(ingredients, "ice", "лёд", IngredientCategory.UNKNOWN);
 
     ingredientService.addAllIngredients(ingredients);
 
@@ -72,11 +82,16 @@ public class AppInit implements ApplicationRunner {
 
     recipeService.addAllRecipes(recipes);
 
-    addIngredientContext(ingredientContexts, 1, Measure.Ml, ingredientService.getIngredientById("cucumber"),  recipeService.getRecipeById(1L));
-    addIngredientContext(ingredientContexts, 2, Measure.Sl, ingredientService.getIngredientById("paprika_red"), recipeService.getRecipeById(3L));
-    addIngredientContext(ingredientContexts, 10, Measure.Sht, ingredientService.getIngredientById("cucumber_marinade"), recipeService.getRecipeById(1L));
+    addContextIngredient(contextIngredients, 1L, Measure.Ml, ingredientService.getIngredientById("cucumber"),  recipeService.getRecipeById(1L));
+    addContextIngredient(contextIngredients, 2L, Measure.Sl, ingredientService.getIngredientById("paprika_red"), recipeService.getRecipeById(3L));
+    addContextIngredient(contextIngredients, 10L, Measure.Sht, ingredientService.getIngredientById("cucumber_marinade"), recipeService.getRecipeById(1L));
+    addContextIngredient(contextIngredients, 1L, Measure.Kg, ingredientService.getIngredientById("cucumber"), recipeService.getRecipeById(2L));
+    addContextIngredient(contextIngredients, 1L, Measure.Chl, ingredientService.getIngredientById("paprika_red"), recipeService.getRecipeById(1L));
+    addContextIngredient(contextIngredients, 1L, Measure.Gr, ingredientService.getIngredientById("paprika_yellow"), recipeService.getRecipeById(1L));
+    addContextIngredient(contextIngredients, 1L, Measure.Lit, ingredientService.getIngredientById("tomato"), recipeService.getRecipeById(3L));
+    addContextIngredient(contextIngredients, 1L, Measure.St, ingredientService.getIngredientById("cucumber_salt"), recipeService.getRecipeById(1L));
 
-    ingredientContextService.addAllIngredientContexts(ingredientContexts);
+    contextIngredientService.addAllContextIngredients(contextIngredients);
 
     addComments(comments, "Прекрасный рецепт. Спасибо вам огромное", recipeService.getRecipeById(1L), userService.getUserById(2L));
     addComments(comments, "Очень вкуснуя картошка. А главное - быстро.", recipeService.getRecipeById(2L), userService.getUserById(3L));
@@ -93,13 +108,13 @@ public class AppInit implements ApplicationRunner {
     categories.add(new Category(id, name));
   }
 
-  private void addIngredientContext(List<IngredientContext> ingredientContexts, Integer amount,
+  private void addContextIngredient(List<ContextIngredient> contextIngredients, Long amount,
                                     Measure measure, Ingredient ingredient, Recipe recipe) {
-    ingredientContexts.add(new IngredientContext(amount, measure, ingredient, recipe));
+    contextIngredients.add(new ContextIngredient(amount, measure, ingredient, recipe));
   }
 
-  private void addIngredient(List<Ingredient> ingredients, String id, String name){
-    ingredients.add(new Ingredient(id, name, IngredientCategory.VEGETABLES));
+  private void addIngredient(List<Ingredient> ingredients, String id, String name, IngredientCategory category){
+    ingredients.add(new Ingredient(id, name, category));
   }
 
   private void addRecipe(List<Recipe> recipes, String name, String description, User author, Category category ){

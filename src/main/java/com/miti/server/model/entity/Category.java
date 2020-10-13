@@ -4,20 +4,19 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "category_table")
+@Table(name = "CATEGORY")
 @NoArgsConstructor
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true, value = {"recipeList"})
 public class Category {
   @Id
+  @Column(name = "ID")
   private String id;
+  @Column(name = "NAME")
   private String name;
 
   @OneToMany(mappedBy = "category")

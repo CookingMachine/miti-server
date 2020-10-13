@@ -28,6 +28,11 @@ public class IngredientController {
     return ingredientService.getIngredientByName(name);
   }
 
+  @GetMapping("/getAllIngredients")
+  public List<Ingredient> getAllIngredients() {
+    return ingredientService.getAllIngredients();
+  }
+
   @GetMapping("/getIngredientsByCategory")
   public List<Ingredient> getIngredientsByCategory(@RequestParam String categoryName) {
     return ingredientService.getIngredientsByCategory(categoryName);

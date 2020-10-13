@@ -9,32 +9,35 @@ import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
-@Table(name = "recipe_table")
+@Table(name = "RECIPE")
 @NoArgsConstructor
 @Data
-@JsonIgnoreProperties(ignoreUnknown = true, value = {"commentList", "ingredientContextList", "favouriteUsers"})
+@JsonIgnoreProperties(ignoreUnknown = true, value = {"commentList", "contextIngredientList", "favouriteUsers"})
 public class Recipe {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "ID")
   private Long id;
+  @Column(name = "NAME")
   private String name;
 
   @Size(max = 4000)
+  @Column(name = "DESCRIPTION")
   private String description;
 
   @ManyToOne(fetch = FetchType.EAGER)
-  @JoinColumn(name = "user_id", nullable = false)
+  @JoinColumn(name = "USER_ID", nullable = false)
   private User author;
 
   @ManyToOne(fetch = FetchType.EAGER)
-  @JoinColumn(name = "category", nullable = false)
+  @JoinColumn(name = "CATEGORY_ID", nullable = false)
   private Category category;
 
   @OneToMany(mappedBy = "recipe")
   private List<Comment> commentList;
 
-  @OneToMany(mappedBy = "recipeIngredients")
-  private List<IngredientContext> ingredientContextList;
+  @OneToMany(mappedBy = "recipe")
+  private List<ContextIngredient> contextIngredientList;
 
   @ManyToMany
   private List<User> favouriteUsers;

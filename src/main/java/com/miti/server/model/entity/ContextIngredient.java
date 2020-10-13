@@ -2,36 +2,38 @@ package com.miti.server.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.miti.server.enums.Measure;
+import com.sun.org.glassfish.gmbal.NameValue;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "ingredientContext_table")
+@Table(name = "CONTEXT_INGREDIENT")
 @NoArgsConstructor
 @Data
-@JsonIgnoreProperties(ignoreUnknown = true, value = {"ingredients", "recipeIngredients"})
-public class IngredientContext {
+public class ContextIngredient {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "ID")
   private Long id;
-
-  private Integer amount;
+  @Column(name = "AMOUNT")
+  private Long amount;
+  @Column(name = "MEASURE")
   private Measure measure;
 
   @ManyToOne(fetch = FetchType.EAGER)
-  @JoinColumn(name = "ingredientId", nullable = false)
+  @JoinColumn(name = "INGREDIENT_ID", nullable = false)
   private Ingredient ingredient;
 
   @ManyToOne(fetch = FetchType.EAGER)
-  @JoinColumn(name = "recipeId", nullable = false)
-  private Recipe recipeIngredients;
+  @JoinColumn(name = "RECIPE_ID", nullable = false)
+  private Recipe recipe;
 
-  public IngredientContext(Integer amount, Measure measure, Ingredient ingredient, Recipe recipe) {
+  public ContextIngredient(Long amount, Measure measure, Ingredient ingredient, Recipe recipe) {
     this.amount = amount;
     this.measure = measure;
     this.ingredient = ingredient;
-    this.recipeIngredients = recipe;
+    this.recipe = recipe;
   }
 }
