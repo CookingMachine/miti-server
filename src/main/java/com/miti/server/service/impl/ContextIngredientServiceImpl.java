@@ -23,7 +23,7 @@ public class ContextIngredientServiceImpl implements ContextIngredientService {
 
   @Override
   public ContextIngredient addContextIngredient(ContextIngredient contextIngredient) {
-    if (checkFields(
+    if (existsByIngredientIdAndRecipeId(
         contextIngredient.getIngredient().getId(),
         contextIngredient.getRecipe().getId()
     ))
@@ -41,7 +41,7 @@ public class ContextIngredientServiceImpl implements ContextIngredientService {
   public void addAllContextIngredients(List<ContextIngredient> contextIngredients) {
     List<ContextIngredient> _ContextIngredients = new ArrayList<>();
     for (ContextIngredient contextIngredient : contextIngredients) {
-      if (checkFields(
+      if (existsByIngredientIdAndRecipeId(
           contextIngredient.getIngredient().getId(),
           contextIngredient.getRecipe().getId()
       ))
@@ -129,7 +129,7 @@ public class ContextIngredientServiceImpl implements ContextIngredientService {
     contextIngredientRepository.deleteById(ingredientContextId);
   }
 
-  private boolean checkFields(String ingredientId, Long recipeId) {
+  private boolean existsByIngredientIdAndRecipeId(String ingredientId, Long recipeId) {
     return !contextIngredientRepository.existsByIngredientAndRecipe(
         ingredientService.getIngredientById(ingredientId),
         recipeService.getRecipeById(recipeId)

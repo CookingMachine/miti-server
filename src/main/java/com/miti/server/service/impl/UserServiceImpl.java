@@ -21,7 +21,7 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public User addUser(User user) {
-    if (checkFields(user.getUsername(), user.getEmail()))
+    if (existsByUsernameAndEmail(user.getUsername(), user.getEmail()))
       return userRepository.save(new User(
           user.getUsername(),
           passwordEncoder.encode(user.getPassword()),
@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService {
   public void addAllUsers(List<User> users) {
     List<User> _users = new ArrayList<>();
     for (User user : users) {
-      if (checkFields(user.getUsername(), user.getEmail()))
+      if (existsByUsernameAndEmail(user.getUsername(), user.getEmail()))
         _users.add(user);
     }
     userRepository.saveAll(_users);
@@ -104,7 +104,7 @@ public class UserServiceImpl implements UserService {
     userRepository.deleteById(userId);
   }
 
-  public boolean checkFields(String username, String email) {
+  public boolean existsByUsernameAndEmail(String username, String email) {
     if (userRepository.existsByUsername(username))
       return false;
     return !userRepository.existsByEmail(email);

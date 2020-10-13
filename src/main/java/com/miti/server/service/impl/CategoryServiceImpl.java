@@ -18,7 +18,7 @@ public class CategoryServiceImpl implements CategoryService {
 
   @Override
   public Category addCategory(Category category) {
-    if (checkFields(category.getId(), category.getName())) {
+    if (existsByCategoryIdAndName(category.getId(), category.getName())) {
       return new Category(category.getId(), category.getName());
     }
     throw new RuntimeException("CategoryId:" + category.getId() +
@@ -29,7 +29,7 @@ public class CategoryServiceImpl implements CategoryService {
   public void addAllCategories(List<Category> categories) {
     List<Category> _categories = new ArrayList<>();
     for (Category category : categories) {
-      if (checkFields(
+      if (existsByCategoryIdAndName(
           category.getId(),
           category.getName()
       ))
@@ -60,7 +60,7 @@ public class CategoryServiceImpl implements CategoryService {
     categoryRepository.deleteById(categoryId);
   }
 
-  private boolean checkFields(String categoryId, String name) {
+  private boolean existsByCategoryIdAndName(String categoryId, String name) {
     if (categoryRepository.existsById(categoryId))
       return false;
     return !categoryRepository.existsByName(name);

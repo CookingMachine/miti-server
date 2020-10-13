@@ -27,7 +27,7 @@ public class RecipeServiceImpl implements RecipeService {
 
   @Override
   public Recipe addRecipe(Recipe recipe) {
-    if (checkFields(recipe.getName()))
+    if (existsByName(recipe.getName()))
       return recipeRepository.save(new Recipe(
           recipe.getName(),
           recipe.getDescription(),
@@ -41,7 +41,7 @@ public class RecipeServiceImpl implements RecipeService {
   public void addAllRecipes(List<Recipe> recipes) {
     List<Recipe> _recipes = new ArrayList<>();
     for (Recipe recipe : recipes) {
-      if (checkFields(recipe.getName()))
+      if (existsByName(recipe.getName()))
         _recipes.add(recipe);
     }
     recipeRepository.saveAll(_recipes);
@@ -116,7 +116,7 @@ public class RecipeServiceImpl implements RecipeService {
     contextIngredientRepository.deleteById(ingredientContextId);
   }
 
-  private boolean checkFields(String name) {
+  private boolean existsByName(String name) {
     return !recipeRepository.existsByName(name);
   }
 }
