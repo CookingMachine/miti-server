@@ -24,8 +24,8 @@ public class CommentServiceImpl implements CommentService {
   public Comment addComment(Comment comment) {
     return commentRepository.save(new Comment(
         comment.getComment(),
-        comment.getCommentator(),
-        comment.getRecipe()
+        userService.getUserById(comment.getCommentator().getId()),
+        recipeService.getRecipeById(comment.getRecipe().getId())
     ));
   }
 

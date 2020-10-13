@@ -19,7 +19,7 @@ public class CategoryServiceImpl implements CategoryService {
   @Override
   public Category addCategory(Category category) {
     if (existsByCategoryIdAndName(category.getId(), category.getName())) {
-      return new Category(category.getId(), category.getName());
+      return categoryRepository.save(new Category(category.getId(), category.getName()));
     }
     throw new RuntimeException("CategoryId:" + category.getId() +
         " or categoryName: " + category.getName() + " already exist!");

@@ -18,7 +18,7 @@ public class ContextIngredientController {
     return contextIngredientService.addContextIngredient(contextIngredient);
   }
 
-  @GetMapping("/getContextIngredientsById")
+  @GetMapping("/getContextIngredientById")
   public ContextIngredient getContextIngredientById(@RequestParam Long contextIngredientId) {
     return contextIngredientService.getContextIngredientById(contextIngredientId);
   }
@@ -54,8 +54,8 @@ public class ContextIngredientController {
   }
 
   @DeleteMapping("/deleteContextIngredientById")
-  public String deleteContextIngredientById(@RequestParam Long ContextIngredientId) {
-    contextIngredientService.deleteContextIngredientById(ContextIngredientId);
+  public String deleteContextIngredientById(@RequestParam Long contextIngredientId) {
+    contextIngredientService.deleteContextIngredientById(contextIngredientId);
     return "Done!";
   }
 }
