@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -30,6 +31,10 @@ public class User {
   private Boolean status;
   @Column(name = "ROLE")
   private Role role;
+  @Column(name = "REGISTRATION_DATE")
+  private Date registrationDate;
+  @Column(name = "LAST_AUTH_DATE")
+  private Date lastAuthDate;
 
   @OneToMany(mappedBy = "author")
   private List<Recipe> recipeList;
@@ -46,5 +51,8 @@ public class User {
     this.email = email;
     this.status = true;
     this.role = role;
+
+    this.registrationDate = new Date();
+    this.lastAuthDate = new Date();
   }
 }

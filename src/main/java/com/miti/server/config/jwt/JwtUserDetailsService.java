@@ -9,6 +9,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class JwtUserDetailsService implements UserDetailsService {
@@ -17,6 +19,7 @@ public class JwtUserDetailsService implements UserDetailsService {
   @Override
   public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
     User user = userRepository.getUserByUsername(s);
+    user.setLastAuthDate(new Date());
     return JwtUserDetails.fromUserEntityToCustomUserDetails(user);
   }
 }

@@ -16,7 +16,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -107,6 +111,21 @@ public class UserServiceImpl implements UserService {
     }
     throw new RuntimeException("Status: " + status + " is incorrect!");
   }
+
+  @Override
+  public List<User> getUsersByLastAuthDateAfter(String date) throws ParseException {
+    DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+    Date _date = format.parse(date);
+    return userRepository.getUsersByLastAuthDateAfter(_date);
+  }
+
+  @Override
+  public List<User> getUsersByRegistrationDateAfter(String date) throws ParseException {
+    DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+    Date _date = format.parse(date);
+    return userRepository.getUsersByRegistrationDateAfter(_date);
+  }
+
 
   @Override
   public void deleteById(Long userId) {

@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
 import java.util.List;
 
 @RestController
@@ -46,6 +47,16 @@ public class UserController {
   @GetMapping(value = "/getUsersByRole")
   public List<User> getUsersByRole(@RequestParam String roleName) {
     return userService.getUsersByRole(roleName);
+  }
+
+  @GetMapping(value = "/getUsersByLastAuthDateAfter")
+  public List<User> getUsersByLastAuthDateAfter(@RequestParam String date) throws ParseException {
+    return userService.getUsersByLastAuthDateAfter(date);
+  }
+
+  @GetMapping(value = "/getUsersByRegistrationDateAfter")
+  public List<User> getUsersByRegistrationDateAfter(@RequestParam String date) throws ParseException {
+    return userService.getUsersByRegistrationDateAfter(date);
   }
 
   @DeleteMapping(value = "/deleteUserById")
