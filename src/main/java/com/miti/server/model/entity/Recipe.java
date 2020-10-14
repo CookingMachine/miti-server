@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -20,10 +21,11 @@ public class Recipe {
   private Long id;
   @Column(name = "NAME")
   private String name;
-
   @Size(max = 4000)
   @Column(name = "DESCRIPTION")
   private String description;
+  @Column(name = "CREATE_DATE")
+  private Date createDate;
 
   @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "USER_ID", nullable = false)
@@ -47,5 +49,7 @@ public class Recipe {
     this.description = description;
     this.author = author;
     this.category = category;
+
+    this.createDate = new Date();
   }
 }

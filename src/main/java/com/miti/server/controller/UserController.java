@@ -19,6 +19,11 @@ public class UserController {
     return userService.addUser(user);
   }
 
+  @PutMapping(value = "/editUser")
+  public User editUser(@RequestBody User user, @RequestParam Long userId) {
+    return userService.editUser(userId, user);
+  }
+
   @GetMapping(value = "/getUserById")
   public User getUserById(@RequestParam Long userId) {
     return userService.getUserById(userId);

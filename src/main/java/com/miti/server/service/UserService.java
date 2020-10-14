@@ -10,6 +10,8 @@ public interface UserService {
   User addUser(User user);
   void addAllUsers(List<User> users);
 
+  User editUser(Long userId, User user);
+
   User getUserById(Long userId);
   User getUserByUsername(String username);
   User getUserByEmail(String email);

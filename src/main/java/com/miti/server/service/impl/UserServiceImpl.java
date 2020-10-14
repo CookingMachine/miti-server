@@ -56,6 +56,16 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
+  public User editUser(Long userId, User newUser) {
+    return userRepository.findById(userId).map(user -> {
+          user.setPassword(passwordEncoder.encode(newUser.getPassword()));
+          user.setEmail(newUser.getEmail());
+          user.setRole(newUser.getRole());
+          return userRepository.save(user);
+        }).orElseThrow(() -> new RuntimeException("User with id: " + userId + " doesn't exist!"));
+  }
+
+  @Override
   public User getUserById(Long userId) {
     return userRepository.findById(userId).orElseThrow(()
         -> new RuntimeException("User with id: " + userId + " doesn't exist!"));
@@ -125,7 +135,6 @@ public class UserServiceImpl implements UserService {
     Date _date = format.parse(date);
     return userRepository.getUsersByRegistrationDateAfter(_date);
   }
-
 
   @Override
   public void deleteById(Long userId) {
