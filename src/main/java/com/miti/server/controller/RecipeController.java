@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.ServerEndpoint;
 import java.util.List;
 
 @RestController
@@ -15,6 +16,11 @@ public class RecipeController {
   @PostMapping("/addRecipe")
   public Recipe addRecipe(@RequestBody Recipe recipe) {
     return recipeService.addRecipe(recipe);
+  }
+
+  @PutMapping("/editRecipe")
+  public Recipe editRecipe(@RequestParam Long recipeId, @RequestBody Recipe recipe) {
+    return  recipeService.editRecipe(recipeId ,recipe);
   }
 
   @GetMapping("/getRecipeById")

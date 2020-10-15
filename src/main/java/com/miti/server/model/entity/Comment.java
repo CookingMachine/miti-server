@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "COMMENT")
@@ -16,6 +17,10 @@ public class Comment {
   private Long id;
   @Column(name = "COMMENT")
   private String comment;
+  @Column(name = "CREATE_DATE")
+  private Date createDate;
+  @Column(name = "EDIT_DATE")
+  private Date editDate;
 
   @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "USER_ID", nullable = false)
@@ -29,5 +34,8 @@ public class Comment {
     this.comment = comment;
     this.commentator = commentator;
     this.recipe = recipe;
+
+    this.createDate = new Date();
+    this.editDate = null;
   }
 }

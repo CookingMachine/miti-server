@@ -8,6 +8,8 @@ public interface CommentService {
   Comment addComment(Comment comment);
   void addAllComments(List<Comment> comments);
 
+  Comment editComment(Long commentId, Comment newComment);
+
   Comment getCommentById(Long commentId);
 
   List<Comment> getCommentsByUserId(Long userId);

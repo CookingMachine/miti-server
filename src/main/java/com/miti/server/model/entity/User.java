@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -21,6 +22,8 @@ public class User {
   private Long id;
   @Column(name = "USERNAME")
   private String username;
+  @Column(name = "name")
+  private String name;
   @Column(name = "PASSWORD")
   @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
   private String password;
@@ -30,6 +33,10 @@ public class User {
   private Boolean status;
   @Column(name = "ROLE")
   private Role role;
+  @Column(name = "REGISTRATION_DATE")
+  private Date registrationDate;
+  @Column(name = "LAST_AUTH_DATE")
+  private Date lastAuthDate;
 
   @OneToMany(mappedBy = "author")
   private List<Recipe> recipeList;
@@ -40,11 +47,15 @@ public class User {
   @ManyToMany(mappedBy = "favouriteUsers")
   private List<Recipe> favouriteList;
 
-  public User(String username, String password, String email, Role role) {
+  public User(String username, String name, String password, String email, Role role) {
     this.username = username;
+    this.name = name;
     this.password = password;
     this.email = email;
     this.status = true;
     this.role = role;
+
+    this.registrationDate = new Date();
+    this.lastAuthDate = new Date();
   }
 }

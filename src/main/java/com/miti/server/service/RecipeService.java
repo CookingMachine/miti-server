@@ -8,6 +8,8 @@ public interface RecipeService {
   Recipe addRecipe(Recipe recipe);
   void addAllRecipes(List<Recipe> recipes);
 
+  Recipe editRecipe(Long recipeId, Recipe newRecipe);
+
   Recipe getRecipeById(Long recipeId);
   Recipe getRecipeByName(String name);
 
