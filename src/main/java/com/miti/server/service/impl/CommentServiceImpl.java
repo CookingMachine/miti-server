@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -32,6 +33,15 @@ public class CommentServiceImpl implements CommentService {
   @Override
   public void addAllComments(List<Comment> comments) {
     commentRepository.saveAll(comments);
+  }
+
+  @Override
+  public Comment editComment(Long commentId, Comment newComment) {
+      return commentRepository.findById(commentId).map(comment -> {
+        comment.setComment(newComment.getComment());
+        comment.setEditDate(new Date());
+        return commentRepository.save(comment);
+      }).orElseThrow(() -> new RuntimeException("Comment with id: " + commentId + " doesn't exist!"));
   }
 
   @Override

@@ -19,6 +19,8 @@ public class Comment {
   private String comment;
   @Column(name = "CREATE_DATE")
   private Date createDate;
+  @Column(name = "EDIT_DATE")
+  private Date editDate;
 
   @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "USER_ID", nullable = false)
@@ -34,5 +36,6 @@ public class Comment {
     this.recipe = recipe;
 
     this.createDate = new Date();
+    this.editDate = null;
   }
 }

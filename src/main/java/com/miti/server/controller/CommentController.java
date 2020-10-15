@@ -18,6 +18,11 @@ public class CommentController {
     return commentService.addComment(comment);
   }
 
+  @PutMapping("/editComment")
+  public Comment editComment(@RequestParam Long commentId, @RequestBody Comment comment) {
+    return commentService.editComment(commentId, comment);
+  }
+
   @GetMapping("/getCommentById")
   public Comment getCommentById(@RequestParam Long commentId) {
     return commentService.getCommentById(commentId);
