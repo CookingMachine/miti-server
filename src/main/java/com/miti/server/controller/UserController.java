@@ -3,6 +3,7 @@ package com.miti.server.controller;
 import com.miti.server.config.jwt.JwtUtil;
 import com.miti.server.model.entity.User;
 import com.miti.server.service.UserService;
+import com.miti.server.util.Check;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -34,9 +35,8 @@ public class UserController {
   @GetMapping(value = "/getUserById")
   public User getUserById(@RequestParam Long userId, HttpServletRequest req)
   {
-    String token = req.getHeader("Authorization").substring(7);
-    UserDetails details = userDetailsService.loadUserByUsername(util.getUsernameFromToken(token));
-    if (details != null && details.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ADMINISTRATION")))
+    if (Check.role(req, userDetailsService, util, "ADMINISTRATION") ||
+        Check.role(req, userDetailsService, util, "MODERATION"))
       return userService.getUserById(userId);
     throw new RuntimeException("No permission!");
   }
