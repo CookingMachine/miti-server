@@ -19,7 +19,7 @@ public class JwtUserDetailsService implements UserDetailsService {
   @Override
   public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
     User user = userRepository.getUserByUsername(s);
-    user.setLastAuthDate(new Date());
+
     return JwtUserDetails.fromUserEntityToCustomUserDetails(user);
   }
 }
