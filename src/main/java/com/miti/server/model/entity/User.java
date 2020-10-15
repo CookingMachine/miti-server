@@ -22,6 +22,8 @@ public class User {
   private Long id;
   @Column(name = "USERNAME")
   private String username;
+  @Column(name = "name")
+  private String name;
   @Column(name = "PASSWORD")
   @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
   private String password;
@@ -45,8 +47,9 @@ public class User {
   @ManyToMany(mappedBy = "favouriteUsers")
   private List<Recipe> favouriteList;
 
-  public User(String username, String password, String email, Role role) {
+  public User(String username, String name, String password, String email, Role role) {
     this.username = username;
+    this.name = name;
     this.password = password;
     this.email = email;
     this.status = true;

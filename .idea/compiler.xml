@@ -7,10 +7,10 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="server" />
-        <module name="miti-server" />
-        <module name="miti-server_current" />
         <module name="server_main" />
+        <module name="miti-server" />
+        <module name="server" />
+        <module name="miti-server_current" />
       </profile>
     </annotationProcessing>
   </component>

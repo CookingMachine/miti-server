@@ -33,9 +33,9 @@ public class AppInit implements ApplicationRunner {
     List<Ingredient> ingredients = new ArrayList<>();
     List<Comment> comments = new ArrayList<>();
 
-    addUser(users, "admin", "$2y$12$lMziH.7icjkdRRpDVtaj4uAaG8qlVkBi/Hjl0e7aKsMXQY8i4HQNu", "admin@gmail.com", Role.ADMINISTRATION);
-    addUser(users, "moder", "$2y$12$zbcKnFG.OX.7r2k3nqEyj.9psdQhVzIy5eBvtVQegbPGVHupC0NHS", "moder@gmail.com", Role.MODERATION);
-    addUser(users, "user", "$2y$12$hrib5eAGooCIRrfViL4tju04yqpKdynd67YFqhCaTTPyOdjwEz1ia", "user@gmail.com", Role.USER);
+    addUser(users, "admin", "Max", "$2y$12$lMziH.7icjkdRRpDVtaj4uAaG8qlVkBi/Hjl0e7aKsMXQY8i4HQNu", "admin@gmail.com", Role.ADMINISTRATION);
+    addUser(users, "moder", "Govnoy", "$2y$12$zbcKnFG.OX.7r2k3nqEyj.9psdQhVzIy5eBvtVQegbPGVHupC0NHS", "moder@gmail.com", Role.MODERATION);
+    addUser(users, "user", "Lyoha", "$2y$12$hrib5eAGooCIRrfViL4tju04yqpKdynd67YFqhCaTTPyOdjwEz1ia", "user@gmail.com", Role.USER);
 
     userService.addAllUsers(users);
 
@@ -100,8 +100,8 @@ public class AppInit implements ApplicationRunner {
     commentService.addAllComments(comments);
   }
 
-  private void addUser(List<User> users, String username, String password, String email, Role role){
-    users.add(new User(username, password, email, role));
+  private void addUser(List<User> users, String username, String name, String password, String email, Role role){
+    users.add(new User(username, name, password, email, role));
   }
 
   private void addCategory(List<Category> categories, String id, String name){

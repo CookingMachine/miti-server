@@ -37,6 +37,7 @@ public class UserServiceImpl implements UserService {
     if (existsByUsernameAndEmail(user.getUsername(), user.getEmail()))
       return userRepository.save(new User(
           user.getUsername(),
+          user.getName(),
           passwordEncoder.encode(user.getPassword()),
           user.getEmail(),
           user.getRole()
@@ -58,6 +59,7 @@ public class UserServiceImpl implements UserService {
   @Override
   public User editUser(Long userId, User newUser) {
     return userRepository.findById(userId).map(user -> {
+          user.setName(newUser.getName());
           user.setPassword(passwordEncoder.encode(newUser.getPassword()));
           user.setEmail(newUser.getEmail());
           user.setRole(newUser.getRole());
@@ -80,6 +82,13 @@ public class UserServiceImpl implements UserService {
       throw new RuntimeException("User with username: " + username + " doesn't exist!");
     }
     throw new RuntimeException("Username: " + username + " is incorrect!");
+  }
+
+  @Override
+  public User getUserByName(String name) {
+    if (Check.param(name)) {
+      return userRepository.getUserByName(name);
+    } throw new RuntimeException("Name: " + name + " is incorrect!");
   }
 
   @Override

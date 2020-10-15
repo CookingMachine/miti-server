@@ -1,11 +1,16 @@
 package com.miti.server.controller;
 
+import com.miti.server.config.jwt.JwtUtil;
 import com.miti.server.model.entity.User;
 import com.miti.server.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
 import java.util.List;
 
@@ -13,6 +18,8 @@ import java.util.List;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class UserController {
   private final UserService userService;
+  private final UserDetailsService userDetailsService;
+  private final JwtUtil util;
 
   @PostMapping(value = "/addUser")
   public User addUser(@RequestBody User user) {
@@ -20,18 +27,28 @@ public class UserController {
   }
 
   @PutMapping(value = "/editUser")
-  public User editUser(@RequestBody User user, @RequestParam Long userId) {
+  public User editUser(@RequestParam Long userId, @RequestBody User user) {
     return userService.editUser(userId, user);
   }
 
   @GetMapping(value = "/getUserById")
-  public User getUserById(@RequestParam Long userId) {
-    return userService.getUserById(userId);
+  public User getUserById(@RequestParam Long userId, HttpServletRequest req)
+  {
+    String token = req.getHeader("Authorization").substring(7);
+    UserDetails details = userDetailsService.loadUserByUsername(util.getUsernameFromToken(token));
+    if (details != null && details.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ADMINISTRATION")))
+      return userService.getUserById(userId);
+    throw new RuntimeException("No permission!");
   }
 
   @GetMapping(value = "/getUserByUsername")
   public User getUserByUserName(@RequestParam String username) {
     return userService.getUserByUsername(username);
+  }
+
+  @GetMapping(value = "/getUserByName")
+  public User getUserByName(@RequestParam String name) {
+    return userService.getUserByName(name);
   }
 
   @GetMapping(value = "/getUserByEmail")
