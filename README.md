@@ -8,13 +8,13 @@
 
 |Request's name|Request param/body|Response format|Description|
 |---|---|---|---|
-|POST `/auth`|Body: {<br>"username": "admin",<br> "password": "qwerty"<br>}|{"jwtToken": "eyJhbGciOiJIUzUxMiJ9.<br>eyJzdWIiOiJhZG1pbjIiLCJleHAiOjE2M<br>DI1MTMwNDcsImlhdCI6MTYwMjQ5NTA0N30.<br>nYSRFlOVtOV8DsLTsz2D-37SYnjo9MCQdMdxr2uyVKEkXXw7<br>7rXv-hxDaFv59aaMCd3il9aTfDhGVj5G5oB9UA"<br>}|Каждый запрос на сервер сопровождается с header:authorization : "Bearer jwtToken"|
+|POST `/auth`|Body: {<br>"username": "admin",<br> "password": "qwerty"<br>}|{"jwtToken": String<br>}|Каждый запрос на сервер сопровождается с header:authorization : "Bearer jwtToken"|
 
 ## Запросы к таблице User
 |Request's name|Request param/body|Response format|Description|
 |---|---|---|---|
-|POST `/addUser`|Body: {<br>"username": "login",<br>"password": "password",<br>"email": "email@miti.ar",<br>"role": 0<br>}| {<br>"id": 4,<br>"username": "admin2",<br>"email": "qwerty@miti.ar",<br>"status": true,<br>"role": "USER"<br>}|role:<br>0.USER<br>1.MODERATOR<br>2.ADMIN|
-|GET `/getUserById`|Param: link.com/<br>getUserById?UserId=0|{<br>"id": 1,<br>"username": "admin",<br>"email": "qwerty@miti.ar",<br>"status": true,<br>"role": "ADMIN"<br>}|userId:1-infinity|
+|POST `/addUser`|Body: {<br>"username": "login",<br>"password": "password",<br>"email": "email@miti.ar",<br>"role": Long<br>}| {<br>"id": 4,<br>"username": String,<br>"email": String,<br>"status": boolean,<br>"role": Role|Integer<br>}|role:<br>0.USER<br>1.MODERATOR<br>2.ADMIN|
+|GET `/getUserById`|Param: link.com/<br>getUserById?UserId=0|{<br>"id": Long,<br>"username": String,<br>"email": "String,<br>"status": boolean,<br>"role": Role|Integer<br>}|userId:1-infinity|
 |GET `/getUserByUsername`|Param: link.com/<br>getUserByUsername?username=admin|{<br>"id": 1,<br>"username": "admin",<br>"email": "qwerty@miti.ar",<br>"status": true,<br>"role": "ADMIN"<br>}||
 |GET `/getUserByEmail`|Param: link.com/<br>getUserByEmail?email=qwerty@gmail.com|{<br>"id": 1,<br>"username": "admin",<br>"email": "qwerty@miti.ar",<br>"status": true,<br>"role": "ADMIN"<br>}||
 |GET `/getAllUsers`|none|{<br>"id": 1,<br>"username": "admin",<br>"email": "qwerty@miti.ar",<br>"status": true,<br>"role": "ADMIN"<br>}||
