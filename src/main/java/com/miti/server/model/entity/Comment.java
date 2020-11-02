@@ -15,10 +15,13 @@ public class Comment {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "ID")
   private Long id;
+
   @Column(name = "COMMENT")
   private String comment;
+
   @Column(name = "CREATE_DATE")
   private Date createDate;
+
   @Column(name = "EDIT_DATE")
   private Date editDate;
 

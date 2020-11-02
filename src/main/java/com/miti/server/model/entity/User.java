@@ -18,23 +18,32 @@ import java.util.List;
 public class User {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+
   @Column(name = "ID")
   private Long id;
+
   @Column(name = "USERNAME")
   private String username;
+
   @Column(name = "name")
   private String name;
+
   @Column(name = "PASSWORD")
   @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
   private String password;
+
   @Column(name = "EMAIL")
   private String email;
+
   @Column(name = "STATUS")
   private Boolean status;
+
   @Column(name = "ROLE")
   private Role role;
+
   @Column(name = "REGISTRATION_DATE")
   private Date registrationDate;
+
   @Column(name = "LAST_AUTH_DATE")
   private Date lastAuthDate;
 

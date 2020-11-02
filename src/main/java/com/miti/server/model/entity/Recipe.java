@@ -15,15 +15,19 @@ import java.util.List;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true, value = {"commentList", "contextIngredientList", "favouriteUsers"})
 public class Recipe {
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "ID")
   private Long id;
+
   @Column(name = "NAME")
   private String name;
+
   @Size(max = 4000)
   @Column(name = "DESCRIPTION")
   private String description;
+
   @Column(name = "CREATE_DATE")
   private Date createDate;
 

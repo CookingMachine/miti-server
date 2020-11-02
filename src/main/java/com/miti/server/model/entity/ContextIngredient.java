@@ -1,8 +1,6 @@
 package com.miti.server.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.miti.server.enums.Measure;
-import com.sun.org.glassfish.gmbal.NameValue;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -13,12 +11,15 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Data
 public class ContextIngredient {
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "ID")
   private Long id;
+
   @Column(name = "AMOUNT")
   private Long amount;
+
   @Column(name = "MEASURE")
   private Measure measure;
 
