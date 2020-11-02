@@ -26,6 +26,11 @@ public class CategoryServiceImpl implements CategoryService {
   }
 
   @Override
+  public List<Category> getAllCategories(){
+    return categoryRepository.findAll();
+  }
+
+  @Override
   public void addAllCategories(List<Category> categories) {
     List<Category> _categories = new ArrayList<>();
     for (Category category : categories) {

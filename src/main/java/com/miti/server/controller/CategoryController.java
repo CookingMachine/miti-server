@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class CategoryController {
@@ -15,6 +17,9 @@ public class CategoryController {
   public Category addCategory(@RequestBody Category category) {
     return categoryService.addCategory(category);
   }
+
+  @GetMapping("/getAllCategories")
+  public List<Category> getAllCategories(){ return categoryService.getAllCategories(); }
 
   @GetMapping("/getCategoryById")
   public Category getCategoryById(@RequestParam String categoryId) {
