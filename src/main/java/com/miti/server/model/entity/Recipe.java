@@ -56,4 +56,15 @@ public class Recipe {
 
     this.createDate = new Date();
   }
+
+  @Override
+  public String toString() {
+    return "{\n" +
+        "\"id\": " + this.getId() + ",\n" +
+        "\"name\": \"" + this.getName() + "\",\n" +
+        "\"description\": \"" + this.getDescription() + "\",\n" +
+        "\"createDate\": \"" + this.getCreateDate() + "\",\n" +
+        "\"authorName\": \"" + this.getAuthor().getName() + "\"\n" +
+        '}';
+  }
 }

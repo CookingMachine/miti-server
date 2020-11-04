@@ -28,4 +28,12 @@ public class Category {
     this.id = id;
     this.name = name;
   }
+
+  @Override
+  public String toString() {
+    return "{\n" +
+        "\"id\": " + this.getId() + ",\n" +
+        "\"name\": \"" + this.getName() + "\"\n" +
+        "}";
+  }
 }
