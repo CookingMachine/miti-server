@@ -35,6 +35,8 @@ public class JwtAuthenticationController {
     final UserDetails userDetails = userDetailsService
         .loadUserByUsername(authenticationRequest.getUsername());
 
+    System.out.println(authenticationRequest.getUsername() + " ," + authenticationRequest.getPassword());
+
     final String token = jwtUtil.generateToken(userDetails);
 
     return ResponseEntity.ok(new JwtResponse(token));
