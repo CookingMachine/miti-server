@@ -48,6 +48,11 @@ public class RecipeController {
     return recipeService.getRecipesByCategoryId(categoryId);
   }
 
+  @GetMapping("/getRecipesByKitchen")
+  public List<Recipe> getRecipesByKitchen(@RequestParam String kitchenName) {
+    return recipeService.getRecipesByKitchen(kitchenName);
+  }
+
   @DeleteMapping("/deleteRecipeById")
   public String deleteRecipeById(@RequestParam Long recipeId) {
     recipeService.deleteRecipeById(recipeId);
