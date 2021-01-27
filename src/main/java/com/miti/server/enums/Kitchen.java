@@ -38,5 +38,4 @@ public enum Kitchen {
   UZBEK,
   VALDONIAN,
   WESTERN
-
 }
