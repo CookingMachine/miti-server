@@ -13,48 +13,48 @@ import java.util.List;
 public class ContextIngredientController {
   private final ContextIngredientService contextIngredientService;
 
-  @PostMapping("/addContextIngredient")
+  @PostMapping("/contextIngredient/addContextIngredient")
   public ContextIngredient addContextIngredient(@RequestBody ContextIngredient contextIngredient) {
     return contextIngredientService.addContextIngredient(contextIngredient);
   }
 
-  @GetMapping("/getContextIngredientById")
-  public ContextIngredient getContextIngredientById(@RequestParam Long contextIngredientId) {
+  @GetMapping("/contextIngredient/getContextIngredientById")
+  public ContextIngredient getContextIngredientById(@RequestParam(name = "id") Long contextIngredientId) {
     return contextIngredientService.getContextIngredientById(contextIngredientId);
   }
 
-  @GetMapping("/getAllContextIngredients")
+  @GetMapping("/contextIngredient/getAllContextIngredients")
   public List<ContextIngredient> getAllContextIngredients() {
     return contextIngredientService.getAllContextIngredients();
   }
 
-  @GetMapping("/getContextIngredientsByAmountLessThan")
-  public List<ContextIngredient> getContextIngredientsByAmountLessThan(@RequestParam Long amount) {
+  @GetMapping("/contextIngredient/getContextIngredientsByAmountLessThan")
+  public List<ContextIngredient> getContextIngredientsByAmountLessThan(@RequestParam(name = "amount") Long amount) {
     return contextIngredientService.getContextIngredientsByAmountLessThan(amount);
   }
 
-  @GetMapping("/getContextIngredientsByAmountGreaterThan")
-  public List<ContextIngredient> getContextIngredientsByAmountGreaterThan(@RequestParam Long amount) {
+  @GetMapping("/contextIngredient/getContextIngredientsByAmountGreaterThan")
+  public List<ContextIngredient> getContextIngredientsByAmountGreaterThan(@RequestParam(name = "amount") Long amount) {
     return contextIngredientService.getContextIngredientsByAmountGreaterThan(amount);
   }
 
-  @GetMapping("/getContextIngredientsByMeasure")
-  public List<ContextIngredient> getContextIngredientsByMeasure(@RequestParam String measureName) {
+  @GetMapping("/contextIngredient/getContextIngredientsByMeasure")
+  public List<ContextIngredient> getContextIngredientsByMeasure(@RequestParam(name = "measure") String measureName) {
     return contextIngredientService.getContextIngredientsByMeasure(measureName);
   }
 
-  @GetMapping("/getContextIngredientsByIngredientId")
-  public List<ContextIngredient> getContextIngredientsByIngredientId(@RequestParam String ingredientId) {
+  @GetMapping("/contextIngredient/getContextIngredientsByIngredientId")
+  public List<ContextIngredient> getContextIngredientsByIngredientId(@RequestParam(name = "ingredientId") String ingredientId) {
     return contextIngredientService.getContextIngredientsByIngredientId(ingredientId);
   }
 
-  @GetMapping("/getContextIngredientsByRecipeId")
-  public List<ContextIngredient> getContextIngredientsByRecipeId(@RequestParam Long recipeId) {
+  @GetMapping("/contextIngredient/getContextIngredientsByRecipeId")
+  public List<ContextIngredient> getContextIngredientsByRecipeId(@RequestParam(name = "recipeId") Long recipeId) {
     return contextIngredientService.getContextIngredientsByRecipeId(recipeId);
   }
 
-  @DeleteMapping("/deleteContextIngredientById")
-  public String deleteContextIngredientById(@RequestParam Long contextIngredientId) {
+  @DeleteMapping("/contextIngredient/deleteContextIngredientById")
+  public String deleteContextIngredientById(@RequestParam(name = "id") Long contextIngredientId) {
     contextIngredientService.deleteContextIngredientById(contextIngredientId);
     return "Done!";
   }

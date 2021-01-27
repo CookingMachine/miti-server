@@ -1,6 +1,7 @@
 package com.miti.server.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.miti.server.enums.Kitchen;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -31,6 +32,9 @@ public class Recipe {
   @Column(name = "CREATE_DATE")
   private Date createDate;
 
+  @Column(name = "KITCHEN")
+  private Kitchen kitchen;
+
   @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "USER_ID", nullable = false)
   private User author;
@@ -48,11 +52,12 @@ public class Recipe {
   @ManyToMany
   private List<User> favouriteUsers;
 
-  public Recipe(String name, String description, User author, Category category) {
+  public Recipe(String name, String description, User author, Category category, Kitchen kitchen) {
     this.name = name;
     this.description = description;
     this.author = author;
     this.category = category;
+    this.kitchen = kitchen;
 
     this.createDate = new Date();
   }

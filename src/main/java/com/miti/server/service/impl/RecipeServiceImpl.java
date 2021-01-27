@@ -1,5 +1,6 @@
 package com.miti.server.service.impl;
 
+import com.miti.server.enums.Kitchen;
 import com.miti.server.model.entity.Comment;
 import com.miti.server.model.entity.ContextIngredient;
 import com.miti.server.model.entity.Recipe;
@@ -32,7 +33,8 @@ public class RecipeServiceImpl implements RecipeService {
           recipe.getName(),
           recipe.getDescription(),
           userService.getUserById(recipe.getAuthor().getId()),
-          categoryService.getCategoryById(recipe.getCategory().getId())
+          categoryService.getCategoryById(recipe.getCategory().getId()),
+          recipe.getKitchen()
       ));
     throw new RuntimeException("Recipe with name: " + recipe.getName() + " already exists!");
   }
@@ -101,6 +103,18 @@ public class RecipeServiceImpl implements RecipeService {
       throw new RuntimeException("Recipe with categoryId: " + categoryId + " doesn't exist!");
     }
     throw new RuntimeException("CategoryId: " + categoryId + " is incorrect!");
+  }
+
+  @Override
+  public List<Recipe> getRecipesByKitchen(String kitchenName) {
+    if (Check.param(kitchenName)) {
+      Kitchen kitchen = Kitchen.valueOf(kitchenName);
+      List<Recipe> recipes = recipeRepository.getRecipesByKitchen(kitchen);
+      if (recipes != null)
+        return recipes;
+      throw new RuntimeException("Recipe with kitchen: " + kitchen + " doesn't exist!");
+    }
+    throw new RuntimeException("Kitchen: " + kitchenName + " is incorrect!");
   }
 
   @Override

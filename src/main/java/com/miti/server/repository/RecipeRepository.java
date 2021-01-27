@@ -1,5 +1,6 @@
 package com.miti.server.repository;
 
+import com.miti.server.enums.Kitchen;
 import com.miti.server.model.entity.Category;
 import com.miti.server.model.entity.Recipe;
 import com.miti.server.model.entity.User;
@@ -14,6 +15,7 @@ public interface RecipeRepository extends JpaRepository<Recipe, Long> {
 
   List<Recipe> getRecipesByAuthor(User author);
   List<Recipe> getRecipesByCategory(Category category);
+  List<Recipe> getRecipesByKitchen(Kitchen kitchen);
 
   boolean existsByName(String name);
 }

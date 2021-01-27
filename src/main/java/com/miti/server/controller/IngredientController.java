@@ -13,33 +13,33 @@ import java.util.List;
 public class IngredientController {
   private final IngredientService ingredientService;
 
-  @PostMapping("/addIngredient")
+  @PostMapping("/ingredient/addIngredient")
   public Ingredient addIngredient(@RequestBody Ingredient ingredient) {
     return ingredientService.addIngredient(ingredient);
   }
 
-  @GetMapping("/getIngredientById")
-  public Ingredient getIngredientById(@RequestParam String ingredientId) {
+  @GetMapping("/ingredient/getIngredientById")
+  public Ingredient getIngredientById(@RequestParam(name = "id") String ingredientId) {
     return ingredientService.getIngredientById(ingredientId);
   }
 
-  @GetMapping("/getIngredientByName")
-  public Ingredient getIngredientByName(@RequestParam String name) {
+  @GetMapping("/ingredient/getIngredientByName")
+  public Ingredient getIngredientByName(@RequestParam(name = "name") String name) {
     return ingredientService.getIngredientByName(name);
   }
 
-  @GetMapping("/getAllIngredients")
+  @GetMapping("/ingredient/getAllIngredients")
   public List<Ingredient> getAllIngredients() {
     return ingredientService.getAllIngredients();
   }
 
-  @GetMapping("/getIngredientsByCategory")
-  public List<Ingredient> getIngredientsByCategory(@RequestParam String categoryName) {
+  @GetMapping("/ingredient/getIngredientsByCategory")
+  public List<Ingredient> getIngredientsByCategory(@RequestParam(name = "category") String categoryName) {
     return ingredientService.getIngredientsByCategory(categoryName);
   }
 
-  @DeleteMapping("/deleteIngredientById")
-  public String deleteIngredientById(@RequestParam String ingredientId) {
+  @DeleteMapping("/ingredient/deleteIngredientById")
+  public String deleteIngredientById(@RequestParam(name = "id") String ingredientId) {
     ingredientService.deleteIngredientById(ingredientId);
     return "Done!";
   }

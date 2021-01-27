@@ -13,33 +13,33 @@ import java.util.List;
 public class CommentController {
   private final CommentService commentService;
 
-  @PostMapping("/addComment")
+  @PostMapping("/comment/addComment")
   public Comment addComment(@RequestBody Comment comment) {
     return commentService.addComment(comment);
   }
 
-  @PutMapping("/editComment")
-  public Comment editComment(@RequestParam Long commentId, @RequestBody Comment comment) {
+  @PutMapping("/comment/editComment")
+  public Comment editComment(@RequestParam(name = "id") Long commentId, @RequestBody Comment comment) {
     return commentService.editComment(commentId, comment);
   }
 
-  @GetMapping("/getCommentById")
-  public Comment getCommentById(@RequestParam Long commentId) {
+  @GetMapping("/comment/getCommentById")
+  public Comment getCommentById(@RequestParam(name = "id") Long commentId) {
     return commentService.getCommentById(commentId);
   }
 
-  @GetMapping("/getCommentsByUserId")
-  public List<Comment> getCommentsByUserId(@RequestParam Long userId) {
+  @GetMapping("/comment/getCommentsByUserId")
+  public List<Comment> getCommentsByUserId(@RequestParam(name = "userId") Long userId) {
     return commentService.getCommentsByUserId(userId);
   }
 
-  @GetMapping("/getCommentsByRecipeId")
-  public List<Comment> getCommentsByRecipeId(@RequestParam Long recipeId) {
+  @GetMapping("/comment/getCommentsByRecipeId")
+  public List<Comment> getCommentsByRecipeId(@RequestParam(name = "recipeId") Long recipeId) {
     return commentService.getCommentsByRecipeId(recipeId);
   }
 
-  @DeleteMapping("/deleteCommentById")
-  public String deleteCommentById(@RequestParam Long commentId) {
+  @DeleteMapping("/comment/deleteCommentById")
+  public String deleteCommentById(@RequestParam(name = "id") Long commentId) {
     commentService.deleteCommentById(commentId);
     return "Done!";
   }
