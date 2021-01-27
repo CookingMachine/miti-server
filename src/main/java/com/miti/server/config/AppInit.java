@@ -75,11 +75,11 @@ public class AppInit implements ApplicationRunner {
     ingredientService.addAllIngredients(ingredients);
 
     addRecipe(recipes, "Салат оливье", "Классический салат Оливье в советское время готовили исключительно с вареной колбасой, желательно - с  Докторской. Мы не оступили от традиции и приготовили Оливье по канонам  советской гастрономии.",
-        userService.getUserById(1L), categoryService.getCategoryById("salads"), Kitchen.RUSSIAN);
+        userService.getUserById(1L), categoryService.getCategoryById("salads"), Kitchen.RUSSIAN, 300);
     addRecipe(recipes, "French Fries", "Просто рецепт приготовления картошки фри в сковороде! Картофель фри любим многими!",
-        userService.getUserById(2L), categoryService.getCategoryById("snacks"), Kitchen.AMERICAN);
+        userService.getUserById(2L), categoryService.getCategoryById("snacks"), Kitchen.AMERICAN, 1800);
     addRecipe(recipes, "Борщ", "Еще не знаете, какое первое блюдо сделать на обед? Я хочу показать вам несложный пошаговый способ, как приготовить самый вкусный борщ. Насыщенный, аппетитный и сытный… чудесная идея для всей семьи! Подробнее: https://povar.ru/recipes/samyi_vkusnyi_borsh-57233.html",
-        userService.getUserById(3L), categoryService.getCategoryById("firsts"), Kitchen.UKRAINIAN);
+        userService.getUserById(3L), categoryService.getCategoryById("firsts"), Kitchen.UKRAINIAN, 600);
 
     recipeService.addAllRecipes(recipes);
 
@@ -118,8 +118,8 @@ public class AppInit implements ApplicationRunner {
     ingredients.add(new Ingredient(id, name, category));
   }
 
-  private void addRecipe(List<Recipe> recipes, String name, String description, User author, Category category, Kitchen kitchen){
-    recipes.add(new Recipe(name, description, author, category, kitchen));
+  private void addRecipe(List<Recipe> recipes, String name, String description, User author, Category category, Kitchen kitchen, int time){
+    recipes.add(new Recipe(name, description, author, category, kitchen, time));
   }
 
   private void addComments(List<Comment> comments, String commentText, Recipe recipe, User user){

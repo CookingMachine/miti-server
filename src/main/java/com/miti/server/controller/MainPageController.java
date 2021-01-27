@@ -30,10 +30,16 @@ public class MainPageController {
     res.setCharacterEncoding("UTF-8");
     List<Category> categories = categoryService.getAllCategories();
     List<Recipe> recipes = recipeService.getAllRecipes();
-    StringBuilder elements = new StringBuilder();
-    elements.append(categories.toString());
-    elements.append("\n");
-    elements.append(recipes.toString());
+    java.lang.String elements = categories.toString() +
+      "\n" +
+      recipes.toString();
     res.getWriter().println(elements);
+  }
+
+  @GetMapping("/fastAndDelicious")
+  public void getFastAndDelicious(HttpServletResponse res) throws IOException {
+    res.setCharacterEncoding("UTF-8");
+    List<Recipe> recipes = recipeService.getRecipesByTimeLessThanEqual(600);
+    res.getWriter().println(recipes.toString());
   }
 }
