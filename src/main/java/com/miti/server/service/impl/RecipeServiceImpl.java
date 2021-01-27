@@ -34,7 +34,8 @@ public class RecipeServiceImpl implements RecipeService {
           recipe.getDescription(),
           userService.getUserById(recipe.getAuthor().getId()),
           categoryService.getCategoryById(recipe.getCategory().getId()),
-          recipe.getKitchen()
+          recipe.getKitchen(),
+          recipe.getTime()
       ));
     throw new RuntimeException("Recipe with name: " + recipe.getName() + " already exists!");
   }
@@ -115,6 +116,11 @@ public class RecipeServiceImpl implements RecipeService {
       throw new RuntimeException("Recipe with kitchen: " + kitchen + " doesn't exist!");
     }
     throw new RuntimeException("Kitchen: " + kitchenName + " is incorrect!");
+  }
+
+  @Override
+  public List<Recipe> getRecipesByTimeLessThanEqual(int time) {
+    return recipeRepository.getRecipesByTimeLessThanEqual(time);
   }
 
   @Override

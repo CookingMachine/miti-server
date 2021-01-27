@@ -29,6 +29,9 @@ public class Recipe {
   @Column(name = "DESCRIPTION")
   private String description;
 
+  @Column(name = "TIME")
+  private int time;
+
   @Column(name = "CREATE_DATE")
   private Date createDate;
 
@@ -52,12 +55,13 @@ public class Recipe {
   @ManyToMany
   private List<User> favouriteUsers;
 
-  public Recipe(String name, String description, User author, Category category, Kitchen kitchen) {
+  public Recipe(String name, String description, User author, Category category, Kitchen kitchen, int time) {
     this.name = name;
     this.description = description;
     this.author = author;
     this.category = category;
     this.kitchen = kitchen;
+    this.time = time;
 
     this.createDate = new Date();
   }
@@ -69,7 +73,9 @@ public class Recipe {
         "\"name\": \"" + this.getName() + "\",\n" +
         "\"description\": \"" + this.getDescription() + "\",\n" +
         "\"createDate\": \"" + this.getCreateDate() + "\",\n" +
-        "\"authorName\": \"" + this.getAuthor().getName() + "\"\n" +
+        "\"authorName\": \"" + this.getAuthor().getName() + "\",\n" +
+        "\"kitchen\": \"" + this.getKitchen() + "\",\n" +
+        "\"cookingTime\": \"" +this.getTime() + "\"\n" +
         '}';
   }
 }

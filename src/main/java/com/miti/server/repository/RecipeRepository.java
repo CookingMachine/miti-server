@@ -16,6 +16,7 @@ public interface RecipeRepository extends JpaRepository<Recipe, Long> {
   List<Recipe> getRecipesByAuthor(User author);
   List<Recipe> getRecipesByCategory(Category category);
   List<Recipe> getRecipesByKitchen(Kitchen kitchen);
+  List<Recipe> getRecipesByTimeLessThanEqual(int time);
 
   boolean existsByName(String name);
 }

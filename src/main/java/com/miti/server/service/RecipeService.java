@@ -18,6 +18,7 @@ public interface RecipeService {
   List<Recipe> getRecipesByAuthorId(Long authorId);
   List<Recipe> getRecipesByCategoryId(String categoryId);
   List<Recipe> getRecipesByKitchen(String kitchenName);
+  List<Recipe> getRecipesByTimeLessThanEqual(int time);
 
   void deleteRecipeById(Long recipeId);
   void deleteCommentById(Long commentId);
