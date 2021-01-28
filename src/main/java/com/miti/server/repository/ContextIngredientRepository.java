@@ -5,12 +5,14 @@ import com.miti.server.model.entity.Ingredient;
 import com.miti.server.model.entity.ContextIngredient;
 import com.miti.server.model.entity.Recipe;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import javax.naming.Context;
 import java.util.List;
 
 @Repository
-public interface ContextIngredientRepository extends JpaRepository<ContextIngredient, Long> {
+public interface ContextIngredientRepository extends CrudRepository<ContextIngredient, Long> {
   List<ContextIngredient> getContextIngredientByAmountLessThan(Long amount);
   List<ContextIngredient> getContextIngredientByAmountGreaterThan(Long amount);
   List<ContextIngredient> getContextIngredientsByMeasure(Measure measure);
@@ -18,4 +20,6 @@ public interface ContextIngredientRepository extends JpaRepository<ContextIngred
   List<ContextIngredient> getContextIngredientsByRecipe(Recipe recipe);
 
   boolean existsByIngredientAndRecipe(Ingredient ingredient, Recipe recipe);
+
+  long countByRecipeId(Long recipeId);
 }

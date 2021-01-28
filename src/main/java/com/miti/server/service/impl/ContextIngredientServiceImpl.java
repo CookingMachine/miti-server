@@ -58,7 +58,7 @@ public class ContextIngredientServiceImpl implements ContextIngredientService {
 
   @Override
   public List<ContextIngredient> getAllContextIngredients() {
-    return contextIngredientRepository.findAll();
+    return (List<ContextIngredient>) contextIngredientRepository.findAll();
   }
 
   @Override
@@ -127,6 +127,11 @@ public class ContextIngredientServiceImpl implements ContextIngredientService {
   @Override
   public void deleteContextIngredientById(Long contextIngredientId) {
     contextIngredientRepository.deleteById(contextIngredientId);
+  }
+
+  @Override
+  public long countByRecipeId(Long recipeId) {
+    return contextIngredientRepository.countByRecipeId(recipeId);
   }
 
   private boolean existsByIngredientIdAndRecipeId(String ingredientId, Long recipeId) {

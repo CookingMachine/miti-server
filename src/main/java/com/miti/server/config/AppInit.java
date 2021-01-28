@@ -91,6 +91,7 @@ public class AppInit implements ApplicationRunner {
     addContextIngredient(contextIngredients, 1L, Measure.Gr, ingredientService.getIngredientById("paprika_yellow"), recipeService.getRecipeById(1L));
     addContextIngredient(contextIngredients, 1L, Measure.Lit, ingredientService.getIngredientById("tomato"), recipeService.getRecipeById(3L));
     addContextIngredient(contextIngredients, 1L, Measure.St, ingredientService.getIngredientById("cucumber_salt"), recipeService.getRecipeById(1L));
+    addContextIngredient(contextIngredients,2L, Measure.Ml, ingredientService.getIngredientById("paprika_red"), recipeService.getRecipeById(2L));
 
     contextIngredientService.addAllContextIngredients(contextIngredients);
 

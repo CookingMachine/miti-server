@@ -11,6 +11,7 @@ import com.miti.server.service.CategoryService;
 import com.miti.server.service.RecipeService;
 import com.miti.server.service.UserService;
 import com.miti.server.util.Check;
+import com.miti.server.util.SearchFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -148,32 +149,5 @@ public class RecipeServiceImpl implements RecipeService {
 
   private boolean existsByName(String name) {
     return !recipeRepository.existsByName(name);
-  }
-
-  @Override
-  public List<Recipe> searchRecipesByLetter(String input) {
-    List<Recipe> recipes = getAllRecipes();
-    List<String> forSorting = new ArrayList<>();
-    input = input.toLowerCase();
-
-    for (Recipe recipe : recipes) {
-      String recipeName = recipe.getName().toLowerCase();
-      if (recipeName.contains(input))
-        forSorting.add(recipe.getName());
-    }
-    return sortRecipes(forSorting, input);
-  }
-
-  private List<Recipe> sortRecipes(List<String> recipesName, String input) {
-    List<String> sortedList = new ArrayList<>(recipesName);
-    List<Integer> positions = new ArrayList<>();
-
-    for (String s : recipesName) positions.add(s.indexOf(input));
-    sortedList.sort(Comparator.comparing(s -> positions.get(recipesName.indexOf(s))));
-
-    List<Recipe> result = new ArrayList<>();
-    for (String s : sortedList) result.add(getRecipeByName(s));
-
-    return result;
   }
 }
