@@ -18,4 +18,6 @@ public interface ContextIngredientService {
   List<ContextIngredient> getContextIngredientsByRecipeId(Long recipeId);
 
   void deleteContextIngredientById(Long contextIngredientId);
+
+  long countByRecipeId(Long recipeId);
 }
