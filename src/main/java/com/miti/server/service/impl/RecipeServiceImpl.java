@@ -165,17 +165,11 @@ public class RecipeServiceImpl implements RecipeService {
   }
 
   private List<Recipe> sortRecipes(List<String> recipesName, String input) {
-    String[] names = new String[recipesName.size()];
-    int[] positions = new int[recipesName.size()];
+    List<String> sortedList = new ArrayList<>(recipesName);
+    List<Integer> positions = new ArrayList<>();
 
-    for (int i = 0; i < recipesName.size(); i++) {
-      names[i] = recipesName.get(i);
-      positions[i] = names[i].indexOf(input);
-    }
-
-    final List<String> stringListCopy = Arrays.asList(names);
-    ArrayList<String> sortedList = new ArrayList<>(stringListCopy);
-    sortedList.sort(Comparator.comparing(s -> positions[stringListCopy.indexOf(s)]));
+    for (String s : recipesName) positions.add(s.indexOf(input));
+    sortedList.sort(Comparator.comparing(s -> positions.get(recipesName.indexOf(s))));
 
     List<Recipe> result = new ArrayList<>();
     for (String s : sortedList) result.add(getRecipeByName(s));

@@ -19,7 +19,7 @@ public class IngredientController {
   }
 
   @GetMapping("/ingredient/getIngredientById")
-  public Ingredient getIngredientById(@RequestParam(name = "id") String ingredientId) {
+  public Ingredient getIngredientById(@RequestParam(name = "ingredientId") String ingredientId) {
     return ingredientService.getIngredientById(ingredientId);
   }
 
@@ -34,12 +34,12 @@ public class IngredientController {
   }
 
   @GetMapping("/ingredient/getIngredientsByCategory")
-  public List<Ingredient> getIngredientsByCategory(@RequestParam(name = "category") String categoryName) {
+  public List<Ingredient> getIngredientsByCategory(@RequestParam(name = "categoryName") String categoryName) {
     return ingredientService.getIngredientsByCategory(categoryName);
   }
 
   @DeleteMapping("/ingredient/deleteIngredientById")
-  public String deleteIngredientById(@RequestParam(name = "id") String ingredientId) {
+  public String deleteIngredientById(@RequestParam(name = "ingredientId") String ingredientId) {
     ingredientService.deleteIngredientById(ingredientId);
     return "Done!";
   }

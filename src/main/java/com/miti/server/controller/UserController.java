@@ -26,12 +26,12 @@ public class UserController {
   }
 
   @PutMapping(value = "/user/editUser")
-  public User editUser(@RequestParam(name = "id") Long userId, @RequestBody User user) {
+  public User editUser(@RequestParam(name = "userId") Long userId, @RequestBody User user) {
     return userService.editUser(userId, user);
   }
 
   @GetMapping(value = "/user/getUserById")
-  public User getUserById(@RequestParam(name = "id") Long userId, HttpServletRequest req)
+  public User getUserById(@RequestParam(name = "userId") Long userId, HttpServletRequest req)
   {
     if (Check.role(req, userDetailsService, util, "ADMINISTRATION") ||
         Check.role(req, userDetailsService, util, "MODERATION"))
@@ -80,7 +80,7 @@ public class UserController {
   }
 
   @DeleteMapping(value = "/user/deleteUserById")
-  public String deleteUserById(@RequestParam(name = "id") Long userId) {
+  public String deleteUserById(@RequestParam(name = "userId") Long userId) {
     userService.deleteById(userId);
     return "Done!";
   }
