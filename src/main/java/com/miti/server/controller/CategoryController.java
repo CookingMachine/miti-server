@@ -22,17 +22,17 @@ public class CategoryController {
   public List<Category> getAllCategories(){ return categoryService.getAllCategories(); }
 
   @GetMapping("/category/getCategoryById")
-  public Category getCategoryById(@RequestParam(name = "id") String categoryId) {
+  public Category getCategoryById(@RequestParam(name = "categoryId") String categoryId) {
     return categoryService.getCategoryById(categoryId);
   }
 
   @GetMapping("/category/getCategoryByName")
-  public Category getCategoryByName(@RequestParam(name = "name") String name) {
+  public Category getCategoryByName(@RequestParam(name = "categoryName") String name) {
     return categoryService.getCategoryByName(name);
   }
 
   @DeleteMapping("/category/deleteCategoryById")
-  public String deleteCategoryById(@RequestParam(name = "id") String categoryId) {
+  public String deleteCategoryById(@RequestParam(name = "categoryId") String categoryId) {
     categoryService.deleteCategoryById(categoryId);
     return "Done!";
   }

@@ -19,12 +19,12 @@ public class RecipeController {
   }
 
   @PutMapping("/recipe/editRecipe")
-  public Recipe editRecipe(@RequestParam(name = "id") Long recipeId, @RequestBody Recipe recipe) {
+  public Recipe editRecipe(@RequestParam(name = "recipeId") Long recipeId, @RequestBody Recipe recipe) {
     return  recipeService.editRecipe(recipeId ,recipe);
   }
 
   @GetMapping("/recipe/getRecipeById")
-  public Recipe getRecipeById(@RequestParam(name = "id") Long recipeId) {
+  public Recipe getRecipeById(@RequestParam(name = "recipeId") Long recipeId) {
     return recipeService.getRecipeById(recipeId);
   }
 
@@ -54,7 +54,7 @@ public class RecipeController {
   }
 
   @DeleteMapping("/recipe/deleteRecipeById")
-  public String deleteRecipeById(@RequestParam(name = "id") Long recipeId) {
+  public String deleteRecipeById(@RequestParam(name = "recipeId") Long recipeId) {
     recipeService.deleteRecipeById(recipeId);
     return "Done!";
   }

@@ -19,12 +19,12 @@ public class CommentController {
   }
 
   @PutMapping("/comment/editComment")
-  public Comment editComment(@RequestParam(name = "id") Long commentId, @RequestBody Comment comment) {
+  public Comment editComment(@RequestParam(name = "commentId") Long commentId, @RequestBody Comment comment) {
     return commentService.editComment(commentId, comment);
   }
 
   @GetMapping("/comment/getCommentById")
-  public Comment getCommentById(@RequestParam(name = "id") Long commentId) {
+  public Comment getCommentById(@RequestParam(name = "commentId") Long commentId) {
     return commentService.getCommentById(commentId);
   }
 
@@ -39,7 +39,7 @@ public class CommentController {
   }
 
   @DeleteMapping("/comment/deleteCommentById")
-  public String deleteCommentById(@RequestParam(name = "id") Long commentId) {
+  public String deleteCommentById(@RequestParam(name = "commentId") Long commentId) {
     commentService.deleteCommentById(commentId);
     return "Done!";
   }
