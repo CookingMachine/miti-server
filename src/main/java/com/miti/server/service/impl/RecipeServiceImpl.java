@@ -7,14 +7,15 @@ import com.miti.server.model.entity.Recipe;
 import com.miti.server.repository.CommentRepository;
 import com.miti.server.repository.ContextIngredientRepository;
 import com.miti.server.repository.RecipeRepository;
-import com.miti.server.service.*;
+import com.miti.server.service.CategoryService;
+import com.miti.server.service.RecipeService;
+import com.miti.server.service.UserService;
 import com.miti.server.util.Check;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
@@ -147,5 +148,38 @@ public class RecipeServiceImpl implements RecipeService {
 
   private boolean existsByName(String name) {
     return !recipeRepository.existsByName(name);
+  }
+
+  @Override
+  public List<Recipe> searchRecipesByLetter(String input) {
+    List<Recipe> recipes = getAllRecipes();
+    List<String> forSorting = new ArrayList<>();
+    input = input.toLowerCase();
+
+    for (Recipe recipe : recipes) {
+      String recipeName = recipe.getName().toLowerCase();
+      if (recipeName.contains(input))
+        forSorting.add(recipe.getName());
+    }
+    return sortRecipes(forSorting, input);
+  }
+
+  private List<Recipe> sortRecipes(List<String> recipesName, String input) {
+    String[] names = new String[recipesName.size()];
+    int[] positions = new int[recipesName.size()];
+
+    for (int i = 0; i < recipesName.size(); i++) {
+      names[i] = recipesName.get(i);
+      positions[i] = names[i].indexOf(input);
+    }
+
+    final List<String> stringListCopy = Arrays.asList(names);
+    ArrayList<String> sortedList = new ArrayList<>(stringListCopy);
+    sortedList.sort(Comparator.comparing(s -> positions[stringListCopy.indexOf(s)]));
+
+    List<Recipe> result = new ArrayList<>();
+    for (String s : sortedList) result.add(getRecipeByName(s));
+
+    return result;
   }
 }

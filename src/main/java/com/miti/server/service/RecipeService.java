@@ -23,4 +23,6 @@ public interface RecipeService {
   void deleteRecipeById(Long recipeId);
   void deleteCommentById(Long commentId);
   void deleteIngredientContextById(Long id);
+
+  List<Recipe> searchRecipesByLetter(String input);
 }
