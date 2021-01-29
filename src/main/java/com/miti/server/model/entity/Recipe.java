@@ -16,7 +16,6 @@ import java.util.List;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true, value = {"commentList", "contextIngredientList", "favouriteUsers"})
 public class Recipe {
-
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "ID")
@@ -52,16 +51,21 @@ public class Recipe {
   @OneToMany(mappedBy = "recipe")
   private List<ContextIngredient> contextIngredientList;
 
+  @ManyToOne(fetch = FetchType.EAGER)
+  @JoinColumn(name = "CALORIE_ID", nullable = false)
+  private CalorieContent calorie;
+
   @ManyToMany
   private List<User> favouriteUsers;
 
-  public Recipe(String name, String description, User author, Category category, Kitchen kitchen, int time) {
+  public Recipe(String name, String description, User author, Category category, Kitchen kitchen, int time, CalorieContent calorie) {
     this.name = name;
     this.description = description;
     this.author = author;
     this.category = category;
     this.kitchen = kitchen;
     this.time = time;
+    this.calorie = calorie;
 
     this.createDate = new Date();
   }
@@ -75,7 +79,8 @@ public class Recipe {
         "\"createDate\": \"" + this.getCreateDate() + "\",\n" +
         "\"authorName\": \"" + this.getAuthor().getName() + "\",\n" +
         "\"kitchen\": \"" + this.getKitchen() + "\",\n" +
-        "\"cookingTime\": \"" +this.getTime() + "\"\n" +
+        "\"cookingTime\": \"" +this.getTime() + "\",\n" +
+        "\"calorie\": \"" +this.getCalorie().getId() + "\"\n" +
         '}';
   }
 }
