@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -14,7 +15,7 @@ import java.util.List;
 @Table(name = "RECIPE")
 @NoArgsConstructor
 @Data
-@JsonIgnoreProperties(ignoreUnknown = true, value = {"commentList", "contextIngredientList", "favouriteUsers"})
+@JsonIgnoreProperties(ignoreUnknown = true, value = {"commentList", "contextIngredientList", "favouriteUsers", "rating"})
 public class Recipe {
 
   @Id
@@ -59,6 +60,9 @@ public class Recipe {
   @ManyToMany
   private List<User> favouriteUsers;
 
+  @OneToMany(mappedBy = "recipe")
+  private List<Rating> rating;
+
   public Recipe(String name, String description, User author, Category category, Kitchen kitchen, int time, CalorieContent calorie) {
     this.name = name;
     this.description = description;
@@ -67,8 +71,26 @@ public class Recipe {
     this.kitchen = kitchen;
     this.time = time;
     this.calorie = calorie;
+    this.rating = null;
 
     this.createDate = new Date();
+  }
+
+  public Recipe(Recipe _recipe) {
+    this.id = _recipe.getId();
+    this.name = _recipe.getName();
+    this.description = _recipe.getDescription();
+    this.author = _recipe.getAuthor();
+    this.category = _recipe.getCategory();
+    this.kitchen = _recipe.getKitchen();
+    this.time = _recipe.getTime();
+    this.calorie = _recipe.getCalorie();
+    this.setCommentList(_recipe.getCommentList());
+    this.setContextIngredientList(_recipe.getContextIngredientList());
+    this.setFavouriteUsers(_recipe.getFavouriteUsers());
+    this.setRating(_recipe.getRating());
+
+    this.createDate = _recipe.getCreateDate();
   }
 
   @Override

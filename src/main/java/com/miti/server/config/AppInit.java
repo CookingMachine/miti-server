@@ -26,6 +26,7 @@ public class AppInit implements ApplicationRunner {
   private final IngredientService ingredientService;
   private final CommentService commentService;
   private final CalorieContentService calorieContentService;
+  private final RatingService ratingService;
 
   @Override
   public void run(ApplicationArguments args) {
@@ -36,6 +37,7 @@ public class AppInit implements ApplicationRunner {
     List<Ingredient> ingredients = new ArrayList<>();
     List<Comment> comments = new ArrayList<>();
     List<CalorieContent> calories = new ArrayList<>();
+    List<Rating> ratings = new ArrayList<>();
 
     addUser(users, "admin", "Max",
       "$2y$12$lMziH.7icjkdRRpDVtaj4uAaG8qlVkBi/Hjl0e7aKsMXQY8i4HQNu", "admin@gmail.com", Role.ADMINISTRATION);
@@ -219,6 +221,18 @@ public class AppInit implements ApplicationRunner {
     addComments(comments, "Ммм, Лориса. Борщ просто вещь!", recipeService.getRecipeById(3L), userService.getUserById(1L));
 
     commentService.addAllComments(comments);
+
+    addRating(ratings,4 , recipeService.getRecipeById(1L), userService.getUserById(1L));
+    addRating(ratings,3 , recipeService.getRecipeById(2L), userService.getUserById(6L));
+    addRating(ratings,4 , recipeService.getRecipeById(2L), userService.getUserById(5L));
+    addRating(ratings,4 , recipeService.getRecipeById(3L), userService.getUserById(4L));
+    addRating(ratings,2 , recipeService.getRecipeById(3L), userService.getUserById(2L));
+    addRating(ratings,1 , recipeService.getRecipeById(3L), userService.getUserById(3L));
+    addRating(ratings,5 , recipeService.getRecipeById(10L), userService.getUserById(1L));
+    addRating(ratings,5 , recipeService.getRecipeById(10L), userService.getUserById(2L));
+    addRating(ratings,5 , recipeService.getRecipeById(7L), userService.getUserById(1L));
+
+    ratingService.addAllRatings(ratings);
   }
 
   private void addUser(List<User> users, String username, String name, String password, String email, Role role){
@@ -248,5 +262,9 @@ public class AppInit implements ApplicationRunner {
 
   private void addCaloriesContent(List<CalorieContent> caloriesContent, Long calories, Long protein, Long fat, Long carbohydrates) {
     caloriesContent.add(new CalorieContent(calories, protein, fat, carbohydrates));
+  }
+
+  private void addRating(List<Rating> ratings, int ratingValue,  Recipe recipe, User user) {
+    ratings.add(new Rating(ratingValue, recipe, user));
   }
 }

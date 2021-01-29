@@ -17,6 +17,7 @@ public class SearchController {
 
   @RequestMapping(value = "/searchRecipe", method = RequestMethod.GET)
   public List<Recipe> searchRecipeByLetter(@RequestParam(name = "letters", defaultValue = "") String input,
+                                           @RequestParam(name = "sort", defaultValue = "") int sorting,
                                            @RequestBody IngredientRequest ingredients,
                                            @RequestParam(name = "caloriesDown", defaultValue = "0") int caloriesDown,
                                            @RequestParam(name = "caloriesUp", defaultValue = "100000") int caloriesUp,
@@ -27,6 +28,7 @@ public class SearchController {
     if (ingredients.getIngredients() == null) {
       return null;
     }
-    return searchFilter.searchRecipesByLetter(input, ingredients, caloriesDown, caloriesUp, timeStart, timeEnd, category, kitchen);
+    return searchFilter.searchRecipesByLetter(input, sorting, ingredients, caloriesDown, caloriesUp, timeStart, timeEnd,
+      category, kitchen);
   }
 }
