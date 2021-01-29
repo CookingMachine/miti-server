@@ -14,6 +14,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class CategoryServiceImpl implements CategoryService {
+
   private final CategoryRepository categoryRepository;
 
   @Override

@@ -19,6 +19,7 @@ import java.io.IOException;
 @Component
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class JwtRequestFilter extends OncePerRequestFilter {
+
   private final JwtUserDetailsService jwtUserDetailsService;
   private final JwtUtil jwtUtil;
 
@@ -53,7 +54,8 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
       UserDetails userDetails = this.jwtUserDetailsService.loadUserByUsername(username);
       if (jwtUtil.validateToken(jwtToken, userDetails)) {
-        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new
+          UsernamePasswordAuthenticationToken (userDetails, null, userDetails.getAuthorities());
         usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
         SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
       }

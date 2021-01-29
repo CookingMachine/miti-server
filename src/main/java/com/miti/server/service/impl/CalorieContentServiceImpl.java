@@ -12,6 +12,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class CalorieContentServiceImpl implements CalorieContentService {
+
   private final CalorieContentRepository calorieContentRepository;
 
   @Override
@@ -40,7 +41,8 @@ public class CalorieContentServiceImpl implements CalorieContentService {
 
   @Override
   public CalorieContent getCalorieContentById(Long calorieId) {
-    return calorieContentRepository.findById(calorieId).orElseThrow(() -> new RuntimeException("Calorie with id: " + calorieId + " doesn't exist!"));
+    return calorieContentRepository.findById(calorieId).orElseThrow(() ->
+      new RuntimeException("Calorie with id: " + calorieId + " doesn't exist!"));
   }
 
   @Override

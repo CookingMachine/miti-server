@@ -23,6 +23,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
   private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
   private final JwtRequestFilter jwtRequestFilter;
   private final UserDetailsService userDetailsService;
@@ -51,14 +52,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .antMatchers("/getAllCategories").authenticated().and()
         .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and()
         .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-
-//    httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
-//
-//    httpSecurity
-//        .headers().frameOptions().sameOrigin()
-//        .and()
-//        .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
-//        .authorizeRequests()
-//        .antMatchers("/auth").authenticated();
   }
 }

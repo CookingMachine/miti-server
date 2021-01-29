@@ -17,6 +17,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class ContextIngredientServiceImpl implements ContextIngredientService {
+
   private final ContextIngredientRepository contextIngredientRepository;
   private final RecipeService recipeService;
   private final IngredientService ingredientService;
@@ -127,11 +128,6 @@ public class ContextIngredientServiceImpl implements ContextIngredientService {
   @Override
   public void deleteContextIngredientById(Long contextIngredientId) {
     contextIngredientRepository.deleteById(contextIngredientId);
-  }
-
-  @Override
-  public long countByRecipeId(Long recipeId) {
-    return contextIngredientRepository.countByRecipeId(recipeId);
   }
 
   private boolean existsByIngredientIdAndRecipeId(String ingredientId, Long recipeId) {

@@ -16,6 +16,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class UserController {
+
   private final UserService userService;
   private final UserDetailsService userDetailsService;
   private final JwtUtil util;

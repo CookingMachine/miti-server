@@ -16,6 +16,7 @@ import java.util.List;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true, value = {"commentList", "contextIngredientList", "favouriteUsers"})
 public class Recipe {
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "ID")

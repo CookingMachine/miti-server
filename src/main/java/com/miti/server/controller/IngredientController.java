@@ -11,6 +11,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class IngredientController {
+
   private final IngredientService ingredientService;
 
   @PostMapping("/ingredient/addIngredient")

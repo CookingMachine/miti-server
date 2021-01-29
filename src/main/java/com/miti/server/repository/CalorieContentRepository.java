@@ -8,5 +8,6 @@ import java.util.List;
 
 @Repository
 public interface CalorieContentRepository extends JpaRepository<CalorieContent, Long> {
+
   List<CalorieContent> getCalorieContentsByCaloriesLessThan(Long calories);
 }

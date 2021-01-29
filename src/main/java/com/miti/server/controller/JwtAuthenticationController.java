@@ -23,6 +23,7 @@ import java.util.Date;
 @CrossOrigin
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class JwtAuthenticationController {
+
   private final AuthenticationManager authenticationManager;
   private final UserService userService;
   private final UserRepository userRepository;

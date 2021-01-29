@@ -11,6 +11,7 @@ import java.util.List;
 
 @Repository
 public interface RecipeRepository extends JpaRepository<Recipe, Long> {
+
   Recipe getRecipeByName(String name);
 
   List<Recipe> getRecipesByAuthor(User author);

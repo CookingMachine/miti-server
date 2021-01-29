@@ -5,6 +5,7 @@ import com.miti.server.model.entity.CalorieContent;
 import java.util.List;
 
 public interface CalorieContentService {
+
   CalorieContent addCalorieContent(CalorieContent calorieContent);
   void addAllCalorieContent(List<CalorieContent> calorieContents);
 

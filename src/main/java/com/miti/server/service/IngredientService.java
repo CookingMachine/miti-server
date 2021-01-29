@@ -5,6 +5,7 @@ import com.miti.server.model.entity.Ingredient;
 import java.util.List;
 
 public interface IngredientService {
+
   Ingredient addIngredient(Ingredient ingredient);
   void addAllIngredients(List<Ingredient> ingredients);
 

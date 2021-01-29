@@ -14,6 +14,7 @@ import java.util.List;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true, value = {"contextIngredientList"})
 public class Ingredient {
+
   @Id
   @Column(name = "ID")
   private String id;

@@ -12,6 +12,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class SearchController {
+
   private final SearchFilter searchFilter;
 
   @RequestMapping(value = "/searchRecipe", method = RequestMethod.GET)

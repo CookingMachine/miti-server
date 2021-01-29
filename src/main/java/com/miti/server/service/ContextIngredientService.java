@@ -5,6 +5,7 @@ import com.miti.server.model.entity.ContextIngredient;
 import java.util.List;
 
 public interface ContextIngredientService {
+
   ContextIngredient addContextIngredient(ContextIngredient contextIngredient);
   void addAllContextIngredients(List<ContextIngredient> contextIngredients);
 
@@ -18,6 +19,4 @@ public interface ContextIngredientService {
   List<ContextIngredient> getContextIngredientsByRecipeId(Long recipeId);
 
   void deleteContextIngredientById(Long contextIngredientId);
-
-  long countByRecipeId(Long recipeId);
 }
