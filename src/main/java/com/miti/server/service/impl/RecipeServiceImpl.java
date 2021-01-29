@@ -32,12 +32,13 @@ public class RecipeServiceImpl implements RecipeService {
   public Recipe addRecipe(Recipe recipe) {
     if (existsByName(recipe.getName()))
       return recipeRepository.save(new Recipe(
-          recipe.getName(),
-          recipe.getDescription(),
-          userService.getUserById(recipe.getAuthor().getId()),
-          categoryService.getCategoryById(recipe.getCategory().getId()),
-          recipe.getKitchen(),
-          recipe.getTime()
+        recipe.getName(),
+        recipe.getDescription(),
+        userService.getUserById(recipe.getAuthor().getId()),
+        categoryService.getCategoryById(recipe.getCategory().getId()),
+        recipe.getKitchen(),
+        recipe.getTime(),
+        recipe.getCalorie()
       ));
     throw new RuntimeException("Recipe with name: " + recipe.getName() + " already exists!");
   }

@@ -11,7 +11,6 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Data
 public class ContextIngredient {
-
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "ID")

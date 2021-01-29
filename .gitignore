@@ -1,4 +1,6 @@
-.idea
+/workspace.xml
+.idea/
+*.MF
 
 # Compiled class file
 *.class
