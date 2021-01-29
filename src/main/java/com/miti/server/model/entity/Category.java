@@ -13,6 +13,7 @@ import java.util.List;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true, value = {"recipeList"})
 public class Category {
+
   @Id
   @Column(name = "ID")
   private String id;

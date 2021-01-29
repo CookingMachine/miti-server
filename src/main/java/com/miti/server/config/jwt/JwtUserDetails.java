@@ -9,6 +9,7 @@ import java.util.Collection;
 import java.util.Collections;
 
 public class JwtUserDetails implements UserDetails {
+
   private String login;
   private String password;
   private Collection<? extends GrantedAuthority> grantedAuthorities;

@@ -11,6 +11,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class CommentController {
+
   private final CommentService commentService;
 
   @PostMapping("/comment/addComment")

@@ -15,6 +15,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class IngredientServiceImpl implements IngredientService{
+
   private final IngredientRepository ingredientRepository;
 
   @Override

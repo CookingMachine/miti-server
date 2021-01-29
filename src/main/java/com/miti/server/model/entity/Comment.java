@@ -11,6 +11,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Data
 public class Comment {
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "ID")

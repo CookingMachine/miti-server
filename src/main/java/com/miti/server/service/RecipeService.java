@@ -1,11 +1,11 @@
 package com.miti.server.service;
 
-import com.miti.server.enums.Kitchen;
 import com.miti.server.model.entity.Recipe;
 
 import java.util.List;
 
 public interface RecipeService {
+
   Recipe addRecipe(Recipe recipe);
   void addAllRecipes(List<Recipe> recipes);
 

@@ -26,6 +26,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class UserServiceImpl implements UserService {
+
   private final UserRepository userRepository;
   private final RecipeRepository recipeRepository;
   private final CommentRepository commentRepository;

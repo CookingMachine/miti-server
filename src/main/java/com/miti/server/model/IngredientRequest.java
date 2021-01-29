@@ -9,5 +9,6 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 public class IngredientRequest {
+
   private List<Ingredient> ingredients;
 }

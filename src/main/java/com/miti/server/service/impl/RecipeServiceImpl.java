@@ -11,16 +11,17 @@ import com.miti.server.service.CategoryService;
 import com.miti.server.service.RecipeService;
 import com.miti.server.service.UserService;
 import com.miti.server.util.Check;
-import com.miti.server.util.SearchFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class RecipeServiceImpl implements RecipeService {
+
   private final RecipeRepository recipeRepository;
   private final CommentRepository commentRepository;
   private final ContextIngredientRepository contextIngredientRepository;

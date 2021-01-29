@@ -3,10 +3,10 @@ package com.miti.server.service;
 import com.miti.server.model.entity.User;
 
 import java.text.ParseException;
-import java.util.Date;
 import java.util.List;
 
 public interface UserService {
+
   User addUser(User user);
   void addAllUsers(List<User> users);
 

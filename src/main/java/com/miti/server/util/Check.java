@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import javax.servlet.http.HttpServletRequest;
 
 public class Check {
+
   public static boolean param(String parameter) {
     return !parameter.isEmpty();
   }
@@ -16,10 +17,6 @@ public class Check {
   }
 
   public static boolean param(Long parameter) {
-    return parameter != null;
-  }
-
-  public static boolean param(Integer parameter) {
     return parameter != null;
   }
 

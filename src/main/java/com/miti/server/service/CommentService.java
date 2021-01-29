@@ -5,6 +5,7 @@ import com.miti.server.model.entity.Comment;
 import java.util.List;
 
 public interface CommentService {
+
   Comment addComment(Comment comment);
   void addAllComments(List<Comment> comments);
 

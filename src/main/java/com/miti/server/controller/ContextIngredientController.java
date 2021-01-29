@@ -11,6 +11,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class ContextIngredientController {
+
   private final ContextIngredientService contextIngredientService;
 
   @PostMapping("/contextIngredient/addContextIngredient")
