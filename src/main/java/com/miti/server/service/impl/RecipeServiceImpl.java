@@ -31,16 +31,17 @@ public class RecipeServiceImpl implements RecipeService {
 
   @Override
   public Recipe addRecipe(Recipe recipe) {
-    if (existsByName(recipe.getName()))
+    if (existsByName(recipe.getName())) {
       return recipeRepository.save(new Recipe(
-        recipe.getName(),
-        recipe.getDescription(),
-        userService.getUserById(recipe.getAuthor().getId()),
-        categoryService.getCategoryById(recipe.getCategory().getId()),
-        recipe.getKitchen(),
-        recipe.getTime(),
-        recipe.getCalorie()
+          recipe.getName(),
+          recipe.getDescription(),
+          userService.getUserById(recipe.getAuthor().getId()),
+          categoryService.getCategoryById(recipe.getCategory().getId()),
+          recipe.getKitchen(),
+          recipe.getTime(),
+          recipe.getCalorie()
       ));
+    }
     throw new RuntimeException("Recipe with name: " + recipe.getName() + " already exists!");
   }
 
@@ -48,8 +49,9 @@ public class RecipeServiceImpl implements RecipeService {
   public void addAllRecipes(List<Recipe> recipes) {
     List<Recipe> _recipes = new ArrayList<>();
     for (Recipe recipe : recipes) {
-      if (existsByName(recipe.getName()))
+      if (existsByName(recipe.getName())) {
         _recipes.add(recipe);
+      }
     }
     recipeRepository.saveAll(_recipes);
   }
@@ -63,7 +65,8 @@ public class RecipeServiceImpl implements RecipeService {
         recipe.setCategory(categoryService.getCategoryById(newRecipe.getCategory().getId()));
         return recipeRepository.save(recipe);
       }).orElseThrow(() -> new RuntimeException("Recipe with id: " + recipeId + " doesn't exist!"));
-    } throw new RuntimeException("Recipe with name: " + newRecipe.getName() + " already exist!");
+    }
+    throw new RuntimeException("Recipe with name: " + newRecipe.getName() + " already exist!");
   }
 
   @Override
@@ -76,8 +79,9 @@ public class RecipeServiceImpl implements RecipeService {
   public Recipe getRecipeByName(String name) {
     if (Check.param(name)) {
       Recipe recipe = recipeRepository.getRecipeByName(name);
-      if (recipe != null)
+      if (recipe != null) {
         return recipe;
+      }
       throw new RuntimeException("Recipe with name: " + name + " doesn't exist!");
     }
     throw new RuntimeException("Name: " + name + " is incorrect!");
@@ -92,8 +96,9 @@ public class RecipeServiceImpl implements RecipeService {
   public List<Recipe> getRecipesByAuthorId(Long authorId) {
     if (Check.param(authorId)) {
       List<Recipe> recipes = recipeRepository.getRecipesByAuthor(userService.getUserById(authorId));
-      if (recipes != null)
+      if (recipes != null) {
         return recipes;
+      }
       throw new RuntimeException("Recipe with authorId: " + authorId + " doesn't exist!");
     }
     throw new RuntimeException("AuthorId: " + authorId + " is incorrect!");
@@ -102,9 +107,11 @@ public class RecipeServiceImpl implements RecipeService {
   @Override
   public List<Recipe> getRecipesByCategoryId(String categoryId) {
     if (Check.param(categoryId)) {
-      List<Recipe> recipes = recipeRepository.getRecipesByCategory(categoryService.getCategoryById(categoryId));
-      if (recipes != null)
+      List<Recipe> recipes = recipeRepository
+          .getRecipesByCategory(categoryService.getCategoryById(categoryId));
+      if (recipes != null) {
         return recipes;
+      }
       throw new RuntimeException("Recipe with categoryId: " + categoryId + " doesn't exist!");
     }
     throw new RuntimeException("CategoryId: " + categoryId + " is incorrect!");
@@ -115,8 +122,9 @@ public class RecipeServiceImpl implements RecipeService {
     if (Check.param(kitchenName)) {
       Kitchen kitchen = Kitchen.valueOf(kitchenName);
       List<Recipe> recipes = recipeRepository.getRecipesByKitchen(kitchen);
-      if (recipes != null)
+      if (recipes != null) {
         return recipes;
+      }
       throw new RuntimeException("Recipe with kitchen: " + kitchen + " doesn't exist!");
     }
     throw new RuntimeException("Kitchen: " + kitchenName + " is incorrect!");
@@ -132,10 +140,12 @@ public class RecipeServiceImpl implements RecipeService {
     Recipe recipe = getRecipeById(recipeId);
     List<Comment> comments = recipe.getCommentList();
     List<ContextIngredient> contextIngredients = recipe.getContextIngredientList();
-    for (Comment comment : comments)
+    for (Comment comment : comments) {
       deleteCommentById(comment.getId());
-    for (ContextIngredient contextIngredient : contextIngredients)
+    }
+    for (ContextIngredient contextIngredient : contextIngredients) {
       deleteIngredientContextById(contextIngredient.getId());
+    }
     recipeRepository.deleteById(recipeId);
   }
 

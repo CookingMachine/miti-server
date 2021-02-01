@@ -20,7 +20,9 @@ public class CategoryController {
   }
 
   @GetMapping("/category/getAllCategories")
-  public List<Category> getAllCategories(){ return categoryService.getAllCategories(); }
+  public List<Category> getAllCategories() {
+    return categoryService.getAllCategories();
+  }
 
   @GetMapping("/category/getCategoryById")
   public Category getCategoryById(@RequestParam(name = "categoryId") String categoryId) {

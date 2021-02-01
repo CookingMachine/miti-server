@@ -18,7 +18,8 @@ public class JwtUserDetails implements UserDetails {
     JwtUserDetails jwtUser = new JwtUserDetails();
     jwtUser.login = user.getUsername();
     jwtUser.password = user.getPassword();
-    jwtUser.grantedAuthorities = Collections.singletonList(new SimpleGrantedAuthority(user.getRole().name()));
+    jwtUser.grantedAuthorities = Collections
+        .singletonList(new SimpleGrantedAuthority(user.getRole().name()));
     return jwtUser;
   }
 

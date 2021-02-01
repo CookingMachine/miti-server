@@ -27,13 +27,14 @@ public class ContextIngredientServiceImpl implements ContextIngredientService {
     if (existsByIngredientIdAndRecipeId(
         contextIngredient.getIngredient().getId(),
         contextIngredient.getRecipe().getId()
-    ))
+    )) {
       return contextIngredientRepository.save(new ContextIngredient(
           contextIngredient.getAmount(),
           contextIngredient.getMeasure(),
           ingredientService.getIngredientById(contextIngredient.getIngredient().getId()),
           recipeService.getRecipeById(contextIngredient.getRecipe().getId())
       ));
+    }
     throw new RuntimeException("In recipe with id: " + contextIngredient.getRecipe().getId() + " " +
         "already exist ingredient with id: " + contextIngredient.getIngredient().getId());
   }
@@ -45,8 +46,9 @@ public class ContextIngredientServiceImpl implements ContextIngredientService {
       if (existsByIngredientIdAndRecipeId(
           contextIngredient.getIngredient().getId(),
           contextIngredient.getRecipe().getId()
-      ))
+      )) {
         _ContextIngredients.add(contextIngredient);
+      }
     }
     contextIngredientRepository.saveAll(_ContextIngredients);
   }
@@ -54,7 +56,8 @@ public class ContextIngredientServiceImpl implements ContextIngredientService {
   @Override
   public ContextIngredient getContextIngredientById(Long contextIngredientId) {
     return contextIngredientRepository.findById(contextIngredientId).orElseThrow(()
-        ->new RuntimeException("ContextIngredient with id: " + contextIngredientId + " doesn't exist!"));
+        -> new RuntimeException(
+        "ContextIngredient with id: " + contextIngredientId + " doesn't exist!"));
   }
 
   @Override
@@ -67,8 +70,9 @@ public class ContextIngredientServiceImpl implements ContextIngredientService {
     if (Check.param(amount)) {
       List<ContextIngredient> contextIngredients = contextIngredientRepository.
           getContextIngredientByAmountLessThan(amount);
-      if (contextIngredients != null)
+      if (contextIngredients != null) {
         return contextIngredients;
+      }
       throw new RuntimeException("Nothing is less than: " + amount);
     }
     throw new RuntimeException("Amount: " + amount + " is incorrect!");
@@ -79,8 +83,9 @@ public class ContextIngredientServiceImpl implements ContextIngredientService {
     if (Check.param(amount)) {
       List<ContextIngredient> contextIngredients = contextIngredientRepository.
           getContextIngredientByAmountGreaterThan(amount);
-      if (contextIngredients != null)
+      if (contextIngredients != null) {
         return contextIngredients;
+      }
       throw new RuntimeException("Nothing is greater than: " + amount);
     }
     throw new RuntimeException("Amount: " + amount + " is incorrect!");
@@ -93,9 +98,11 @@ public class ContextIngredientServiceImpl implements ContextIngredientService {
       Measure measure = Measure.valueOf(measureName);
       List<ContextIngredient> contextIngredients = contextIngredientRepository.
           getContextIngredientsByMeasure(measure);
-      if (contextIngredients != null)
+      if (contextIngredients != null) {
         return contextIngredients;
-      throw new RuntimeException("ContextIngredient with measure: " + measureName + " don't exist!");
+      }
+      throw new RuntimeException(
+          "ContextIngredient with measure: " + measureName + " don't exist!");
     }
     throw new RuntimeException("MeasureName: " + measureName + " is incorrect!");
 
@@ -106,9 +113,11 @@ public class ContextIngredientServiceImpl implements ContextIngredientService {
     if (Check.param(ingredientId)) {
       List<ContextIngredient> contextIngredients = contextIngredientRepository.
           getContextIngredientsByIngredient(ingredientService.getIngredientById(ingredientId));
-      if (contextIngredients != null)
+      if (contextIngredients != null) {
         return contextIngredients;
-      throw new RuntimeException("ContextIngredient with ingredientId: " + ingredientId + " don't exist!");
+      }
+      throw new RuntimeException(
+          "ContextIngredient with ingredientId: " + ingredientId + " don't exist!");
     }
     throw new RuntimeException("IngredientId: " + ingredientId + " is incorrect!");
   }
@@ -118,8 +127,9 @@ public class ContextIngredientServiceImpl implements ContextIngredientService {
     if (Check.param(recipeId)) {
       List<ContextIngredient> contextIngredients = contextIngredientRepository.
           getContextIngredientsByRecipe(recipeService.getRecipeById(recipeId));
-      if (contextIngredients != null)
+      if (contextIngredients != null) {
         return contextIngredients;
+      }
       throw new RuntimeException("ContextIngredient with recipeId: " + recipeId + " don't exist!");
     }
     throw new RuntimeException("RecipeId: " + recipeId + " is incorrect!");

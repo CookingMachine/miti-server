@@ -20,7 +20,8 @@ public class CommentController {
   }
 
   @PutMapping("/comment/editComment")
-  public Comment editComment(@RequestParam(name = "commentId") Long commentId, @RequestBody Comment comment) {
+  public Comment editComment(@RequestParam(name = "commentId") Long commentId,
+      @RequestBody Comment comment) {
     return commentService.editComment(commentId, comment);
   }
 

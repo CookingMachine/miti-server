@@ -35,7 +35,8 @@ public class IngredientController {
   }
 
   @GetMapping("/ingredient/getIngredientsByCategory")
-  public List<Ingredient> getIngredientsByCategory(@RequestParam(name = "categoryName") String categoryName) {
+  public List<Ingredient> getIngredientsByCategory(
+      @RequestParam(name = "categoryName") String categoryName) {
     return ingredientService.getIngredientsByCategory(categoryName);
   }
 

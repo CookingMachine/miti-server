@@ -13,9 +13,13 @@ import java.util.List;
 public interface ContextIngredientRepository extends CrudRepository<ContextIngredient, Long> {
 
   List<ContextIngredient> getContextIngredientByAmountLessThan(Long amount);
+
   List<ContextIngredient> getContextIngredientByAmountGreaterThan(Long amount);
+
   List<ContextIngredient> getContextIngredientsByMeasure(Measure measure);
+
   List<ContextIngredient> getContextIngredientsByIngredient(Ingredient ingredient);
+
   List<ContextIngredient> getContextIngredientsByRecipe(Recipe recipe);
 
   boolean existsByIngredientAndRecipe(Ingredient ingredient, Recipe recipe);

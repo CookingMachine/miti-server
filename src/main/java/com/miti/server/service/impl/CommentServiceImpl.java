@@ -37,11 +37,11 @@ public class CommentServiceImpl implements CommentService {
 
   @Override
   public Comment editComment(Long commentId, Comment newComment) {
-      return commentRepository.findById(commentId).map(comment -> {
-        comment.setComment(newComment.getComment());
-        comment.setEditDate(new Date());
-        return commentRepository.save(comment);
-      }).orElseThrow(() -> new RuntimeException("Comment with id: " + commentId + " doesn't exist!"));
+    return commentRepository.findById(commentId).map(comment -> {
+      comment.setComment(newComment.getComment());
+      comment.setEditDate(new Date());
+      return commentRepository.save(comment);
+    }).orElseThrow(() -> new RuntimeException("Comment with id: " + commentId + " doesn't exist!"));
   }
 
   @Override
@@ -53,9 +53,11 @@ public class CommentServiceImpl implements CommentService {
   @Override
   public List<Comment> getCommentsByUserId(Long userId) {
     if (Check.param(userId)) {
-      List<Comment> comments = commentRepository.getCommentsByCommentator(userService.getUserById(userId));
-      if (comments != null)
+      List<Comment> comments = commentRepository
+          .getCommentsByCommentator(userService.getUserById(userId));
+      if (comments != null) {
         return comments;
+      }
       throw new RuntimeException("Comments with userId: " + userId + " doesn't exist!");
     }
     throw new RuntimeException("UserId: " + userId + " is incorrect!");
@@ -64,9 +66,11 @@ public class CommentServiceImpl implements CommentService {
   @Override
   public List<Comment> getCommentsByRecipeId(Long recipeId) {
     if (Check.param(recipeId)) {
-      List<Comment> comments = commentRepository.getCommentsByRecipe(recipeService.getRecipeById(recipeId));
-      if (comments != null)
+      List<Comment> comments = commentRepository
+          .getCommentsByRecipe(recipeService.getRecipeById(recipeId));
+      if (comments != null) {
         return comments;
+      }
       throw new RuntimeException("Comments with recipeId: " + recipeId + " doesn't exist!");
     }
     throw new RuntimeException("RecipeId: " + recipeId + " is incorrect!");

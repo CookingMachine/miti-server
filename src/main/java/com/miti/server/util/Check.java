@@ -21,11 +21,12 @@ public class Check {
   }
 
   public static boolean role(HttpServletRequest req,
-                             UserDetailsService userDetailsService,
-                             JwtUtil util,
-                             String role) {
+      UserDetailsService userDetailsService,
+      JwtUtil util,
+      String role) {
     String token = req.getHeader("Authorization").substring(7);
     UserDetails details = userDetailsService.loadUserByUsername(util.getUsernameFromToken(token));
-    return details != null && details.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals(role));
+    return details != null && details.getAuthorities().stream()
+        .anyMatch(a -> a.getAuthority().equals(role));
   }
 }

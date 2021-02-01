@@ -13,14 +13,16 @@ import java.util.List;
 public class RecipeController {
 
   private final RecipeService recipeService;
+
   @PostMapping("/recipe/addRecipe")
   public Recipe addRecipe(@RequestBody Recipe recipe) {
     return recipeService.addRecipe(recipe);
   }
 
   @PutMapping("/recipe/editRecipe")
-  public Recipe editRecipe(@RequestParam(name = "recipeId") Long recipeId, @RequestBody Recipe recipe) {
-    return  recipeService.editRecipe(recipeId ,recipe);
+  public Recipe editRecipe(@RequestParam(name = "recipeId") Long recipeId,
+      @RequestBody Recipe recipe) {
+    return recipeService.editRecipe(recipeId, recipe);
   }
 
   @GetMapping("/recipe/getRecipeById")
@@ -47,7 +49,7 @@ public class RecipeController {
   public List<Recipe> getRecipesByCategoryId(@RequestParam(name = "categoryId") String categoryId) {
     return recipeService.getRecipesByCategoryId(categoryId);
   }
-  
+
   @GetMapping("/recipe/getRecipesByKitchen")
   public List<Recipe> getRecipesByKitchen(@RequestParam(name = "kitchen") String kitchenName) {
     return recipeService.getRecipesByKitchen(kitchenName);

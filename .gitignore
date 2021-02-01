@@ -1,5 +1,5 @@
 /workspace.xml
-.idea/
+.idea/*
 *.MF
 
 # Compiled class file

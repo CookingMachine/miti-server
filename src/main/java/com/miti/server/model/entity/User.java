@@ -14,7 +14,8 @@ import java.util.List;
 @Table(name = "USR")
 @NoArgsConstructor
 @Data
-@JsonIgnoreProperties(ignoreUnknown = true, value = {"recipeList", "commentList", "favouriteList", "rating"})
+@JsonIgnoreProperties(ignoreUnknown = true, value = {"recipeList", "commentList", "favouriteList",
+    "rating"})
 public class User {
 
   @Id

@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public User addUser(User user) {
-    if (existsByUsernameAndEmail(user.getUsername(), user.getEmail()))
+    if (existsByUsernameAndEmail(user.getUsername(), user.getEmail())) {
       return userRepository.save(new User(
           user.getUsername(),
           user.getName(),
@@ -43,6 +43,7 @@ public class UserServiceImpl implements UserService {
           user.getEmail(),
           user.getRole()
       ));
+    }
     throw new RuntimeException("User with username: " + user.getUsername()
         + " or email: " + user.getEmail() + " already exists!");
   }
@@ -51,8 +52,9 @@ public class UserServiceImpl implements UserService {
   public void addAllUsers(List<User> users) {
     List<User> _users = new ArrayList<>();
     for (User user : users) {
-      if (existsByUsernameAndEmail(user.getUsername(), user.getEmail()))
+      if (existsByUsernameAndEmail(user.getUsername(), user.getEmail())) {
         _users.add(user);
+      }
     }
     userRepository.saveAll(_users);
   }
@@ -60,12 +62,12 @@ public class UserServiceImpl implements UserService {
   @Override
   public User editUser(Long userId, User newUser) {
     return userRepository.findById(userId).map(user -> {
-          user.setName(newUser.getName());
-          user.setPassword(passwordEncoder.encode(newUser.getPassword()));
-          user.setEmail(newUser.getEmail());
-          user.setRole(newUser.getRole());
-          return userRepository.save(user);
-        }).orElseThrow(() -> new RuntimeException("User with id: " + userId + " doesn't exist!"));
+      user.setName(newUser.getName());
+      user.setPassword(passwordEncoder.encode(newUser.getPassword()));
+      user.setEmail(newUser.getEmail());
+      user.setRole(newUser.getRole());
+      return userRepository.save(user);
+    }).orElseThrow(() -> new RuntimeException("User with id: " + userId + " doesn't exist!"));
   }
 
   @Override
@@ -78,8 +80,9 @@ public class UserServiceImpl implements UserService {
   public User getUserByUsername(String username) {
     if (Check.param(username)) {
       User user = userRepository.getUserByUsername(username);
-      if (user != null)
+      if (user != null) {
         return userRepository.getUserByUsername(username);
+      }
       throw new RuntimeException("User with username: " + username + " doesn't exist!");
     }
     throw new RuntimeException("Username: " + username + " is incorrect!");
@@ -89,15 +92,17 @@ public class UserServiceImpl implements UserService {
   public User getUserByName(String name) {
     if (Check.param(name)) {
       return userRepository.getUserByName(name);
-    } throw new RuntimeException("Name: " + name + " is incorrect!");
+    }
+    throw new RuntimeException("Name: " + name + " is incorrect!");
   }
 
   @Override
   public User getUserByEmail(String email) {
     if (Check.param(email)) {
       User user = userRepository.getUserByEmail(email);
-      if (user != null)
+      if (user != null) {
         return user;
+      }
       throw new RuntimeException("User with e-mail: " + email + " doesn't exist!");
     }
     throw new RuntimeException("Email: " + email + " is incorrect!");
@@ -113,8 +118,9 @@ public class UserServiceImpl implements UserService {
     if (Check.param(roleName)) {
       Role role = Role.valueOf(roleName);
       List<User> users = userRepository.getUsersByRole(role);
-      if (users != null)
+      if (users != null) {
         return users;
+      }
       throw new RuntimeException("Users with role: " + roleName + " don't exist!");
     }
     throw new RuntimeException("RoleName: " + roleName + " is incorrect!");
@@ -125,8 +131,9 @@ public class UserServiceImpl implements UserService {
   public List<User> getUsersByStatus(Boolean status) {
     if (Check.param(status)) {
       List<User> users = userRepository.getUsersByStatus(status);
-      if (users != null)
+      if (users != null) {
         return users;
+      }
       throw new RuntimeException("Users with status: " + status + " don't exist!");
     }
     throw new RuntimeException("Status: " + status + " is incorrect!");
@@ -153,16 +160,19 @@ public class UserServiceImpl implements UserService {
     for (Recipe recipe : recipes) {
       List<ContextIngredient> contextIngredients = recipe.getContextIngredientList();
       List<Comment> comments = recipe.getCommentList();
-      for (ContextIngredient contextIngredient : contextIngredients)
+      for (ContextIngredient contextIngredient : contextIngredients) {
         deleteIngredientContextById(contextIngredient.getId());
-      for (Comment comment : comments)
+      }
+      for (Comment comment : comments) {
         deleteCommentById(comment.getId());
+      }
       deleteRecipeById(recipe.getId());
     }
 
     List<Comment> comments = user.getCommentList();
-    for (Comment comment : comments)
+    for (Comment comment : comments) {
       deleteCommentById(comment.getId());
+    }
     userRepository.deleteById(userId);
   }
 
@@ -182,8 +192,9 @@ public class UserServiceImpl implements UserService {
   }
 
   public boolean existsByUsernameAndEmail(String username, String email) {
-    if (userRepository.existsByUsername(username))
+    if (userRepository.existsByUsername(username)) {
       return false;
+    }
     return !userRepository.existsByEmail(email);
   }
 }

@@ -33,14 +33,4 @@ public class Rating {
     this.recipe = recipe;
     this.user = user;
   }
-
-  @Override
-  public String toString() {
-    return "Rating{" +
-      "id=" + id +
-      ", ratingValue=" + ratingValue +
-      ", recipe=" + recipe +
-      ", user=" + user +
-      '}';
-  }
 }

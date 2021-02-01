@@ -31,24 +31,24 @@ public class JwtAuthenticationController {
   private final JwtUserDetailsService userDetailsService;
 
   @RequestMapping(value = "/authorization", method = RequestMethod.POST)
-  public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
+  public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest)
+      throws Exception {
     authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
     final UserDetails userDetails = userDetailsService
         .loadUserByUsername(authenticationRequest.getUsername());
-
-    System.out.println(authenticationRequest.getUsername() + " ," + authenticationRequest.getPassword());
 
     final String token = jwtUtil.generateToken(userDetails);
 
     return ResponseEntity.ok(new JwtResponse(token));
   }
 
-  private void authenticate (String username, String password) throws Exception {
+  private void authenticate(String username, String password) throws Exception {
     try {
       User user = userService.getUserByUsername(username);
       user.setLastAuthDate(new Date());
       userRepository.save(user);
-      authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+      authenticationManager
+          .authenticate(new UsernamePasswordAuthenticationToken(username, password));
     } catch (DisabledException de) {
       throw new Exception("USER_DISABLED", de);
     } catch (BadCredentialsException bce) {
