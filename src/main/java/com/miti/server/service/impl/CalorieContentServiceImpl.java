@@ -18,9 +18,9 @@ public class CalorieContentServiceImpl implements CalorieContentService {
   @Override
   public CalorieContent addCalorieContent(CalorieContent calorieContent) {
     return calorieContentRepository.save(new CalorieContent(calorieContent.getCalories(),
-      calorieContent.getProtein(),
-      calorieContent.getFat(),
-      calorieContent.getCarbohydrates()));
+        calorieContent.getProtein(),
+        calorieContent.getFat(),
+        calorieContent.getCarbohydrates()));
   }
 
   @Override
@@ -36,13 +36,14 @@ public class CalorieContentServiceImpl implements CalorieContentService {
       calorieContent.setFat(newCalorieContent.getFat());
       calorieContent.setCarbohydrates(newCalorieContent.getCarbohydrates());
       return calorieContentRepository.save(calorieContent);
-    }).orElseThrow(() -> new RuntimeException("Calories with id: " + calorieId + " doesn't exist!"));
+    }).orElseThrow(
+        () -> new RuntimeException("Calories with id: " + calorieId + " doesn't exist!"));
   }
 
   @Override
   public CalorieContent getCalorieContentById(Long calorieId) {
     return calorieContentRepository.findById(calorieId).orElseThrow(() ->
-      new RuntimeException("Calorie with id: " + calorieId + " doesn't exist!"));
+        new RuntimeException("Calorie with id: " + calorieId + " doesn't exist!"));
   }
 
   @Override

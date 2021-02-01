@@ -27,7 +27,7 @@ public class CategoryServiceImpl implements CategoryService {
   }
 
   @Override
-  public List<Category> getAllCategories(){
+  public List<Category> getAllCategories() {
     return categoryRepository.findAll();
   }
 
@@ -38,8 +38,9 @@ public class CategoryServiceImpl implements CategoryService {
       if (existsByCategoryIdAndName(
           category.getId(),
           category.getName()
-      ))
+      )) {
         _categories.add(category);
+      }
     }
     categoryRepository.saveAll(_categories);
   }
@@ -54,8 +55,9 @@ public class CategoryServiceImpl implements CategoryService {
   public Category getCategoryByName(String name) {
     if (Check.param(name)) {
       Category category = categoryRepository.getCategoryByName(name);
-      if (category != null)
+      if (category != null) {
         return category;
+      }
       throw new RuntimeException("Category with name " + name + " doesn't exist!");
     }
     throw new RuntimeException("Name: " + name + " is incorrect!");
@@ -67,8 +69,9 @@ public class CategoryServiceImpl implements CategoryService {
   }
 
   private boolean existsByCategoryIdAndName(String categoryId, String name) {
-    if (categoryRepository.existsById(categoryId))
+    if (categoryRepository.existsById(categoryId)) {
       return false;
+    }
     return !categoryRepository.existsByName(name);
   }
 }

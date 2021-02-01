@@ -12,5 +12,6 @@ import java.util.List;
 public interface CommentRepository extends JpaRepository<Comment, Long> {
 
   List<Comment> getCommentsByCommentator(User commentator);
+
   List<Comment> getCommentsByRecipe(Recipe recipe);
 }

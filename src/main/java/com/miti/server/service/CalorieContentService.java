@@ -7,6 +7,7 @@ import java.util.List;
 public interface CalorieContentService {
 
   CalorieContent addCalorieContent(CalorieContent calorieContent);
+
   void addAllCalorieContent(List<CalorieContent> calorieContents);
 
   CalorieContent editCalorieContent(Long calorieId, CalorieContent calorieContent);

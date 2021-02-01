@@ -26,8 +26,8 @@ public class MainPageController {
     List<Category> categories = categoryService.getAllCategories();
     List<Recipe> recipes = recipeService.getAllRecipes();
     java.lang.String elements = categories.toString() +
-      "\n" +
-      recipes.toString();
+        "\n" +
+        recipes.toString();
     res.getWriter().println(elements);
   }
 

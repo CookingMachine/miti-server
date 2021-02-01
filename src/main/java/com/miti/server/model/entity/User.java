@@ -14,7 +14,8 @@ import java.util.List;
 @Table(name = "USR")
 @NoArgsConstructor
 @Data
-@JsonIgnoreProperties(ignoreUnknown = true, value = {"recipeList", "commentList", "favouriteList"})
+@JsonIgnoreProperties(ignoreUnknown = true, value = {"recipeList", "commentList", "favouriteList",
+    "rating"})
 public class User {
 
   @Id
@@ -55,6 +56,9 @@ public class User {
 
   @ManyToMany(mappedBy = "favouriteUsers")
   private List<Recipe> favouriteList;
+
+  @OneToMany(mappedBy = "user")
+  private List<Rating> rating;
 
   public User(String username, String name, String password, String email, Role role) {
     this.username = username;

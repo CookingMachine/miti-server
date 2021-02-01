@@ -32,11 +32,11 @@ public class UserController {
   }
 
   @GetMapping(value = "/user/getUserById")
-  public User getUserById(@RequestParam(name = "userId") Long userId, HttpServletRequest req)
-  {
+  public User getUserById(@RequestParam(name = "userId") Long userId, HttpServletRequest req) {
     if (Check.role(req, userDetailsService, util, "ADMINISTRATION") ||
-        Check.role(req, userDetailsService, util, "MODERATION"))
+        Check.role(req, userDetailsService, util, "MODERATION")) {
       return userService.getUserById(userId);
+    }
     throw new RuntimeException("No permission!");
   }
 
@@ -61,7 +61,8 @@ public class UserController {
   }
 
   @GetMapping(value = "/user/getUsersByStatus")
-  public List<User> getUsersByStatus(@RequestParam(name = "status", defaultValue = "true") boolean status) {
+  public List<User> getUsersByStatus(
+      @RequestParam(name = "status", defaultValue = "true") boolean status) {
     return userService.getUsersByStatus(status);
   }
 
@@ -71,12 +72,14 @@ public class UserController {
   }
 
   @GetMapping(value = "/user/getUsersByLastAuthDateAfter")
-  public List<User> getUsersByLastAuthDateAfter(@RequestParam(name = "date") String date) throws ParseException {
+  public List<User> getUsersByLastAuthDateAfter(@RequestParam(name = "date") String date)
+      throws ParseException {
     return userService.getUsersByLastAuthDateAfter(date);
   }
 
   @GetMapping(value = "/user/getUsersByRegistrationDateAfter")
-  public List<User> getUsersByRegistrationDateAfter(@RequestParam(name = "date") String date) throws ParseException {
+  public List<User> getUsersByRegistrationDateAfter(@RequestParam(name = "date") String date)
+      throws ParseException {
     return userService.getUsersByRegistrationDateAfter(date);
   }
 

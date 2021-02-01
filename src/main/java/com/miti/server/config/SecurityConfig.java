@@ -29,7 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   private final UserDetailsService userDetailsService;
 
   @Override
-  protected void configure (AuthenticationManagerBuilder auth) throws Exception {
+  protected void configure(AuthenticationManagerBuilder auth) throws Exception {
     auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
   }
 
@@ -45,7 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   }
 
   @Override
-  protected void configure (HttpSecurity httpSecurity) throws Exception {
+  protected void configure(HttpSecurity httpSecurity) throws Exception {
     httpSecurity.csrf().disable()
         .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
         .authorizeRequests().antMatchers("/auth").permitAll()
