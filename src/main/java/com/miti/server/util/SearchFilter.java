@@ -8,15 +8,15 @@ import com.miti.server.model.entity.Recipe;
 import com.miti.server.service.ContextIngredientService;
 import com.miti.server.service.IngredientService;
 import com.miti.server.service.RecipeService;
-import java.util.Collections;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
@@ -106,7 +106,7 @@ public class SearchFilter {
       int caloriesDown, int caloriesUp, int timeStart, int timeEnd,
       String category, String kitchen) {
     List<Recipe> sortedList = new ArrayList<>(recipes);
-    List<Integer> avg = new ArrayList<>(getAverageRating(recipes));
+    List<Double> avg = new ArrayList<>(getAverageRating(recipes));
 
     sortedList.sort(Comparator.comparing(s -> avg.get(recipes.indexOf(s))).reversed());
 
@@ -229,10 +229,14 @@ public class SearchFilter {
     return result;
   }
 
-  private List<Integer> getAverageRating(List<Recipe> recipe) {
-    ArrayList<Integer> avgList = new ArrayList<>();
-    int sum = 0;
+  private List<Double> getAverageRating(List<Recipe> recipe) {
+    ArrayList<Double> avgList = new ArrayList<>();
+    double sum = 0;
     int count = 1;
+
+    DecimalFormat df = new DecimalFormat("#.#");
+    df.setRoundingMode(RoundingMode.CEILING);
+
     for (Recipe r : recipe) {
       if (r.getRating() != null && !r.getRating().isEmpty()) {
         for (Rating rating : r.getRating()) {
@@ -240,9 +244,11 @@ public class SearchFilter {
           count++;
         }
         count--;
-        avgList.add(sum / count);
+        double avg = (double) Math.round(sum / count * 10d) / 10d;
+        System.out.println(avg);
+        avgList.add(avg);
       } else {
-        avgList.add(0);
+        avgList.add(0d);
       }
 
       sum = 0;
