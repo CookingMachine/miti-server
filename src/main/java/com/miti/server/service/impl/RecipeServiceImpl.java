@@ -1,6 +1,7 @@
 package com.miti.server.service.impl;
 
 import com.miti.server.enums.Kitchen;
+import com.miti.server.model.entity.CalorieContent;
 import com.miti.server.model.entity.Comment;
 import com.miti.server.model.entity.ContextIngredient;
 import com.miti.server.model.entity.Recipe;
@@ -11,6 +12,7 @@ import com.miti.server.service.CategoryService;
 import com.miti.server.service.RecipeService;
 import com.miti.server.service.UserService;
 import com.miti.server.util.Check;
+import java.util.Date;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -88,6 +90,11 @@ public class RecipeServiceImpl implements RecipeService {
   }
 
   @Override
+  public Recipe getRecipeByCalorie(CalorieContent calorieContent) {
+    return recipeRepository.getRecipeByCalorie(calorieContent);
+  }
+
+  @Override
   public List<Recipe> getAllRecipes() {
     return recipeRepository.findAll();
   }
@@ -133,6 +140,11 @@ public class RecipeServiceImpl implements RecipeService {
   @Override
   public List<Recipe> getRecipesByTimeLessThanEqual(int time) {
     return recipeRepository.getRecipesByTimeLessThanEqual(time);
+  }
+
+  @Override
+  public List<Recipe> getRecipesByCreateDateBetween(Date recipePublicationDateStart, Date today) {
+    return recipeRepository.getRecipesByCreateDateBetween(recipePublicationDateStart, today);
   }
 
   @Override

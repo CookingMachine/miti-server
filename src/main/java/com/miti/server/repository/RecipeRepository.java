@@ -1,9 +1,11 @@
 package com.miti.server.repository;
 
 import com.miti.server.enums.Kitchen;
+import com.miti.server.model.entity.CalorieContent;
 import com.miti.server.model.entity.Category;
 import com.miti.server.model.entity.Recipe;
 import com.miti.server.model.entity.User;
+import java.util.Date;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -14,6 +16,8 @@ public interface RecipeRepository extends JpaRepository<Recipe, Long> {
 
   Recipe getRecipeByName(String name);
 
+  Recipe getRecipeByCalorie(CalorieContent calorieContent);
+
   List<Recipe> getRecipesByAuthor(User author);
 
   List<Recipe> getRecipesByCategory(Category category);
@@ -21,6 +25,8 @@ public interface RecipeRepository extends JpaRepository<Recipe, Long> {
   List<Recipe> getRecipesByKitchen(Kitchen kitchen);
 
   List<Recipe> getRecipesByTimeLessThanEqual(int time);
+
+  List<Recipe> getRecipesByCreateDateBetween(Date recipePublicationDateStart, Date today);
 
   boolean existsByName(String name);
 }

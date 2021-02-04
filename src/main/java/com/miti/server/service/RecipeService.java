@@ -1,7 +1,9 @@
 package com.miti.server.service;
 
+import com.miti.server.model.entity.CalorieContent;
 import com.miti.server.model.entity.Recipe;
 
+import java.util.Date;
 import java.util.List;
 
 public interface RecipeService {
@@ -16,6 +18,8 @@ public interface RecipeService {
 
   Recipe getRecipeByName(String name);
 
+  Recipe getRecipeByCalorie(CalorieContent calorieContent);
+
   List<Recipe> getAllRecipes();
 
   List<Recipe> getRecipesByAuthorId(Long authorId);
@@ -25,6 +29,8 @@ public interface RecipeService {
   List<Recipe> getRecipesByKitchen(String kitchenName);
 
   List<Recipe> getRecipesByTimeLessThanEqual(int time);
+
+  List<Recipe> getRecipesByCreateDateBetween(Date recipePublicationDateStart, Date today);
 
   void deleteRecipeById(Long recipeId);
 

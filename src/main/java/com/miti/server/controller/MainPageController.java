@@ -1,40 +1,21 @@
 package com.miti.server.controller;
 
-import com.miti.server.model.entity.Category;
-import com.miti.server.model.entity.Recipe;
-import com.miti.server.service.CategoryService;
-import com.miti.server.service.RecipeService;
+import com.miti.server.model.MainPageContent;
+import com.miti.server.util.MainPageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.List;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class MainPageController {
 
-  private final CategoryService categoryService;
-  private final RecipeService recipeService;
+  private final MainPageService mainPageConstructor;
 
   @GetMapping("/mainPage")
-  public void getMainPageElements(HttpServletResponse res) throws IOException {
-    res.setCharacterEncoding("UTF-8");
-    List<Category> categories = categoryService.getAllCategories();
-    List<Recipe> recipes = recipeService.getAllRecipes();
-    java.lang.String elements = categories.toString() +
-        "\n" +
-        recipes.toString();
-    res.getWriter().println(elements);
-  }
-
-  @GetMapping("/fastAndDelicious")
-  public void getFastAndDelicious(HttpServletResponse res) throws IOException {
-    res.setCharacterEncoding("UTF-8");
-    List<Recipe> recipes = recipeService.getRecipesByTimeLessThanEqual(600);
-    res.getWriter().println(recipes.toString());
+  public MainPageContent getMainPageElements(@RequestParam Long calories, @RequestParam int time) {
+    return mainPageConstructor.mainPage(calories, time);
   }
 }
