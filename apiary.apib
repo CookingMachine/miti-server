@@ -1,0 +1,203 @@
+FORMAT: 1A
+HOST: https://polls.apiblueprint.org/
+
+# MITI
+
+Documentation for MITI Server
+
+## Authorization [/authorization]
+
+### Authorization for User
+
+## User Collection [/user]
+
+### Add new User [POST /user/addUser]
+
++ Request (application/json)
+
+            {
+                "username": "Kila2",
+                "name": "Babushka",
+                "password": "1234qwer",
+                "email": "pop@adl.ru",
+                "role": 1
+            }
+        
++ Response 200 (application/json)
+
+    + Headers
+
+            Location: /user/getUserById?userId={userId}
+
+    + Body
+
+            {
+                "id": 5,
+                "username": "Kila3",
+                "name": "Babushka",
+                "email": "pop@a2dl.ru",
+                "status": true,
+                "role": "MODERATION",
+                "registrationDate": "2021-01-26T09:35:34.535+0000",
+                "lastAuthDate": "2021-01-26T09:35:34.535+0000"
+            }
+            
+### Edit User [PUT /user/editUser?userId={userId}]
+
++ Parameters
+    + userId (Long) - ID of the User
+
++ Request (apllication/json)
+
+            {
+                "username": "Kil23",
+                "name": "Baa",
+                "password": "1234",
+                "email": "pop@adl.ru",
+                "role": 0
+            }
+            
++ Response 200 (application/json)
+
+    + Headers
+
+            Location: /user/getUserById?userId={userId}
+
+    + Body
+
+            {
+                "id": 5,
+                "username": "Kila3",
+                "name": "Babushka",
+                "email": "pop@a2dl.ru",
+                "status": true,
+                "role": "MODERATION",
+                "registrationDate": "2021-01-26T09:35:34.535+0000",
+                "lastAuthDate": "2021-01-26T09:35:34.535+0000"
+            }
+        
+### Get User by ID [GET /user/getUserById?userId={userId}]
+
++ Parameters
+    + userId (Long) - ID of the User
+    
++ Response 200 (application/json)
+
+            {
+                "id": 4,
+                "username": "Kila",
+                "name": "Baa",
+                "email": "pop@adl.ru",
+                "status": true,
+                "role": "USER",
+                "registrationDate": "2021-01-26T09:13:38.999+0000",
+                "lastAuthDate": "2021-01-26T09:13:38.999+0000"
+            }
+            
+### Get User by username [GET /user/getUserByUsername?username={username}]
+
++ Parameters
+    + username (String) - Login of the User
+    
++ Response 200 (application/json)
+
+            {
+                "id": 5,
+                "username": "Kila3",
+                "name": "Baa",
+                "email": "pop@adl.ru",
+                "status": true,
+                "role": "USER",
+                "registrationDate": "2021-01-26T09:35:34.535+0000",
+                "lastAuthDate": "2021-01-26T09:35:34.535+0000"
+            }
+            
+### Get User by name [GET /user/getUserByName?name={name}]
+
++ Parameters
+    + name (String) - Name of the User
+    
++ Response 200 (application/json)
+
+            {
+                "id": 5,
+                "username": "Kila3",
+                "name": "Baa",
+                "email": "pop@adl.ru",
+                "status": true,
+                "role": "USER",
+                "registrationDate": "2021-01-26T09:35:34.535+0000",
+                "lastAuthDate": "2021-01-26T09:35:34.535+0000"
+            }
+            
+### Get User by email [GET /user/getUserByEmail?email={email}]
+
++ Parameters
+    + email (String) - Email of the User
+    
++ Response 200 (application/json)
+
+            {
+                "id": 5,
+                "username": "Kila3",
+                "name": "Baa",
+                "email": "pop@adl.ru",
+                "status": true,
+                "role": "USER",
+                "registrationDate": "2021-01-26T09:35:34.535+0000",
+                "lastAuthDate": "2021-01-26T09:35:34.535+0000"
+            }
+            
+### Get all Users [GET /user/getAllUsers]
+    
++ Response 200 (application/json)
+
+            [
+                {
+                    "id": 1,
+                    "username": "admin",
+                    "name": "Max",
+                    "email": "admin@gmail.com",
+                    "status": true,
+                    "role": "ADMINISTRATION",
+                    "registrationDate": "2021-01-26T09:12:16.175+0000",
+                    "lastAuthDate": "2021-01-26T09:12:16.175+0000"
+                },
+                {
+                    "id": 2,
+                    "username": "moder",
+                    "name": "Govnoy",
+                    "email": "moder@gmail.com",
+                    "status": true,
+                    "role": "MODERATION",
+                    "registrationDate": "2021-01-26T09:12:16.175+0000",
+                    "lastAuthDate": "2021-01-26T09:12:16.175+0000"
+                }
+            ]
+            
+### Get Users by status [GET /user/getUsersByStatus]
+    
++ Response 200 (application/json)
+
+            [
+                {
+                    "id": 1,
+                    "username": "admin",
+                    "name": "Max",
+                    "email": "admin@gmail.com",
+                    "status": true,
+                    "role": "ADMINISTRATION",
+                    "registrationDate": "2021-01-26T09:12:16.175+0000",
+                    "lastAuthDate": "2021-01-26T09:12:16.175+0000"
+                },
+                {
+                    "id": 2,
+                    "username": "moder",
+                    "name": "Govnoy",
+                    "email": "moder@gmail.com",
+                    "status": true,
+                    "role": "MODERATION",
+                    "registrationDate": "2021-01-26T09:12:16.175+0000",
+                    "lastAuthDate": "2021-01-26T09:12:16.175+0000"
+                }
+            ]
