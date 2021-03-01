@@ -7,6 +7,7 @@ import com.miti.server.model.entity.Rating;
 import com.miti.server.model.entity.Recipe;
 import com.miti.server.service.ContextIngredientService;
 import com.miti.server.service.IngredientService;
+import com.miti.server.service.RatingService;
 import com.miti.server.service.RecipeService;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
@@ -25,6 +26,7 @@ public class SearchFilter {
   private final RecipeService recipeService;
   private final IngredientService ingredientService;
   private final ContextIngredientService contextIngredientService;
+  private final RatingService ratingService;
 
   public List<Recipe> searchRecipesByLetter(String input, int sorting,
       IngredientRequest ingredients,
@@ -229,7 +231,7 @@ public class SearchFilter {
     return result;
   }
 
-  private List<Double> getAverageRating(List<Recipe> recipe) {
+  protected List<Double> getAverageRating(List<Recipe> recipe) {
     ArrayList<Double> avgList = new ArrayList<>();
     double sum = 0;
     int count = 1;
@@ -238,14 +240,14 @@ public class SearchFilter {
     df.setRoundingMode(RoundingMode.CEILING);
 
     for (Recipe r : recipe) {
-      if (r.getRating() != null && !r.getRating().isEmpty()) {
-        for (Rating rating : r.getRating()) {
+      List<Rating> ratings = ratingService.getRatingsByRecipeId(r.getId());
+      if (ratings != null) {
+        for (Rating rating : ratings) {
           sum += rating.getRatingValue();
           count++;
         }
         count--;
         double avg = (double) Math.round(sum / count * 10d) / 10d;
-        System.out.println(avg);
         avgList.add(avg);
       } else {
         avgList.add(0d);
