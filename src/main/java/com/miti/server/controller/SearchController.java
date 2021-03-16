@@ -10,12 +10,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping(path = "api/v1/searchRecipe")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class SearchController {
 
   private final SearchFilter searchFilter;
 
-  @RequestMapping(value = "/searchRecipe", method = RequestMethod.GET)
+  @GetMapping
   public List<Recipe> searchRecipeByLetter(
       @RequestParam(name = "letters", defaultValue = "") String input,
       @RequestParam(name = "sort", defaultValue = "") int sorting,

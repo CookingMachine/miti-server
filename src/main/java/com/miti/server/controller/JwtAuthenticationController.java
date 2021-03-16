@@ -21,6 +21,7 @@ import java.util.Date;
 
 @RestController
 @CrossOrigin
+@RequestMapping(path = "api/v1/authorization")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class JwtAuthenticationController {
 
@@ -30,7 +31,7 @@ public class JwtAuthenticationController {
   private final JwtUtil jwtUtil;
   private final JwtUserDetailsService userDetailsService;
 
-  @RequestMapping(value = "/authorization", method = RequestMethod.POST)
+  @PostMapping
   public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest)
       throws Exception {
     authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());

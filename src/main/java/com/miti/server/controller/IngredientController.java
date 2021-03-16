@@ -9,38 +9,39 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping(path = "api/v1/ingredient")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class IngredientController {
 
   private final IngredientService ingredientService;
 
-  @PostMapping("/ingredient/addIngredient")
+  @PostMapping("addIngredient")
   public Ingredient addIngredient(@RequestBody Ingredient ingredient) {
     return ingredientService.addIngredient(ingredient);
   }
 
-  @GetMapping("/ingredient/getIngredientById")
+  @GetMapping("getIngredientById")
   public Ingredient getIngredientById(@RequestParam(name = "ingredientId") String ingredientId) {
     return ingredientService.getIngredientById(ingredientId);
   }
 
-  @GetMapping("/ingredient/getIngredientByName")
+  @GetMapping("getIngredientByName")
   public Ingredient getIngredientByName(@RequestParam(name = "name") String name) {
     return ingredientService.getIngredientByName(name);
   }
 
-  @GetMapping("/ingredient/getAllIngredients")
+  @GetMapping("getAllIngredients")
   public List<Ingredient> getAllIngredients() {
     return ingredientService.getAllIngredients();
   }
 
-  @GetMapping("/ingredient/getIngredientsByCategory")
+  @GetMapping("getIngredientsByCategory")
   public List<Ingredient> getIngredientsByCategory(
       @RequestParam(name = "categoryName") String categoryName) {
     return ingredientService.getIngredientsByCategory(categoryName);
   }
 
-  @DeleteMapping("/ingredient/deleteIngredientById")
+  @DeleteMapping("deleteIngredientById")
   public String deleteIngredientById(@RequestParam(name = "ingredientId") String ingredientId) {
     ingredientService.deleteIngredientById(ingredientId);
     return "Done!";
