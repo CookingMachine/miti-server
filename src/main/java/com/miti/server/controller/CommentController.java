@@ -9,38 +9,39 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping(path = "api/v1/comment")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class CommentController {
 
   private final CommentService commentService;
 
-  @PostMapping("/comment/addComment")
+  @PostMapping("addComment")
   public Comment addComment(@RequestBody Comment comment) {
     return commentService.addComment(comment);
   }
 
-  @PutMapping("/comment/editComment")
+  @PutMapping("editComment")
   public Comment editComment(@RequestParam(name = "commentId") Long commentId,
       @RequestBody Comment comment) {
     return commentService.editComment(commentId, comment);
   }
 
-  @GetMapping("/comment/getCommentById")
+  @GetMapping("getCommentById")
   public Comment getCommentById(@RequestParam(name = "commentId") Long commentId) {
     return commentService.getCommentById(commentId);
   }
 
-  @GetMapping("/comment/getCommentsByUserId")
+  @GetMapping("getCommentsByUserId")
   public List<Comment> getCommentsByUserId(@RequestParam(name = "userId") Long userId) {
     return commentService.getCommentsByUserId(userId);
   }
 
-  @GetMapping("/comment/getCommentsByRecipeId")
+  @GetMapping("getCommentsByRecipeId")
   public List<Comment> getCommentsByRecipeId(@RequestParam(name = "recipeId") Long recipeId) {
     return commentService.getCommentsByRecipeId(recipeId);
   }
 
-  @DeleteMapping("/comment/deleteCommentById")
+  @DeleteMapping("deleteCommentById")
   public String deleteCommentById(@RequestParam(name = "commentId") Long commentId) {
     commentService.deleteCommentById(commentId);
     return "Done!";
