@@ -1,0 +1,20 @@
+spring:
+  main:
+    banner-mode: off
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://127.0.0.1:5432/cookMeGood}
+    username: ${SPRING_DATASOURCE_USERNAME:max}
+    password: ${SPRING_DATASOURCE_PASSWORD:max27681990Tv}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQL10Dialect
+    generate-ddl: true
+    hibernate:
+      ddl-auto: create
+
+server:
+  port: ${PORT:33500}
+
+jwt:
+  secret: MITI_secret-key

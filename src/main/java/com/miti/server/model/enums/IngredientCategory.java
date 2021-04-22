@@ -1,4 +1,4 @@
-package com.miti.server.enums;
+package com.miti.server.model.enums;
 
 public enum IngredientCategory {
   FRUITS,

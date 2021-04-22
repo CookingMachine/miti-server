@@ -1,11 +1,11 @@
 package com.miti.server.config;
 
-import com.miti.server.enums.IngredientCategory;
-import com.miti.server.enums.Kitchen;
-import com.miti.server.enums.Measure;
-import com.miti.server.enums.Role;
+import com.miti.server.api.*;
+import com.miti.server.model.enums.IngredientCategory;
+import com.miti.server.model.enums.Kitchen;
+import com.miti.server.model.enums.Measure;
+import com.miti.server.model.enums.Role;
 import com.miti.server.model.entity.*;
-import com.miti.server.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;

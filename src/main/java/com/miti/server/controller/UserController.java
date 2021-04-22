@@ -2,7 +2,7 @@ package com.miti.server.controller;
 
 import com.miti.server.config.jwt.JwtUtil;
 import com.miti.server.model.entity.User;
-import com.miti.server.service.UserService;
+import com.miti.server.api.UserService;
 import com.miti.server.util.Check;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

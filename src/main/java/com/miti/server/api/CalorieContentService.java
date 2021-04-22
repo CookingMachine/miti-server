@@ -1,4 +1,4 @@
-package com.miti.server.service;
+package com.miti.server.api;
 
 import com.miti.server.model.entity.CalorieContent;
 
