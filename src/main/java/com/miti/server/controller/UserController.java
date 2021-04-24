@@ -14,7 +14,7 @@ import java.text.ParseException;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "api/v1/user")
+@RequestMapping(path = "/api/v1/user")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class UserController {
 
