@@ -3,10 +3,12 @@ package com.miti.server.service;
 import com.miti.server.model.enums.Role;
 import com.miti.server.model.entity.Comment;
 import com.miti.server.model.entity.ContextIngredient;
+import com.miti.server.model.entity.Rating;
 import com.miti.server.model.entity.Recipe;
 import com.miti.server.model.entity.User;
 import com.miti.server.repository.CommentRepository;
 import com.miti.server.repository.ContextIngredientRepository;
+import com.miti.server.repository.RatingRepository;
 import com.miti.server.repository.RecipeRepository;
 import com.miti.server.repository.UserRepository;
 import com.miti.server.api.UserService;
@@ -31,6 +33,7 @@ public class UserServiceImpl implements UserService {
   private final RecipeRepository recipeRepository;
   private final CommentRepository commentRepository;
   private final ContextIngredientRepository contextIngredientRepository;
+  private final RatingRepository ratingRepository;
   private final PasswordEncoder passwordEncoder;
 
   @Override
@@ -160,19 +163,26 @@ public class UserServiceImpl implements UserService {
     for (Recipe recipe : recipes) {
       List<ContextIngredient> contextIngredients = recipe.getContextIngredientList();
       List<Comment> comments = recipe.getCommentList();
+      List<Rating> ratings = recipe.getRating();
       for (ContextIngredient contextIngredient : contextIngredients) {
         deleteIngredientContextById(contextIngredient.getId());
       }
       for (Comment comment : comments) {
         deleteCommentById(comment.getId());
       }
+      for (Rating rating : ratings) {
+        deleteRatingById(rating.getId());
+      }
       deleteRecipeById(recipe.getId());
     }
 
+    List<Rating> ratings = user.getRating();
+    for (Rating rating : ratings)
+      deleteRatingById(rating.getId());
+
     List<Comment> comments = user.getCommentList();
-    for (Comment comment : comments) {
+    for (Comment comment : comments)
       deleteCommentById(comment.getId());
-    }
     userRepository.deleteById(userId);
   }
 
@@ -190,6 +200,9 @@ public class UserServiceImpl implements UserService {
   public void deleteIngredientContextById(Long id) {
     contextIngredientRepository.deleteById(id);
   }
+
+  @Override
+  public void deleteRatingById(Long ratingId) {ratingRepository.deleteById(ratingId);}
 
   public boolean existsByUsernameAndEmail(String username, String email) {
     if (userRepository.existsByUsername(username)) {

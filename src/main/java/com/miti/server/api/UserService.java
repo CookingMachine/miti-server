@@ -37,5 +37,7 @@ public interface UserService {
 
   void deleteCommentById(Long commentId);
 
+  void deleteRatingById(Long ratingId);
+
   void deleteIngredientContextById(Long id);
 }
