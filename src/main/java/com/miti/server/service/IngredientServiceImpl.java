@@ -50,7 +50,8 @@ public class IngredientServiceImpl implements IngredientService {
       ingredient.setName(newIngredient.getName());
       ingredient.setCategory(newIngredient.getCategory());
       return ingredientRepository.save(ingredient);
-    }).orElseThrow(() -> new RuntimeException("Ingredient with id: " + id + " doesn't exist"));
+    }).orElseThrow(()
+        -> new RuntimeException("Ingredient with id: " + id + " doesn't exist"));
   }
 
   @Override

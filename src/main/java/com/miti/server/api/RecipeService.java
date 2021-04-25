@@ -33,10 +33,4 @@ public interface RecipeService {
   List<Recipe> getRecipesByCreateDateBetween(Date recipePublicationDateStart, Date today);
 
   void deleteRecipeById(Long recipeId);
-
-  void deleteCommentById(Long commentId);
-
-  void deleteRatingById(Long id);
-
-  void deleteIngredientContextById(Long id);
 }

@@ -1,26 +1,22 @@
 package com.miti.server.service;
 
-import com.miti.server.model.enums.Kitchen;
+import com.miti.server.api.CategoryService;
+import com.miti.server.api.RecipeService;
+import com.miti.server.api.UserService;
 import com.miti.server.model.entity.CalorieContent;
-import com.miti.server.model.entity.Comment;
-import com.miti.server.model.entity.ContextIngredient;
-import com.miti.server.model.entity.Rating;
 import com.miti.server.model.entity.Recipe;
+import com.miti.server.model.enums.Kitchen;
 import com.miti.server.repository.CommentRepository;
 import com.miti.server.repository.ContextIngredientRepository;
 import com.miti.server.repository.RatingRepository;
 import com.miti.server.repository.RecipeRepository;
-import com.miti.server.api.CategoryService;
-import com.miti.server.api.RecipeService;
-import com.miti.server.api.UserService;
 import com.miti.server.util.Check;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
@@ -49,26 +45,20 @@ public class RecipeServiceImpl implements RecipeService {
 
   @Override
   public void addAllRecipes(List<Recipe> recipes) {
-    List<Recipe> _recipes = new ArrayList<>();
-    for (Recipe recipe : recipes) {
-      if (existsByName(recipe.getName())) {
-        _recipes.add(recipe);
-      }
-    }
+    List<Recipe> _recipes = new ArrayList<>(recipes);
+
     recipeRepository.saveAll(_recipes);
   }
 
   @Override
   public Recipe editRecipe(Long recipeId, Recipe newRecipe) {
-    if (existsByName(newRecipe.getName())) {
-      return recipeRepository.findById(recipeId).map(recipe -> {
-        recipe.setName(newRecipe.getName());
-        recipe.setDescription(newRecipe.getDescription());
-        recipe.setCategory(categoryService.getCategoryById(newRecipe.getCategory().getId()));
-        return recipeRepository.save(recipe);
-      }).orElseThrow(() -> new RuntimeException("Recipe with id: " + recipeId + " doesn't exist!"));
-    }
-    throw new RuntimeException("Recipe with name: " + newRecipe.getName() + " already exist!");
+    return recipeRepository.findById(recipeId).map(recipe -> {
+      recipe.setName(newRecipe.getName());
+      recipe.setDescription(newRecipe.getDescription());
+      recipe.setCategory(categoryService.getCategoryById(newRecipe.getCategory().getId()));
+
+      return recipeRepository.save(recipe); }).orElseThrow(()
+        -> new RuntimeException("Recipe with id: " + recipeId + " doesn't exist!"));
   }
 
   @Override
@@ -150,35 +140,16 @@ public class RecipeServiceImpl implements RecipeService {
   @Override
   public void deleteRecipeById(Long recipeId) {
     Recipe recipe = getRecipeById(recipeId);
-    List<Comment> comments = recipe.getCommentList();
-    List<ContextIngredient> contextIngredients = recipe.getContextIngredientList();
-    List<Rating> ratings = recipe.getRating();
-    for (Comment comment : comments)
-      deleteCommentById(comment.getId());
-    for (Rating rating : ratings)
-      deleteRatingById(rating.getId());
-    for (ContextIngredient contextIngredient : contextIngredients)
-      deleteIngredientContextById(contextIngredient.getId());
+
+    recipe.getCommentList().forEach(comment ->
+        commentRepository.deleteById(comment.getId()));
+
+    recipe.getRating().forEach(rating ->
+        ratingRepository.deleteById(rating.getId()));
+
+    recipe.getContextIngredientList().forEach(contextIngredient ->
+        contextIngredientRepository.deleteById(contextIngredient.getId()));
 
     recipeRepository.deleteById(recipeId);
-  }
-
-  @Override
-  public void deleteCommentById(Long commentId) {
-    commentRepository.deleteById(commentId);
-  }
-
-  @Override
-  public void deleteRatingById(Long id) {
-    ratingRepository.deleteById(id);
-  }
-
-  @Override
-  public void deleteIngredientContextById(Long ingredientContextId) {
-    contextIngredientRepository.deleteById(ingredientContextId);
-  }
-
-  private boolean existsByName(String name) {
-    return !recipeRepository.existsByName(name);
   }
 }

@@ -30,12 +30,12 @@ public class CommentController {
     return commentService.getCommentById(id);
   }
 
-  @GetMapping("/getCommentsByUserId/{id}")
+  @GetMapping("/getByUserId/{id}")
   public List<Comment> getCommentsByUserId(@PathVariable Long id) {
     return commentService.getCommentsByUserId(id);
   }
 
-  @GetMapping("/getCommentsByRecipeId/{id}")
+  @GetMapping("/getByRecipeId/{id}")
   public List<Comment> getCommentsByRecipeId(@PathVariable Long id) {
     return commentService.getCommentsByRecipeId(id);
   }

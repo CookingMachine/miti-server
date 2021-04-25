@@ -36,8 +36,8 @@ public class CalorieContentServiceImpl implements CalorieContentService {
       calorieContent.setFat(newCalorieContent.getFat());
       calorieContent.setCarbohydrates(newCalorieContent.getCarbohydrates());
       return calorieContentRepository.save(calorieContent);
-    }).orElseThrow(
-        () -> new RuntimeException("Calories with id: " + calorieId + " doesn't exist!"));
+    }).orElseThrow(()
+        -> new RuntimeException("Calories with id: " + calorieId + " doesn't exist!"));
   }
 
   @Override

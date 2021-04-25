@@ -41,17 +41,17 @@ public class UserController {
   //    throw new RuntimeException("No permission!");
   //  }
 
-  @GetMapping(value = "/getUserByUsername/{username}")
+  @GetMapping(value = "/getByUsername/{username}")
   public User getUserByUserName(@PathVariable String username) {
     return userService.getUserByUsername(username);
   }
 
-  @GetMapping(value = "/getUserByName/{name}")
+  @GetMapping(value = "/getByName/{name}")
   public User getUserByName(@PathVariable String name) {
     return userService.getUserByName(name);
   }
 
-  @GetMapping(value = "/getUserByEmail/{email}")
+  @GetMapping(value = "/getByEmail/{email}")
   public User getUserByEmail(@PathVariable String email) {
     return userService.getUserByEmail(email);
   }
@@ -61,23 +61,23 @@ public class UserController {
     return userService.getAllUsers();
   }
 
-  @GetMapping(value = "/getUserByStatus/{status}")
+  @GetMapping(value = "/getByStatus/{status}")
   public List<User> getUsersByStatus(@PathVariable boolean status) {
     return userService.getUsersByStatus(status);
   }
 
-  @GetMapping(value = "/getUserByRole/{role}")
+  @GetMapping(value = "/getByRole/{role}")
   public List<User> getUsersByRole(@PathVariable String role) {
     return userService.getUsersByRole(role);
   }
 
-  @GetMapping(value = "/getUserByLastAuthDate/{lastAuthDate}")
+  @GetMapping(value = "/getByLastAuthDate/{lastAuthDate}")
   public List<User> getUsersByLastAuthDateAfter(@PathVariable String lastAuthDate)
       throws ParseException {
     return userService.getUsersByLastAuthDateAfter(lastAuthDate);
   }
 
-  @GetMapping(value = "/getUserByRegistrationDate/{registrationDate}")
+  @GetMapping(value = "/getByRegistrationDate/{registrationDate}")
   public List<User> getUsersByRegistrationDateAfter(@PathVariable String registrationDate)
       throws ParseException {
     return userService.getUsersByRegistrationDateAfter(registrationDate);

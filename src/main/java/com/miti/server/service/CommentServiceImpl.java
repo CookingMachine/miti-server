@@ -41,7 +41,8 @@ public class CommentServiceImpl implements CommentService {
       comment.setComment(newComment.getComment());
       comment.setEditDate(new Date());
       return commentRepository.save(comment);
-    }).orElseThrow(() -> new RuntimeException("Comment with id: " + commentId + " doesn't exist!"));
+    }).orElseThrow(()
+        -> new RuntimeException("Comment with id: " + commentId + " doesn't exist!"));
   }
 
   @Override

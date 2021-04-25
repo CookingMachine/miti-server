@@ -30,7 +30,7 @@ public class IngredientController {
     return ingredientService.getIngredientById(id);
   }
 
-  @GetMapping("/getIngredientByName/{name}")
+  @GetMapping("/getByName/{name}")
   public Ingredient getIngredientByName(@PathVariable String name) {
     return ingredientService.getIngredientByName(name);
   }
@@ -40,7 +40,7 @@ public class IngredientController {
     return ingredientService.getAllIngredients();
   }
 
-  @GetMapping("/getIngredientsByCategory/{category}")
+  @GetMapping("/getByCategory/{category}")
   public List<Ingredient> getIngredientsByCategory(
       @PathVariable String category) {
     return ingredientService.getIngredientsByCategory(category);

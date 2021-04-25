@@ -35,22 +35,22 @@ public class RecipeController {
     return recipeService.getAllRecipes();
   }
 
-  @GetMapping("/getRecipesByName/{name}")
+  @GetMapping("/getByName/{name}")
   public List<Recipe> getRecipeByName(@PathVariable String name) {
     return recipeService.getRecipeByName(name);
   }
 
-  @GetMapping("/getRecipesByAuthorId/{id}")
+  @GetMapping("/getByAuthorId/{id}")
   public List<Recipe> getRecipesByAuthorId(@PathVariable Long id) {
     return recipeService.getRecipesByAuthorId(id);
   }
 
-  @GetMapping("/getRecipesByCategoryId/{id}")
+  @GetMapping("/getByCategoryId/{id}")
   public List<Recipe> getRecipesByCategoryId(@PathVariable String id) {
     return recipeService.getRecipesByCategoryId(id);
   }
 
-  @GetMapping("/getRecipesByKitchen/{kitchen}")
+  @GetMapping("/getByKitchen/{kitchen}")
   public List<Recipe> getRecipesByKitchen(@PathVariable String kitchen) {
     return recipeService.getRecipesByKitchen(kitchen);
   }

@@ -37,7 +37,8 @@ public class RatingServiceImpl implements RatingService {
     return ratingRepository.findById(ratingId).map(rating -> {
       rating.setRatingValue(newRating.getRatingValue());
       return rating;
-    }).orElseThrow(() -> new RuntimeException("Rating with id: " + ratingId + " doesn't exist!"));
+    }).orElseThrow(()
+        -> new RuntimeException("Rating with id: " + ratingId + " doesn't exist!"));
   }
 
   @Override

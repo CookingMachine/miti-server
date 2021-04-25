@@ -32,12 +32,4 @@ public interface UserService {
   List<User> getUsersByRegistrationDateAfter(String date) throws ParseException;
 
   void deleteById(Long userId);
-
-  void deleteRecipeById(Long recipeId);
-
-  void deleteCommentById(Long commentId);
-
-  void deleteRatingById(Long ratingId);
-
-  void deleteIngredientContextById(Long id);
 }
