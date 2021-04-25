@@ -16,7 +16,7 @@ public interface RecipeService {
 
   Recipe getRecipeById(Long recipeId);
 
-  Recipe getRecipeByName(String name);
+  List<Recipe> getRecipeByName(String name);
 
   Recipe getRecipeByCalorie(CalorieContent calorieContent);
 
@@ -35,6 +35,8 @@ public interface RecipeService {
   void deleteRecipeById(Long recipeId);
 
   void deleteCommentById(Long commentId);
+
+  void deleteRatingById(Long id);
 
   void deleteIngredientContextById(Long id);
 }

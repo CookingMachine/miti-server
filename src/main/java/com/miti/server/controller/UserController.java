@@ -19,8 +19,8 @@ import java.util.List;
 public class UserController {
 
   private final UserService userService;
-  private final UserDetailsService userDetailsService;
-  private final JwtUtil util;
+  //private final UserDetailsService userDetailsService;
+  //private final JwtUtil util;
 
   @PostMapping(value = "")
   public User addUser(@RequestBody User user) {
@@ -34,12 +34,12 @@ public class UserController {
 
   @GetMapping(value = "/{id}")
   public User getUserById(@PathVariable Long id) {
-//    if (Check.role(req, userDetailsService, util, "ADMINISTRATION") ||
-//        Check.role(req, userDetailsService, util, "MODERATION")) {
-      return userService.getUserById(id);
-    }
-//    throw new RuntimeException("No permission!");
-//  }
+  //    if (Check.role(req, userDetailsService, util, "ADMINISTRATION") ||
+  //        Check.role(req, userDetailsService, util, "MODERATION")) {
+    return userService.getUserById(id);
+  }
+  //    throw new RuntimeException("No permission!");
+  //  }
 
   @GetMapping(value = "/getUserByUsername/{username}")
   public User getUserByUserName(@PathVariable String username) {
