@@ -1,8 +1,8 @@
-package com.miti.server.service.impl;
+package com.miti.server.service;
 
 import com.miti.server.model.entity.Category;
 import com.miti.server.repository.CategoryRepository;
-import com.miti.server.service.CategoryService;
+import com.miti.server.api.CategoryService;
 import com.miti.server.util.Check;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

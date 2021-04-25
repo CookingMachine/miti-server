@@ -1,8 +1,8 @@
-package com.miti.server.service.impl;
+package com.miti.server.service;
 
 import com.miti.server.model.entity.CalorieContent;
 import com.miti.server.repository.CalorieContentRepository;
-import com.miti.server.service.CalorieContentService;
+import com.miti.server.api.CalorieContentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

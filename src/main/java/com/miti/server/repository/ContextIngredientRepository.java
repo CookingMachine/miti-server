@@ -1,6 +1,6 @@
 package com.miti.server.repository;
 
-import com.miti.server.enums.Measure;
+import com.miti.server.model.enums.Measure;
 import com.miti.server.model.entity.ContextIngredient;
 import com.miti.server.model.entity.Ingredient;
 import com.miti.server.model.entity.Recipe;

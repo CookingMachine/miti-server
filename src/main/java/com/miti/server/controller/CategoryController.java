@@ -1,7 +1,7 @@
 package com.miti.server.controller;
 
 import com.miti.server.model.entity.Category;
-import com.miti.server.service.CategoryService;
+import com.miti.server.api.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

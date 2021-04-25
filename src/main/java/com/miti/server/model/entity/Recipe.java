@@ -1,13 +1,12 @@
 package com.miti.server.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.miti.server.enums.Kitchen;
+import com.miti.server.model.enums.Kitchen;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 

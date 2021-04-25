@@ -1,10 +1,10 @@
-package com.miti.server.service.impl;
+package com.miti.server.service;
 
 import com.miti.server.model.entity.Comment;
 import com.miti.server.repository.CommentRepository;
-import com.miti.server.service.CommentService;
-import com.miti.server.service.RecipeService;
-import com.miti.server.service.UserService;
+import com.miti.server.api.CommentService;
+import com.miti.server.api.RecipeService;
+import com.miti.server.api.UserService;
 import com.miti.server.util.Check;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

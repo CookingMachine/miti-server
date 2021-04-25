@@ -1,11 +1,11 @@
-package com.miti.server.service.impl;
+package com.miti.server.service;
 
-import com.miti.server.enums.Measure;
+import com.miti.server.model.enums.Measure;
 import com.miti.server.model.entity.ContextIngredient;
 import com.miti.server.repository.ContextIngredientRepository;
-import com.miti.server.service.ContextIngredientService;
-import com.miti.server.service.IngredientService;
-import com.miti.server.service.RecipeService;
+import com.miti.server.api.ContextIngredientService;
+import com.miti.server.api.IngredientService;
+import com.miti.server.api.RecipeService;
 import com.miti.server.util.Check;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

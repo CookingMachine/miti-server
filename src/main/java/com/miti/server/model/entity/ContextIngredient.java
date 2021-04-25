@@ -1,6 +1,6 @@
 package com.miti.server.model.entity;
 
-import com.miti.server.enums.Measure;
+import com.miti.server.model.enums.Measure;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

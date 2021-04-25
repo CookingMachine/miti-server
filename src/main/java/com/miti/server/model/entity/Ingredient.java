@@ -1,7 +1,7 @@
 package com.miti.server.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.miti.server.enums.IngredientCategory;
+import com.miti.server.model.enums.IngredientCategory;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

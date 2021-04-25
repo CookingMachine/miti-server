@@ -6,7 +6,7 @@ import com.miti.server.model.entity.User;
 import com.miti.server.model.jwt.JwtRequest;
 import com.miti.server.model.jwt.JwtResponse;
 import com.miti.server.repository.UserRepository;
-import com.miti.server.service.UserService;
+import com.miti.server.api.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

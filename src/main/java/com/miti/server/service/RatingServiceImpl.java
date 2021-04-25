@@ -1,10 +1,10 @@
-package com.miti.server.service.impl;
+package com.miti.server.service;
 
 import com.miti.server.model.entity.Rating;
 import com.miti.server.model.entity.Recipe;
 import com.miti.server.model.entity.User;
 import com.miti.server.repository.RatingRepository;
-import com.miti.server.service.RatingService;
+import com.miti.server.api.RatingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

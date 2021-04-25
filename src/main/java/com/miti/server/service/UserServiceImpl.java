@@ -1,6 +1,6 @@
-package com.miti.server.service.impl;
+package com.miti.server.service;
 
-import com.miti.server.enums.Role;
+import com.miti.server.model.enums.Role;
 import com.miti.server.model.entity.Comment;
 import com.miti.server.model.entity.ContextIngredient;
 import com.miti.server.model.entity.Recipe;
@@ -9,7 +9,7 @@ import com.miti.server.repository.CommentRepository;
 import com.miti.server.repository.ContextIngredientRepository;
 import com.miti.server.repository.RecipeRepository;
 import com.miti.server.repository.UserRepository;
-import com.miti.server.service.UserService;
+import com.miti.server.api.UserService;
 import com.miti.server.util.Check;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,6 @@
 package com.miti.server.repository;
 
-import com.miti.server.enums.Kitchen;
+import com.miti.server.model.enums.Kitchen;
 import com.miti.server.model.entity.CalorieContent;
 import com.miti.server.model.entity.Category;
 import com.miti.server.model.entity.Recipe;

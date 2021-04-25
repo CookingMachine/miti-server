@@ -1,7 +1,7 @@
 package com.miti.server.controller;
 
 import com.miti.server.model.entity.Ingredient;
-import com.miti.server.service.IngredientService;
+import com.miti.server.api.IngredientService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

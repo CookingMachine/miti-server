@@ -1,6 +1,6 @@
 package com.miti.server.repository;
 
-import com.miti.server.enums.IngredientCategory;
+import com.miti.server.model.enums.IngredientCategory;
 import com.miti.server.model.entity.Ingredient;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
