@@ -30,29 +30,29 @@ public class ContextIngredientController {
     return contextIngredientService.getAllContextIngredients();
   }
 
-  @GetMapping("getContextIngredientsByAmountLessThan")
+  @GetMapping("/getContextIngredientsByAmountLessThan")
   public List<ContextIngredient> getContextIngredientsByAmountLessThan(
       @RequestParam(name = "amount") Long amount) {
     return contextIngredientService.getContextIngredientsByAmountLessThan(amount);
   }
 
-  @GetMapping("getContextIngredientsByAmountGreaterThan")
+  @GetMapping("/getContextIngredientsByAmountGreaterThan")
   public List<ContextIngredient> getContextIngredientsByAmountGreaterThan(
       @RequestParam(name = "amount") Long amount) {
     return contextIngredientService.getContextIngredientsByAmountGreaterThan(amount);
   }
 
-  @GetMapping("getContextIngredientsByMeasure/{measure}")
+  @GetMapping("/getContextIngredientsByMeasure/{measure}")
   public List<ContextIngredient> getContextIngredientsByMeasure(@PathVariable String measure) {
     return contextIngredientService.getContextIngredientsByMeasure(measure);
   }
 
-  @GetMapping("getContextIngredientsByIngredientId/{id}")
+  @GetMapping("/getContextIngredientsByIngredientId/{id}")
   public List<ContextIngredient> getContextIngredientsByIngredientId(@PathVariable String id) {
     return contextIngredientService.getContextIngredientsByIngredientId(id);
   }
 
-  @GetMapping("getContextIngredientsByRecipeId/{id}")
+  @GetMapping("/getContextIngredientsByRecipeId/{id}")
   public List<ContextIngredient> getContextIngredientsByRecipeId(@PathVariable Long id) {
     return contextIngredientService.getContextIngredientsByRecipeId(id);
   }
