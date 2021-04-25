@@ -15,35 +15,40 @@ public class IngredientController {
 
   private final IngredientService ingredientService;
 
-  @PostMapping("addIngredient")
+  @PostMapping("")
   public Ingredient addIngredient(@RequestBody Ingredient ingredient) {
     return ingredientService.addIngredient(ingredient);
   }
 
-  @GetMapping("getIngredientById")
-  public Ingredient getIngredientById(@RequestParam(name = "ingredientId") String ingredientId) {
-    return ingredientService.getIngredientById(ingredientId);
+  @PutMapping("/{id}")
+  public Ingredient editIngredient(@PathVariable String id, @RequestBody Ingredient ingredient) {
+    return ingredientService.editIngredient(id, ingredient);
   }
 
-  @GetMapping("getIngredientByName")
-  public Ingredient getIngredientByName(@RequestParam(name = "name") String name) {
+  @GetMapping("/{id}")
+  public Ingredient getIngredientById(@PathVariable String id) {
+    return ingredientService.getIngredientById(id);
+  }
+
+  @GetMapping("/getIngredientByName/{name}")
+  public Ingredient getIngredientByName(@PathVariable String name) {
     return ingredientService.getIngredientByName(name);
   }
 
-  @GetMapping("getAllIngredients")
+  @GetMapping("")
   public List<Ingredient> getAllIngredients() {
     return ingredientService.getAllIngredients();
   }
 
-  @GetMapping("getIngredientsByCategory")
+  @GetMapping("/getIngredientsByCategory/{category}")
   public List<Ingredient> getIngredientsByCategory(
-      @RequestParam(name = "categoryName") String categoryName) {
-    return ingredientService.getIngredientsByCategory(categoryName);
+      @PathVariable String category) {
+    return ingredientService.getIngredientsByCategory(category);
   }
 
-  @DeleteMapping("deleteIngredientById")
-  public String deleteIngredientById(@RequestParam(name = "ingredientId") String ingredientId) {
-    ingredientService.deleteIngredientById(ingredientId);
+  @DeleteMapping("/{id}")
+  public String deleteIngredientById(@PathVariable String id) {
+    ingredientService.deleteIngredientById(id);
     return "Done!";
   }
 }

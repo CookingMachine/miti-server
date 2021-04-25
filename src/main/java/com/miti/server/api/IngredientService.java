@@ -10,6 +10,8 @@ public interface IngredientService {
 
   void addAllIngredients(List<Ingredient> ingredients);
 
+  Ingredient editIngredient(String id, Ingredient newIngredient);
+
   Ingredient getIngredientById(String ingredientId);
 
   Ingredient getIngredientByName(String name);
