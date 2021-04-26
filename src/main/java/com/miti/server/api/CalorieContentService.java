@@ -10,7 +10,7 @@ public interface CalorieContentService {
 
   void addAllCalorieContent(List<CalorieContent> calorieContents);
 
-  CalorieContent editCalorieContent(Long calorieId, CalorieContent calorieContent);
+  CalorieContent editCalorieContent(CalorieContent calorieContent);
 
   CalorieContent getCalorieContentById(Long calorieId);
 

@@ -20,9 +20,9 @@ public class CommentController {
     return commentService.addComment(comment);
   }
 
-  @PutMapping("/{id}")
-  public Comment editComment(@PathVariable Long id, @RequestBody Comment comment) {
-    return commentService.editComment(id, comment);
+  @PatchMapping("/{id}")
+  public Comment editComment(@RequestBody Comment comment) {
+    return commentService.editComment(comment);
   }
 
   @GetMapping("/{id}")

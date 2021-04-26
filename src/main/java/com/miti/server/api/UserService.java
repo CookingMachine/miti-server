@@ -11,7 +11,7 @@ public interface UserService {
 
   void addAllUsers(List<User> users);
 
-  User editUser(Long userId, User user);
+  User editUser(User user);
 
   User getUserById(Long userId);
 

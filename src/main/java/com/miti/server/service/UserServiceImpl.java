@@ -58,15 +58,15 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public User editUser(Long userId, User newUser) {
-    return userRepository.findById(userId).map(user -> {
-      user.setName(newUser.getName());
-      user.setPassword(passwordEncoder.encode(newUser.getPassword()));
-      user.setEmail(newUser.getEmail());
-      user.setRole(newUser.getRole());
-      return userRepository.save(user);
+  public User editUser(User user) {
+    return userRepository.findById(user.getId()).map(newUser -> {
+      newUser.setName(user.getName());
+      newUser.setPassword(passwordEncoder.encode(user.getPassword()));
+      newUser.setEmail(user.getEmail());
+      newUser.setRole(user.getRole());
+      return userRepository.save(newUser);
     }).orElseThrow(()
-        -> new RuntimeException("User with id: " + userId + " doesn't exist!"));
+        -> new RuntimeException("User with id: " + user.getId() + " doesn't exist!"));
   }
 
   @Override

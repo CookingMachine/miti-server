@@ -22,9 +22,7 @@ public class RatingServiceImpl implements RatingService {
     if (ratingRepository.getRatingByRecipeAndUser(rating.getRecipe(), rating.getUser()) == null) {
       return ratingRepository.save(rating);
     }
-    return editRating(
-        ratingRepository.getRatingByRecipeAndUser(rating.getRecipe(), rating.getUser()).getId(),
-        rating);
+    return editRating(rating);
   }
 
   @Override
@@ -33,12 +31,12 @@ public class RatingServiceImpl implements RatingService {
   }
 
   @Override
-  public Rating editRating(Long ratingId, Rating newRating) {
-    return ratingRepository.findById(ratingId).map(rating -> {
+  public Rating editRating(Rating newRating) {
+    return ratingRepository.findById(newRating.getId()).map(rating -> {
       rating.setRatingValue(newRating.getRatingValue());
       return rating;
     }).orElseThrow(()
-        -> new RuntimeException("Rating with id: " + ratingId + " doesn't exist!"));
+        -> new RuntimeException("Rating with id: " + newRating.getId() + " doesn't exist!"));
   }
 
   @Override

@@ -12,7 +12,7 @@ public interface RecipeService {
 
   void addAllRecipes(List<Recipe> recipes);
 
-  Recipe editRecipe(Long recipeId, Recipe newRecipe);
+  Recipe editRecipe(Recipe newRecipe);
 
   Recipe getRecipeById(Long recipeId);
 

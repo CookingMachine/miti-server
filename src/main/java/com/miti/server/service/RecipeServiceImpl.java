@@ -45,20 +45,18 @@ public class RecipeServiceImpl implements RecipeService {
 
   @Override
   public void addAllRecipes(List<Recipe> recipes) {
-    List<Recipe> _recipes = new ArrayList<>(recipes);
-
-    recipeRepository.saveAll(_recipes);
+    recipeRepository.saveAll(recipes);
   }
 
   @Override
-  public Recipe editRecipe(Long recipeId, Recipe newRecipe) {
-    return recipeRepository.findById(recipeId).map(recipe -> {
+  public Recipe editRecipe(Recipe newRecipe) {
+    return recipeRepository.findById(newRecipe.getId()).map(recipe -> {
       recipe.setName(newRecipe.getName());
       recipe.setDescription(newRecipe.getDescription());
       recipe.setCategory(categoryService.getCategoryById(newRecipe.getCategory().getId()));
 
       return recipeRepository.save(recipe); }).orElseThrow(()
-        -> new RuntimeException("Recipe with id: " + recipeId + " doesn't exist!"));
+        -> new RuntimeException("Recipe with id: " + newRecipe.getId() + " doesn't exist!"));
   }
 
   @Override

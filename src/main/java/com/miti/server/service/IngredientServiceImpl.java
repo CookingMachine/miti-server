@@ -45,13 +45,13 @@ public class IngredientServiceImpl implements IngredientService {
   }
 
   @Override
-  public Ingredient editIngredient(String id, Ingredient newIngredient) {
-    return ingredientRepository.findById(id).map(ingredient -> {
+  public Ingredient editIngredient(Ingredient newIngredient) {
+    return ingredientRepository.findById(newIngredient.getId()).map(ingredient -> {
       ingredient.setName(newIngredient.getName());
       ingredient.setCategory(newIngredient.getCategory());
       return ingredientRepository.save(ingredient);
     }).orElseThrow(()
-        -> new RuntimeException("Ingredient with id: " + id + " doesn't exist"));
+        -> new RuntimeException("Ingredient with id: " + newIngredient.getId() + " doesn't exist"));
   }
 
   @Override

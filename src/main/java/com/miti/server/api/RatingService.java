@@ -11,7 +11,7 @@ public interface RatingService {
 
   void addAllRatings(List<Rating> ratings);
 
-  Rating editRating(Long ratingId, Rating rating);
+  Rating editRating(Rating rating);
 
   Rating getRatingByRecipeAndUser(Recipe recipe, User user);
 

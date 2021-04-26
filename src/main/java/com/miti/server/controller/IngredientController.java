@@ -20,9 +20,9 @@ public class IngredientController {
     return ingredientService.addIngredient(ingredient);
   }
 
-  @PutMapping("/{id}")
-  public Ingredient editIngredient(@PathVariable String id, @RequestBody Ingredient ingredient) {
-    return ingredientService.editIngredient(id, ingredient);
+  @PatchMapping("/{id}")
+  public Ingredient editIngredient(@RequestBody Ingredient ingredient) {
+    return ingredientService.editIngredient(ingredient);
   }
 
   @GetMapping("/{id}")
