@@ -11,7 +11,7 @@ public interface UserService {
 
   void addAllUsers(List<User> users);
 
-  User editUser(Long userId, User user);
+  User editUser(User user);
 
   User getUserById(Long userId);
 
@@ -32,10 +32,4 @@ public interface UserService {
   List<User> getUsersByRegistrationDateAfter(String date) throws ParseException;
 
   void deleteById(Long userId);
-
-  void deleteRecipeById(Long recipeId);
-
-  void deleteCommentById(Long commentId);
-
-  void deleteIngredientContextById(Long id);
 }

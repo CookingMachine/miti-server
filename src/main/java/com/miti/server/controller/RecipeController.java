@@ -15,50 +15,49 @@ public class RecipeController {
 
   private final RecipeService recipeService;
 
-  @PostMapping("addRecipe")
+  @PostMapping("")
   public Recipe addRecipe(@RequestBody Recipe recipe) {
     return recipeService.addRecipe(recipe);
   }
 
-  @PutMapping("editRecipe")
-  public Recipe editRecipe(@RequestParam(name = "recipeId") Long recipeId,
-      @RequestBody Recipe recipe) {
-    return recipeService.editRecipe(recipeId, recipe);
+  @PatchMapping("/{id}")
+  public Recipe editRecipe(@RequestBody Recipe recipe) {
+    return recipeService.editRecipe(recipe);
   }
 
-  @GetMapping("getRecipeById")
-  public Recipe getRecipeById(@RequestParam(name = "recipeId") Long recipeId) {
-    return recipeService.getRecipeById(recipeId);
+  @GetMapping("/{id}")
+  public Recipe getRecipeById(@PathVariable Long id) {
+    return recipeService.getRecipeById(id);
   }
 
-  @GetMapping("getRecipeByName")
-  public Recipe getRecipeByName(@RequestParam(name = "name") String name) {
-    return recipeService.getRecipeByName(name);
-  }
-
-  @GetMapping("getAllRecipes")
+  @GetMapping("")
   public List<Recipe> getAllRecipes() {
     return recipeService.getAllRecipes();
   }
 
-  @GetMapping("getRecipesByAuthorId")
-  public List<Recipe> getRecipesByAuthorId(@RequestParam(name = "userId") Long authorId) {
-    return recipeService.getRecipesByAuthorId(authorId);
+  @GetMapping("/getByName/{name}")
+  public List<Recipe> getRecipesByName(@PathVariable String name) {
+    return recipeService.getRecipeByName(name);
   }
 
-  @GetMapping("getRecipesByCategoryId")
-  public List<Recipe> getRecipesByCategoryId(@RequestParam(name = "categoryId") String categoryId) {
-    return recipeService.getRecipesByCategoryId(categoryId);
+  @GetMapping("/getByAuthorId/{id}")
+  public List<Recipe> getRecipesByAuthorId(@PathVariable Long id) {
+    return recipeService.getRecipesByAuthorId(id);
   }
 
-  @GetMapping("getRecipesByKitchen")
-  public List<Recipe> getRecipesByKitchen(@RequestParam(name = "kitchen") String kitchenName) {
-    return recipeService.getRecipesByKitchen(kitchenName);
+  @GetMapping("/getByCategoryId/{id}")
+  public List<Recipe> getRecipesByCategoryId(@PathVariable String id) {
+    return recipeService.getRecipesByCategoryId(id);
   }
 
-  @DeleteMapping("deleteRecipeById")
-  public String deleteRecipeById(@RequestParam(name = "recipeId") Long recipeId) {
-    recipeService.deleteRecipeById(recipeId);
-    return "Done!";
+  @GetMapping("/getByKitchen/{kitchen}")
+  public List<Recipe> getRecipesByKitchen(@PathVariable String kitchen) {
+    return recipeService.getRecipesByKitchen(kitchen);
+  }
+
+  @DeleteMapping("/{id}")
+  public String deleteRecipeById(@PathVariable Long id) {
+    recipeService.deleteRecipeById(id);
+    return "Successfully removed RECIPE with id [" + id + "]";
   }
 }

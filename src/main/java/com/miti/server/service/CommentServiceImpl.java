@@ -36,12 +36,13 @@ public class CommentServiceImpl implements CommentService {
   }
 
   @Override
-  public Comment editComment(Long commentId, Comment newComment) {
-    return commentRepository.findById(commentId).map(comment -> {
+  public Comment editComment(Comment newComment) {
+    return commentRepository.findById(newComment.getId()).map(comment -> {
       comment.setComment(newComment.getComment());
       comment.setEditDate(new Date());
       return commentRepository.save(comment);
-    }).orElseThrow(() -> new RuntimeException("Comment with id: " + commentId + " doesn't exist!"));
+    }).orElseThrow(()
+        -> new RuntimeException("Comment with id: " + newComment.getId() + " doesn't exist!"));
   }
 
   @Override

@@ -19,74 +19,73 @@ import java.util.List;
 public class UserController {
 
   private final UserService userService;
-  private final UserDetailsService userDetailsService;
-  private final JwtUtil util;
+  //private final UserDetailsService userDetailsService;
+  //private final JwtUtil util;
 
-  @PostMapping(value = "addUser")
+  @PostMapping(value = "")
   public User addUser(@RequestBody User user) {
     return userService.addUser(user);
   }
 
-  @PutMapping(value = "editUser")
-  public User editUser(@RequestParam(name = "userId") Long userId, @RequestBody User user) {
-    return userService.editUser(userId, user);
+  @PatchMapping(value = "")
+  public User editUser(@RequestBody User user) {
+    return userService.editUser(user);
   }
 
-  @GetMapping(value = "getUserById")
-  public User getUserById(@RequestParam(name = "userId") Long userId, HttpServletRequest req) {
-    if (Check.role(req, userDetailsService, util, "ADMINISTRATION") ||
-        Check.role(req, userDetailsService, util, "MODERATION")) {
-      return userService.getUserById(userId);
-    }
-    throw new RuntimeException("No permission!");
+  @GetMapping(value = "/{id}")
+  public User getUserById(@PathVariable Long id) {
+  //    if (Check.role(req, userDetailsService, util, "ADMINISTRATION") ||
+  //        Check.role(req, userDetailsService, util, "MODERATION")) {
+    return userService.getUserById(id);
   }
+  //    throw new RuntimeException("No permission!");
+  //  }
 
-  @GetMapping(value = "getUserByUsername")
-  public User getUserByUserName(@RequestParam(name = "login") String username) {
+  @GetMapping(value = "/getByUsername/{username}")
+  public User getUserByUserName(@PathVariable String username) {
     return userService.getUserByUsername(username);
   }
 
-  @GetMapping(value = "getUserByName")
-  public User getUserByName(@RequestParam(name = "name") String name) {
+  @GetMapping(value = "/getByName/{name}")
+  public User getUserByName(@PathVariable String name) {
     return userService.getUserByName(name);
   }
 
-  @GetMapping(value = "getUserByEmail")
-  public User getUserByEmail(@RequestParam(name = "email") String email) {
+  @GetMapping(value = "/getByEmail/{email}")
+  public User getUserByEmail(@PathVariable String email) {
     return userService.getUserByEmail(email);
   }
 
-  @GetMapping(value = "getAllUsers")
+  @GetMapping(value = "")
   public List<User> getAllUsers() {
     return userService.getAllUsers();
   }
 
-  @GetMapping(value = "getUsersByStatus")
-  public List<User> getUsersByStatus(
-      @RequestParam(name = "status", defaultValue = "true") boolean status) {
+  @GetMapping(value = "/getByStatus/{status}")
+  public List<User> getUsersByStatus(@PathVariable boolean status) {
     return userService.getUsersByStatus(status);
   }
 
-  @GetMapping(value = "getUsersByRole")
-  public List<User> getUsersByRole(@RequestParam(name = "role") String roleName) {
-    return userService.getUsersByRole(roleName);
+  @GetMapping(value = "/getByRole/{role}")
+  public List<User> getUsersByRole(@PathVariable String role) {
+    return userService.getUsersByRole(role);
   }
 
-  @GetMapping(value = "getUsersByLastAuthDateAfter")
-  public List<User> getUsersByLastAuthDateAfter(@RequestParam(name = "date") String date)
+  @GetMapping(value = "/getByLastAuthDate/{lastAuthDate}")
+  public List<User> getUsersByLastAuthDateAfter(@PathVariable String lastAuthDate)
       throws ParseException {
-    return userService.getUsersByLastAuthDateAfter(date);
+    return userService.getUsersByLastAuthDateAfter(lastAuthDate);
   }
 
-  @GetMapping(value = "getUsersByRegistrationDateAfter")
-  public List<User> getUsersByRegistrationDateAfter(@RequestParam(name = "date") String date)
+  @GetMapping(value = "/getByRegistrationDate/{registrationDate}")
+  public List<User> getUsersByRegistrationDateAfter(@PathVariable String registrationDate)
       throws ParseException {
-    return userService.getUsersByRegistrationDateAfter(date);
+    return userService.getUsersByRegistrationDateAfter(registrationDate);
   }
 
-  @DeleteMapping(value = "deleteUserById")
-  public String deleteUserById(@RequestParam(name = "userId") Long userId) {
-    userService.deleteById(userId);
-    return "Done!";
+  @DeleteMapping(value = "/{id}")
+  public String deleteUserById(@PathVariable Long id) {
+    userService.deleteById(id);
+    return "Successfully removed USER with id [" + id + "]";
   }
 }

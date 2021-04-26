@@ -14,9 +14,9 @@ import java.util.List;
 @Repository
 public interface RecipeRepository extends JpaRepository<Recipe, Long> {
 
-  Recipe getRecipeByName(String name);
-
   Recipe getRecipeByCalorie(CalorieContent calorieContent);
+
+  List<Recipe> getRecipesByName(String name);
 
   List<Recipe> getRecipesByAuthor(User author);
 
@@ -27,6 +27,4 @@ public interface RecipeRepository extends JpaRepository<Recipe, Long> {
   List<Recipe> getRecipesByTimeLessThanEqual(int time);
 
   List<Recipe> getRecipesByCreateDateBetween(Date recipePublicationDateStart, Date today);
-
-  boolean existsByName(String name);
 }

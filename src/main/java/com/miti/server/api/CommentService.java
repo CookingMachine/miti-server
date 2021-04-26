@@ -10,7 +10,7 @@ public interface CommentService {
 
   void addAllComments(List<Comment> comments);
 
-  Comment editComment(Long commentId, Comment newComment);
+  Comment editComment(Comment newComment);
 
   Comment getCommentById(Long commentId);
 

@@ -15,35 +15,34 @@ public class CommentController {
 
   private final CommentService commentService;
 
-  @PostMapping("addComment")
+  @PostMapping("")
   public Comment addComment(@RequestBody Comment comment) {
     return commentService.addComment(comment);
   }
 
-  @PutMapping("editComment")
-  public Comment editComment(@RequestParam(name = "commentId") Long commentId,
-      @RequestBody Comment comment) {
-    return commentService.editComment(commentId, comment);
+  @PatchMapping("/{id}")
+  public Comment editComment(@RequestBody Comment comment) {
+    return commentService.editComment(comment);
   }
 
-  @GetMapping("getCommentById")
-  public Comment getCommentById(@RequestParam(name = "commentId") Long commentId) {
-    return commentService.getCommentById(commentId);
+  @GetMapping("/{id}")
+  public Comment getCommentById(@PathVariable Long id) {
+    return commentService.getCommentById(id);
   }
 
-  @GetMapping("getCommentsByUserId")
-  public List<Comment> getCommentsByUserId(@RequestParam(name = "userId") Long userId) {
-    return commentService.getCommentsByUserId(userId);
+  @GetMapping("/getByUserId/{id}")
+  public List<Comment> getCommentsByUserId(@PathVariable Long id) {
+    return commentService.getCommentsByUserId(id);
   }
 
-  @GetMapping("getCommentsByRecipeId")
-  public List<Comment> getCommentsByRecipeId(@RequestParam(name = "recipeId") Long recipeId) {
-    return commentService.getCommentsByRecipeId(recipeId);
+  @GetMapping("/getByRecipeId/{id}")
+  public List<Comment> getCommentsByRecipeId(@PathVariable Long id) {
+    return commentService.getCommentsByRecipeId(id);
   }
 
-  @DeleteMapping("deleteCommentById")
-  public String deleteCommentById(@RequestParam(name = "commentId") Long commentId) {
-    commentService.deleteCommentById(commentId);
-    return "Done!";
+  @DeleteMapping("/{id}")
+  public String deleteCommentById(@PathVariable Long id) {
+    commentService.deleteCommentById(id);
+    return "Successfully removed COMMENT with id [" + id + "]";
   }
 }

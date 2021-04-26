@@ -1,27 +1,24 @@
 package com.miti.server.service;
 
-import com.miti.server.model.enums.Role;
-import com.miti.server.model.entity.Comment;
-import com.miti.server.model.entity.ContextIngredient;
-import com.miti.server.model.entity.Recipe;
+import com.miti.server.api.UserService;
 import com.miti.server.model.entity.User;
+import com.miti.server.model.enums.Role;
 import com.miti.server.repository.CommentRepository;
 import com.miti.server.repository.ContextIngredientRepository;
+import com.miti.server.repository.RatingRepository;
 import com.miti.server.repository.RecipeRepository;
 import com.miti.server.repository.UserRepository;
-import com.miti.server.api.UserService;
 import com.miti.server.util.Check;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
-
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
@@ -31,6 +28,7 @@ public class UserServiceImpl implements UserService {
   private final RecipeRepository recipeRepository;
   private final CommentRepository commentRepository;
   private final ContextIngredientRepository contextIngredientRepository;
+  private final RatingRepository ratingRepository;
   private final PasswordEncoder passwordEncoder;
 
   @Override
@@ -60,14 +58,15 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public User editUser(Long userId, User newUser) {
-    return userRepository.findById(userId).map(user -> {
-      user.setName(newUser.getName());
-      user.setPassword(passwordEncoder.encode(newUser.getPassword()));
-      user.setEmail(newUser.getEmail());
-      user.setRole(newUser.getRole());
-      return userRepository.save(user);
-    }).orElseThrow(() -> new RuntimeException("User with id: " + userId + " doesn't exist!"));
+  public User editUser(User user) {
+    return userRepository.findById(user.getId()).map(newUser -> {
+      newUser.setName(user.getName());
+      newUser.setPassword(passwordEncoder.encode(user.getPassword()));
+      newUser.setEmail(user.getEmail());
+      newUser.setRole(user.getRole());
+      return userRepository.save(newUser);
+    }).orElseThrow(()
+        -> new RuntimeException("User with id: " + user.getId() + " doesn't exist!"));
   }
 
   @Override
@@ -156,45 +155,31 @@ public class UserServiceImpl implements UserService {
   @Override
   public void deleteById(Long userId) {
     User user = getUserById(userId);
-    List<Recipe> recipes = user.getRecipeList();
-    for (Recipe recipe : recipes) {
-      List<ContextIngredient> contextIngredients = recipe.getContextIngredientList();
-      List<Comment> comments = recipe.getCommentList();
-      for (ContextIngredient contextIngredient : contextIngredients) {
-        deleteIngredientContextById(contextIngredient.getId());
-      }
-      for (Comment comment : comments) {
-        deleteCommentById(comment.getId());
-      }
-      deleteRecipeById(recipe.getId());
-    }
 
-    List<Comment> comments = user.getCommentList();
-    for (Comment comment : comments) {
-      deleteCommentById(comment.getId());
-    }
+    user.getRecipeList().forEach(recipe -> {
+
+      recipe.getContextIngredientList().forEach(contextIngredient ->
+          contextIngredientRepository.deleteById(contextIngredient.getId()));
+
+      recipe.getCommentList().forEach(comment ->
+          commentRepository.deleteById(comment.getId()));
+
+      recipe.getRating().forEach(rating ->
+          ratingRepository.deleteById(rating.getId()));
+
+      recipeRepository.deleteById(recipe.getId());
+    });
+
+    user.getRating().forEach(rating ->
+        ratingRepository.deleteById(rating.getId()));
+
+    user.getCommentList().forEach(comment ->
+        commentRepository.deleteById(comment.getId()));
+
     userRepository.deleteById(userId);
   }
 
-  @Override
-  public void deleteRecipeById(Long recipeId) {
-    recipeRepository.deleteById(recipeId);
-  }
-
-  @Override
-  public void deleteCommentById(Long commentId) {
-    commentRepository.deleteById(commentId);
-  }
-
-  @Override
-  public void deleteIngredientContextById(Long id) {
-    contextIngredientRepository.deleteById(id);
-  }
-
   public boolean existsByUsernameAndEmail(String username, String email) {
-    if (userRepository.existsByUsername(username)) {
-      return false;
-    }
-    return !userRepository.existsByEmail(email);
+    return !userRepository.existsByUsername(username) && !userRepository.existsByEmail(email);
   }
 }

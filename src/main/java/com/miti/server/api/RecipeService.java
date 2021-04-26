@@ -12,11 +12,11 @@ public interface RecipeService {
 
   void addAllRecipes(List<Recipe> recipes);
 
-  Recipe editRecipe(Long recipeId, Recipe newRecipe);
+  Recipe editRecipe(Recipe newRecipe);
 
   Recipe getRecipeById(Long recipeId);
 
-  Recipe getRecipeByName(String name);
+  List<Recipe> getRecipeByName(String name);
 
   Recipe getRecipeByCalorie(CalorieContent calorieContent);
 
@@ -33,8 +33,4 @@ public interface RecipeService {
   List<Recipe> getRecipesByCreateDateBetween(Date recipePublicationDateStart, Date today);
 
   void deleteRecipeById(Long recipeId);
-
-  void deleteCommentById(Long commentId);
-
-  void deleteIngredientContextById(Long id);
 }

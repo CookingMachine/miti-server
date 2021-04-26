@@ -134,7 +134,7 @@ public class SearchFilter {
 
     List<Recipe> result = new ArrayList<>();
     for (String s : sortedList) {
-      result.add(recipeService.getRecipeByName(s));
+      result.addAll(recipeService.getRecipeByName(s));
     }
 
     return ingredientFilter(ingredients, caloriesDown, caloriesUp, timeStart, timeEnd, category,
