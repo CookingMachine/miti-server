@@ -58,6 +58,6 @@ public class RecipeController {
   @DeleteMapping("/{id}")
   public String deleteRecipeById(@PathVariable Long id) {
     recipeService.deleteRecipeById(id);
-    return "Done!";
+    return "Successfully removed RECIPE with id [" + id + "]";
   }
 }

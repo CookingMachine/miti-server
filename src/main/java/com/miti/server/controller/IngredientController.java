@@ -49,6 +49,6 @@ public class IngredientController {
   @DeleteMapping("/{id}")
   public String deleteIngredientById(@PathVariable String id) {
     ingredientService.deleteIngredientById(id);
-    return "Done!";
+    return "Successfully removed INGREDIENT with id [" + id + "]";
   }
 }

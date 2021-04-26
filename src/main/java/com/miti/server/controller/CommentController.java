@@ -43,6 +43,6 @@ public class CommentController {
   @DeleteMapping("/{id}")
   public String deleteCommentById(@PathVariable Long id) {
     commentService.deleteCommentById(id);
-    return "Done!";
+    return "Successfully removed COMMENT with id [" + id + "]";
   }
 }

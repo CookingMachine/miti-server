@@ -60,6 +60,6 @@ public class ContextIngredientController {
   @DeleteMapping("/{id}")
   public String deleteContextIngredientById(@PathVariable Long id) {
     contextIngredientService.deleteContextIngredientById(id);
-    return "Done!";
+    return "Successfully removed CONTEXT INGREDIENT with id [" + id + "]";
   }
 }

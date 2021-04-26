@@ -38,6 +38,6 @@ public class CategoryController {
   @DeleteMapping("/{id}")
   public String deleteCategoryById(@PathVariable String id) {
     categoryService.deleteCategoryById(id);
-    return "Done!";
+    return "Successfully removed CATEGORY with id [" + id + "]";
   }
 }
