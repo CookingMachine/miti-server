@@ -14,7 +14,7 @@ spring:
       ddl-auto: create
 
 server:
-  port: ${PORT:33500}
+  port: ${PORT:8080}
 
 jwt:
   secret: MITI_secret-key

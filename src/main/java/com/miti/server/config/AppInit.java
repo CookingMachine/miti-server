@@ -40,7 +40,7 @@ public class AppInit implements ApplicationRunner {
     List<Rating> ratings = new ArrayList<>();
 
     addUser(users, "admin", "Max",
-        "$2y$12$lMziH.7icjkdRRpDVtaj4uAaG8qlVkBi/Hjl0e7aKsMXQY8i4HQNu", "admin@gmail.com",
+        "$2y$12$DLa0OcG1cf559Sfu.3S90u/kgWWxwOXICctN6I53SQHBz1SApvi4S", "admin@gmail.com",
         Role.ADMINISTRATION);
     addUser(users, "moder", "Govnoy",
         "$2y$12$zbcKnFG.OX.7r2k3nqEyj.9psdQhVzIy5eBvtVQegbPGVHupC0NHS", "moder@gmail.com",
