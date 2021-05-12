@@ -2,6 +2,8 @@ package com.miti.server.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.miti.server.model.enums.Kitchen;
+import com.miti.server.model.request.RecipeRequest;
+import java.util.ArrayList;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -38,6 +40,9 @@ public class Recipe {
 
   @Column(name = "KITCHEN")
   private Kitchen kitchen;
+
+  @Column(name = "IMAGE")
+  private String imageUrl;
 
   @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "USER_ID", nullable = false)

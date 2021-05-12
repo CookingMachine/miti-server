@@ -2,12 +2,14 @@ package com.miti.server.api;
 
 import com.miti.server.model.entity.User;
 
+import com.miti.server.model.request.UserRequest;
+import com.miti.server.model.response.UserResponse;
 import java.text.ParseException;
 import java.util.List;
 
 public interface UserService {
 
-  User addUser(User user);
+  UserResponse addUser(UserRequest userRequest);
 
   void addAllUsers(List<User> users);
 
