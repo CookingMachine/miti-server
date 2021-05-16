@@ -1,7 +1,6 @@
 package com.miti.server.api;
 
 import com.miti.server.model.entity.Comment;
-
 import java.util.List;
 
 public interface CommentService {

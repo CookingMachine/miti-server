@@ -47,5 +47,4 @@ public class Authenticate {
       throw new Exception("INVALID_CREDENTIALS", bce);
     }
   }
-
 }

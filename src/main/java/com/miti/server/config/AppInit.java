@@ -1,19 +1,32 @@
 package com.miti.server.config;
 
-import com.miti.server.api.*;
+import com.miti.server.api.CalorieContentService;
+import com.miti.server.api.CategoryService;
+import com.miti.server.api.CommentService;
+import com.miti.server.api.ContextIngredientService;
+import com.miti.server.api.IngredientService;
+import com.miti.server.api.RatingService;
+import com.miti.server.api.RecipeService;
+import com.miti.server.api.UserService;
+import com.miti.server.model.entity.CalorieContent;
+import com.miti.server.model.entity.Category;
+import com.miti.server.model.entity.Comment;
+import com.miti.server.model.entity.ContextIngredient;
+import com.miti.server.model.entity.Ingredient;
+import com.miti.server.model.entity.Rating;
+import com.miti.server.model.entity.Recipe;
+import com.miti.server.model.entity.User;
 import com.miti.server.model.enums.IngredientCategory;
 import com.miti.server.model.enums.Kitchen;
 import com.miti.server.model.enums.Measure;
 import com.miti.server.model.enums.Role;
-import com.miti.server.model.entity.*;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Component
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))

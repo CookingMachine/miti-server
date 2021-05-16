@@ -2,15 +2,22 @@ package com.miti.server.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.miti.server.model.enums.Kitchen;
-import com.miti.server.model.request.RecipeRequest;
-import java.util.ArrayList;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-import javax.persistence.*;
-import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.validation.constraints.Size;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "RECIPE")
@@ -80,19 +87,5 @@ public class Recipe {
     this.rating = null;
 
     this.createDate = new Date();
-  }
-
-  @Override
-  public String toString() {
-    return "{\n" +
-        "\"id\": " + this.getId() + ",\n" +
-        "\"name\": \"" + this.getName() + "\",\n" +
-        "\"description\": \"" + this.getDescription() + "\",\n" +
-        "\"createDate\": \"" + this.getCreateDate() + "\",\n" +
-        "\"authorName\": \"" + this.getAuthor().getName() + "\",\n" +
-        "\"kitchen\": \"" + this.getKitchen() + "\",\n" +
-        "\"cookingTime\": \"" + this.getTime() + "\",\n" +
-        "\"calorie\": \"" + this.getCalorie().getId() + "\"\n" +
-        '}';
   }
 }

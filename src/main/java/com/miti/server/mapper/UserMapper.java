@@ -16,19 +16,18 @@ public class UserMapper {
   private final PasswordEncoder passwordEncoder;
 
   public User userRequestToUserModel(UserRequest user) {
-    if (user == null)
-      return null;
 
-    return new User(user.getUsername(),
-        user.getName(),
-        passwordEncoder.encode(user.getPassword()),
-        user.getEmail(), Role.USER);
+    return user == null ? null :
+        new User(user.getUsername(),
+            user.getName(),
+            passwordEncoder.encode(user.getPassword()),
+            user.getEmail(),
+            Role.USER);
   }
 
   public UserResponse userModelToUserResponse(User user) {
-    if (user == null)
-      return null;
-
-    return new UserResponse(user.getUsername(), user.getEmail());
+    return user == null ? null :
+        new UserResponse(user.getUsername(),
+            user.getEmail());
   }
 }

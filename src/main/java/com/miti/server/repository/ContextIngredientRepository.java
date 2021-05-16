@@ -1,13 +1,12 @@
 package com.miti.server.repository;
 
-import com.miti.server.model.enums.Measure;
 import com.miti.server.model.entity.ContextIngredient;
 import com.miti.server.model.entity.Ingredient;
 import com.miti.server.model.entity.Recipe;
+import com.miti.server.model.enums.Measure;
+import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 @Repository
 public interface ContextIngredientRepository extends CrudRepository<ContextIngredient, Long> {
@@ -23,6 +22,4 @@ public interface ContextIngredientRepository extends CrudRepository<ContextIngre
   List<ContextIngredient> getContextIngredientsByRecipe(Recipe recipe);
 
   boolean existsByIngredientAndRecipe(Ingredient ingredient, Recipe recipe);
-
-  long countByRecipeId(Long recipeId);
 }

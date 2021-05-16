@@ -3,14 +3,13 @@ package com.miti.server.config.jwt;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Component;
-
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
 
 
 @Component
@@ -31,6 +30,7 @@ public class JwtUtil {
 
   public <T> T getClaimFromToken(String token, Function<Claims, T> claimsResolver) {
     final Claims claims = getAllClaimsFromToken(token);
+
     return claimsResolver.apply(claims);
   }
 
@@ -40,15 +40,18 @@ public class JwtUtil {
 
   private Boolean isTokenExpired(String token) {
     final Date expiration = getExpirationDateFromToken(token);
+
     return expiration.before(new Date());
   }
 
   public String generateToken(UserDetails user) {
     Map<String, Object> claims = new HashMap<>();
+
     return doGenerateToken(claims, user.getUsername());
   }
 
   private String doGenerateToken(Map<String, Object> claims, String subject) {
+
     return Jwts.builder().setClaims(claims).
         setSubject(subject).
         setIssuedAt(new Date(System.currentTimeMillis())).
@@ -59,6 +62,7 @@ public class JwtUtil {
 
   public Boolean validateToken(String token, UserDetails user) {
     final String username = getUsernameFromToken(token);
+
     return (username.equals(user.getUsername()) && !isTokenExpired(token));
   }
 }

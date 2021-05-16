@@ -1,12 +1,11 @@
 package com.miti.server.repository;
 
-import com.miti.server.model.enums.Role;
 import com.miti.server.model.entity.User;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
-
+import com.miti.server.model.enums.Role;
 import java.util.Date;
 import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {

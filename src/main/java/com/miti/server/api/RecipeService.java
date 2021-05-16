@@ -2,7 +2,6 @@ package com.miti.server.api;
 
 import com.miti.server.model.entity.CalorieContent;
 import com.miti.server.model.entity.Recipe;
-
 import com.miti.server.model.request.RecipeRequest;
 import com.miti.server.model.response.RecipeResponse;
 import java.util.Date;

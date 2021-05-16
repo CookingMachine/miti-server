@@ -11,7 +11,10 @@ import lombok.Data;
 public class MainPageContent {
 
   private Recipe recipeOfTheDay;
+
   private List<Category> categoryList;
+
   private List<Recipe> lowCalories;
+
   private List<Recipe> fastAndDelicious;
 }

@@ -1,7 +1,6 @@
 package com.miti.server.api;
 
 import com.miti.server.model.entity.Ingredient;
-
 import java.util.List;
 
 public interface IngredientService {
