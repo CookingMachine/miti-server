@@ -3,12 +3,14 @@ package com.miti.server.api;
 import com.miti.server.model.entity.CalorieContent;
 import com.miti.server.model.entity.Recipe;
 
+import com.miti.server.model.request.RecipeRequest;
+import com.miti.server.model.response.RecipeResponse;
 import java.util.Date;
 import java.util.List;
 
 public interface RecipeService {
 
-  Recipe addRecipe(Recipe recipe);
+  RecipeResponse addRecipe(RecipeRequest recipeRequest);
 
   void addAllRecipes(List<Recipe> recipes);
 

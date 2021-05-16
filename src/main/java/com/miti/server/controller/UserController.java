@@ -1,17 +1,23 @@
 package com.miti.server.controller;
 
-import com.miti.server.config.jwt.JwtUtil;
-import com.miti.server.model.entity.User;
 import com.miti.server.api.UserService;
-import com.miti.server.util.Check;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpServletRequest;
+import com.miti.server.model.entity.User;
+import com.miti.server.model.jwt.JwtRequest;
+import com.miti.server.model.request.UserRequest;
+import com.miti.server.model.response.UserResponse;
+import com.miti.server.util.Authenticate;
 import java.text.ParseException;
 import java.util.List;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(path = "/api/v1/user")
@@ -19,11 +25,14 @@ import java.util.List;
 public class UserController {
 
   private final UserService userService;
-  //private final UserDetailsService userDetailsService;
-  //private final JwtUtil util;
+  private final Authenticate authenticate;
 
   @PostMapping(value = "")
-  public User addUser(@RequestBody User user) {
+  public UserResponse addUser(@RequestBody UserRequest user) throws Exception {
+    UserResponse userResponse = userService.addUser(user);
+    userResponse.setJwtToken(
+        authenticate.generateJwtToken(new JwtRequest(user.getUsername(), user.getPassword())));
+
     return userService.addUser(user);
   }
 

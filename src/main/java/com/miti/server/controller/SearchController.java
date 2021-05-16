@@ -1,8 +1,10 @@
 package com.miti.server.controller;
 
 import com.miti.server.model.entity.Recipe;
-import com.miti.server.model.IngredientRequest;
+import com.miti.server.model.enums.Kitchen;
+import com.miti.server.model.request.IngredientRequest;
 import com.miti.server.util.SearchFilter;
+import java.util.ArrayList;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +18,7 @@ public class SearchController {
 
   private final SearchFilter searchFilter;
 
-  @GetMapping
+  @GetMapping(path = "")
   public List<Recipe> searchRecipeByLetter(
       @RequestParam(name = "letters", defaultValue = "") String input,
       @RequestParam(name = "sort", defaultValue = "") int sorting,

@@ -1,8 +1,11 @@
 package com.miti.server.service;
 
 import com.miti.server.api.UserService;
+import com.miti.server.mapper.UserMapper;
 import com.miti.server.model.entity.User;
 import com.miti.server.model.enums.Role;
+import com.miti.server.model.request.UserRequest;
+import com.miti.server.model.response.UserResponse;
 import com.miti.server.repository.CommentRepository;
 import com.miti.server.repository.ContextIngredientRepository;
 import com.miti.server.repository.RatingRepository;
@@ -29,21 +32,16 @@ public class UserServiceImpl implements UserService {
   private final CommentRepository commentRepository;
   private final ContextIngredientRepository contextIngredientRepository;
   private final RatingRepository ratingRepository;
+
   private final PasswordEncoder passwordEncoder;
+  private final UserMapper mapper;
 
   @Override
-  public User addUser(User user) {
-    if (existsByUsernameAndEmail(user.getUsername(), user.getEmail())) {
-      return userRepository.save(new User(
-          user.getUsername(),
-          user.getName(),
-          passwordEncoder.encode(user.getPassword()),
-          user.getEmail(),
-          user.getRole()
-      ));
-    }
-    throw new RuntimeException("User with username: " + user.getUsername()
-        + " or email: " + user.getEmail() + " already exists!");
+  public UserResponse addUser(UserRequest userRequest) {
+    User user = mapper.userRequestToUserModel(userRequest);
+    userRepository.save(user);
+
+    return mapper.userModelToUserResponse(user);
   }
 
   @Override

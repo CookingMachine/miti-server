@@ -3,9 +3,12 @@ package com.miti.server.service;
 import com.miti.server.api.CategoryService;
 import com.miti.server.api.RecipeService;
 import com.miti.server.api.UserService;
+import com.miti.server.mapper.RecipeMapper;
 import com.miti.server.model.entity.CalorieContent;
 import com.miti.server.model.entity.Recipe;
 import com.miti.server.model.enums.Kitchen;
+import com.miti.server.model.request.RecipeRequest;
+import com.miti.server.model.response.RecipeResponse;
 import com.miti.server.repository.CommentRepository;
 import com.miti.server.repository.ContextIngredientRepository;
 import com.miti.server.repository.RatingRepository;
@@ -30,17 +33,15 @@ public class RecipeServiceImpl implements RecipeService {
   private final UserService userService;
   private final CategoryService categoryService;
 
+  private final RecipeMapper recipeMapper;
+
   @Override
-  public Recipe addRecipe(Recipe recipe) {
-    return recipeRepository.save(new Recipe(
-        recipe.getName(),
-        recipe.getDescription(),
-        userService.getUserById(recipe.getAuthor().getId()),
-        categoryService.getCategoryById(recipe.getCategory().getId()),
-        recipe.getKitchen(),
-        recipe.getTime(),
-        recipe.getCalorie()
-    ));
+  public RecipeResponse addRecipe(RecipeRequest recipeRequest) {
+    Recipe recipe = recipeMapper.recipeRequestToRecipeModel(recipeRequest);
+    recipeRepository.save(recipe);
+
+    return recipeMapper.recipeModelToRecipeResponse(recipe);
+
   }
 
   @Override

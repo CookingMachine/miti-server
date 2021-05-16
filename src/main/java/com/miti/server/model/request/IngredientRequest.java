@@ -1,4 +1,4 @@
-package com.miti.server.model;
+package com.miti.server.model.request;
 
 import com.miti.server.model.entity.Ingredient;
 import lombok.Data;

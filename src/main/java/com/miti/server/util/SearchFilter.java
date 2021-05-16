@@ -1,6 +1,7 @@
 package com.miti.server.util;
 
-import com.miti.server.model.IngredientRequest;
+import com.miti.server.model.enums.Kitchen;
+import com.miti.server.model.request.IngredientRequest;
 import com.miti.server.model.entity.ContextIngredient;
 import com.miti.server.model.entity.Ingredient;
 import com.miti.server.model.entity.Rating;
@@ -12,6 +13,7 @@ import com.miti.server.api.RecipeService;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -258,5 +260,11 @@ public class SearchFilter {
 
     }
     return avgList;
+  }
+
+  public List<String> getAllKitchen() {
+    List<String> kitchen = new ArrayList<>();
+    Arrays.stream(Kitchen.values()).forEach(e -> kitchen.add(e.name()));
+    return kitchen;
   }
 }

@@ -2,6 +2,9 @@ package com.miti.server.controller;
 
 import com.miti.server.model.entity.Recipe;
 import com.miti.server.api.RecipeService;
+import com.miti.server.model.request.RecipeRequest;
+import com.miti.server.model.response.RecipeResponse;
+import com.miti.server.util.SearchFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,8 +18,10 @@ public class RecipeController {
 
   private final RecipeService recipeService;
 
+  private final SearchFilter searchFilter;
+
   @PostMapping("")
-  public Recipe addRecipe(@RequestBody Recipe recipe) {
+  public RecipeResponse addRecipe(@RequestBody RecipeRequest recipe) {
     return recipeService.addRecipe(recipe);
   }
 
@@ -59,5 +64,10 @@ public class RecipeController {
   public String deleteRecipeById(@PathVariable Long id) {
     recipeService.deleteRecipeById(id);
     return "Successfully removed RECIPE with id [" + id + "]";
+  }
+
+  @GetMapping(path = "/kitchen")
+  public List<String> getAllKitchenFromServer() {
+    return searchFilter.getAllKitchen();
   }
 }
