@@ -1,7 +1,6 @@
 package com.miti.server.api;
 
 import com.miti.server.model.entity.ContextIngredient;
-
 import java.util.List;
 
 public interface ContextIngredientService {

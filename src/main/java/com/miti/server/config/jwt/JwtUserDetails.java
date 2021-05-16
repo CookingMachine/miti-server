@@ -1,12 +1,11 @@
 package com.miti.server.config.jwt;
 
 import com.miti.server.model.entity.User;
+import java.util.Collection;
+import java.util.Collections;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
-import java.util.Collection;
-import java.util.Collections;
 
 public class JwtUserDetails implements UserDetails {
 
@@ -20,6 +19,7 @@ public class JwtUserDetails implements UserDetails {
     jwtUser.password = user.getPassword();
     jwtUser.grantedAuthorities = Collections
         .singletonList(new SimpleGrantedAuthority(user.getRole().name()));
+
     return jwtUser;
   }
 

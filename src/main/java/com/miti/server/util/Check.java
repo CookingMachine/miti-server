@@ -1,10 +1,9 @@
 package com.miti.server.util;
 
 import com.miti.server.config.jwt.JwtUtil;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-
-import javax.servlet.http.HttpServletRequest;
 
 public class Check {
 

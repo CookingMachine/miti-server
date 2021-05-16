@@ -1,15 +1,16 @@
 package com.miti.server.controller;
 
 import com.miti.server.model.entity.Recipe;
-import com.miti.server.model.enums.Kitchen;
 import com.miti.server.model.request.IngredientRequest;
 import com.miti.server.util.SearchFilter;
-import java.util.ArrayList;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(path = "api/v1/searchRecipe")
@@ -32,6 +33,7 @@ public class SearchController {
     if (ingredients.getIngredients() == null) {
       return null;
     }
+
     return searchFilter
         .searchRecipesByLetter(input, sorting, ingredients, caloriesDown, caloriesUp, timeStart,
             timeEnd,

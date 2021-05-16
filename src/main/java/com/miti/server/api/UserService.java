@@ -1,7 +1,6 @@
 package com.miti.server.api;
 
 import com.miti.server.model.entity.User;
-
 import com.miti.server.model.request.UserRequest;
 import com.miti.server.model.response.UserResponse;
 import java.text.ParseException;
