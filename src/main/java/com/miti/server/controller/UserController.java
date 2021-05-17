@@ -33,7 +33,7 @@ public class UserController {
     userResponse.setJwtToken(
         authenticate.generateJwtToken(new JwtRequest(user.getUsername(), user.getPassword())));
 
-    return userService.addUser(user);
+    return userResponse;
   }
 
   @PatchMapping(value = "")
