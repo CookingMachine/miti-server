@@ -1,11 +1,11 @@
 package com.miti.server.util;
 
-import com.miti.server.api.UserService;
+import com.miti.server.service.UserService;
 import com.miti.server.config.jwt.JwtUserDetailsService;
 import com.miti.server.config.jwt.JwtUtil;
-import com.miti.server.model.entity.User;
-import com.miti.server.model.jwt.JwtRequest;
-import com.miti.server.repository.UserRepository;
+import com.miti.data.model.User;
+import com.miti.server.jwt.JwtRequest;
+import com.miti.data.repository.UserRepository;
 import java.util.Date;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

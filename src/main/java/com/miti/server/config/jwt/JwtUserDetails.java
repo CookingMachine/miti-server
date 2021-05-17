@@ -1,6 +1,6 @@
 package com.miti.server.config.jwt;
 
-import com.miti.server.model.entity.User;
+import com.miti.data.model.User;
 import java.util.Collection;
 import java.util.Collections;
 import org.springframework.security.core.GrantedAuthority;

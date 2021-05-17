@@ -1,31 +1,26 @@
 package com.miti.server.controller;
 
-import com.miti.server.api.UserService;
-import com.miti.server.model.entity.User;
-import com.miti.server.model.jwt.JwtRequest;
-import com.miti.server.model.request.UserRequest;
-import com.miti.server.model.response.UserResponse;
+import com.miti.data.model.User;
+import com.miti.server.api.request.UserRequest;
+import com.miti.server.api.response.UserResponse;
+import com.miti.server.service.UserService;
+import com.miti.server.config.jwt.JwtUtil;
+import com.miti.server.jwt.JwtRequest;
 import com.miti.server.util.Authenticate;
-import java.text.ParseException;
-import java.util.List;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import java.text.ParseException;
+import java.util.List;
 
 @RestController
 @RequestMapping(path = "/api/v1/user")
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@AllArgsConstructor
 public class UserController {
 
   private final UserService userService;
@@ -126,5 +121,15 @@ public class UserController {
     userService.deleteById(id);
 
     return "Successfully removed USER with id [" + id + "]";
+  }
+
+  private boolean checkRole(HttpServletRequest req,
+                                  UserDetailsService userDetailsService,
+                                  JwtUtil util,
+                                  String role) {
+    String token = req.getHeader("Authorization").substring(7);
+    UserDetails details = userDetailsService.loadUserByUsername(util.getUsernameFromToken(token));
+    return details != null && details.getAuthorities().stream()
+            .anyMatch(a -> a.getAuthority().equals(role));
   }
 }

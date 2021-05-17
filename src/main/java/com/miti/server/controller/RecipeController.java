@@ -1,25 +1,18 @@
 package com.miti.server.controller;
 
-import com.miti.server.api.RecipeService;
-import com.miti.server.model.entity.Recipe;
-import com.miti.server.model.request.RecipeRequest;
-import com.miti.server.model.response.RecipeResponse;
+import com.miti.data.model.Recipe;
+import com.miti.server.api.request.RecipeRequest;
+import com.miti.server.api.response.RecipeResponse;
+import com.miti.server.service.RecipeService;
 import com.miti.server.util.SearchFilter;
+import lombok.AllArgsConstructor;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(path = "api/v1/recipe")
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@AllArgsConstructor
 public class RecipeController {
 
   private final RecipeService recipeService;
@@ -37,7 +30,7 @@ public class RecipeController {
   }
 
   @GetMapping("/{id}")
-  public Recipe getRecipeById(@PathVariable Long id) {
+  public Recipe getRecipeById(@PathVariable long id) {
     return recipeService.getRecipeById(id);
   }
 
@@ -52,7 +45,7 @@ public class RecipeController {
   }
 
   @GetMapping("/getByAuthorId/{id}")
-  public List<Recipe> getRecipesByAuthorId(@PathVariable Long id) {
+  public List<Recipe> getRecipesByAuthorId(@PathVariable long id) {
     return recipeService.getRecipesByAuthorId(id);
   }
 

@@ -1,7 +1,7 @@
 package com.miti.server.config.jwt;
 
-import com.miti.server.model.entity.User;
-import com.miti.server.repository.UserRepository;
+import com.miti.data.model.User;
+import com.miti.data.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
