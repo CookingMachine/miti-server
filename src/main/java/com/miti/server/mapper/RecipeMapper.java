@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 public class RecipeMapper {
 
   public Recipe recipeRequestToRecipeModel(RecipeRequest recipeRequest) {
+    String recipe = "";
     return recipeRequest == null ? null :
         new Recipe(recipeRequest.getName(),
             recipeRequest.getDescription(),
@@ -21,6 +22,7 @@ public class RecipeMapper {
   }
 
   public RecipeResponse recipeModelToRecipeResponse(Recipe recipe) {
+    String name = "";
     return recipe == null ? null :
         new RecipeResponse(recipe.getName(),
             recipe.getDescription(),
