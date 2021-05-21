@@ -4,13 +4,13 @@ import com.miti.server.api.CalorieContentService;
 import com.miti.server.api.CategoryService;
 import com.miti.server.api.RecipeService;
 import com.miti.server.model.MainPageContent;
-import com.miti.server.model.entity.CalorieContent;
-import com.miti.server.model.entity.Category;
 import com.miti.server.model.entity.Recipe;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -24,45 +24,41 @@ public class MainPageService {
   private final CalorieContentService calorieContentService;
   private final SearchFilter searchFilter;
 
-  public MainPageContent mainPage(Long calories, int time) {
-    Recipe recipeOfTheDay = getRecipeOfTheDay();
-    List<Category> categories = categoryService.getAllCategories();
-    List<Recipe> lowCalories = getRecipesWithLowCalories(calories);
-    List<Recipe> fastAndDelicious = getFastAndDelicious(time);
+  private static final Long  MAIN_PAGE_CALORIE_TOP_LIMIT = 550L;
+  private static final int MAIN_PAGE_TIME_TOP_LIMIT = 1000;
 
-    return new MainPageContent(recipeOfTheDay, categories, lowCalories, fastAndDelicious);
+  public MainPageContent mainPage() {
+
+    return new MainPageContent(
+        getRecipeOfTheDay(LocalDateTime.now()),
+        categoryService.getAllCategories(),
+        getRecipesWithLowCalories(),
+        getFastAndDelicious());
   }
 
-  private Recipe getRecipeOfTheDay() {
-    Date today = new Date();
-    Date firstDate = new Date(System.currentTimeMillis() - 1000L * 60L * 60L * 24L * 3);
-    List<Recipe> recipes = recipeService.getRecipesByCreateDateBetween(firstDate, today);
-    List<Double> avg = searchFilter.getAverageRating(recipes);
-    List<Recipe> sortedList = new ArrayList<>(recipes);
-
-    sortedList.sort(Comparator.comparing(s -> avg.get(recipes.indexOf(s))));
-
-    return sortedList.get(0);
+  private Recipe getRecipeOfTheDay(LocalDateTime date) {
+    return getSortedRecipesByAverageRating(
+        recipeService.getRecipesByCreateDateBetween(date.minusDays(3L))).get(0);
   }
 
-  private List<Recipe> getRecipesWithLowCalories(Long calories) {
-    List<CalorieContent> calorieContentList = calorieContentService
-        .getCalorieContentsByCaloriesLessThan(calories);
-    List<Recipe> recipesLowCalories = new ArrayList<>();
-    for (CalorieContent calorie : calorieContentList) {
-      recipesLowCalories.add(recipeService.getRecipeByCalorie(calorie));
-    }
+  private List<Recipe> getRecipesWithLowCalories() {
 
-    return recipesLowCalories;
+    return calorieContentService.getCalorieContentsByCaloriesLessThan(MAIN_PAGE_CALORIE_TOP_LIMIT).stream().map(
+        recipeService::getRecipeByCalorie).collect(
+        Collectors.toList());
   }
 
-  private List<Recipe> getFastAndDelicious(int time) {
-    List<Recipe> recipes = recipeService.getRecipesByTimeLessThanEqual(time);
-    List<Double> avg = searchFilter.getAverageRating(recipes);
-    List<Recipe> sortedList = new ArrayList<>(recipes);
+  private List<Recipe> getFastAndDelicious() {
+    return getSortedRecipesByAverageRating(recipeService.getRecipesByTimeLessThanEqual(MAIN_PAGE_TIME_TOP_LIMIT));
+  }
 
-    sortedList.sort(Comparator.comparing(s -> avg.get(recipes.indexOf(s))));
+  private List<Recipe> getSortedRecipesByAverageRating(List<Recipe> recipesBeforeSorting) {
+    List<Double> averageRating = searchFilter.getAverageRating(recipesBeforeSorting);
+    List<Recipe> recipesAfterSorting = new ArrayList<>(recipesBeforeSorting);
 
-    return sortedList;
+    recipesAfterSorting.sort(Comparator.comparing(s -> averageRating.get(recipesBeforeSorting.indexOf(s))));
+    Collections.reverse(recipesAfterSorting);
+
+    return recipesAfterSorting;
   }
 }

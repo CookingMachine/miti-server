@@ -14,8 +14,7 @@ import com.miti.server.repository.ContextIngredientRepository;
 import com.miti.server.repository.RatingRepository;
 import com.miti.server.repository.RecipeRepository;
 import com.miti.server.util.Check;
-import java.util.ArrayList;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -132,8 +131,8 @@ public class RecipeServiceImpl implements RecipeService {
   }
 
   @Override
-  public List<Recipe> getRecipesByCreateDateBetween(Date recipePublicationDateStart, Date today) {
-    return recipeRepository.getRecipesByCreateDateBetween(recipePublicationDateStart, today);
+  public List<Recipe> getRecipesByCreateDateBetween(LocalDateTime recipePublicationDateStart) {
+    return recipeRepository.getRecipesByCreateDateBetween(recipePublicationDateStart, LocalDateTime.now());
   }
 
   @Override

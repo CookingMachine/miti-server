@@ -5,7 +5,7 @@ import com.miti.server.model.entity.Category;
 import com.miti.server.model.entity.Recipe;
 import com.miti.server.model.entity.User;
 import com.miti.server.model.enums.Kitchen;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -25,5 +25,5 @@ public interface RecipeRepository extends JpaRepository<Recipe, Long> {
 
   List<Recipe> getRecipesByTimeLessThanEqual(int time);
 
-  List<Recipe> getRecipesByCreateDateBetween(Date recipePublicationDateStart, Date today);
+  List<Recipe> getRecipesByCreateDateBetween(LocalDateTime recipePublicationDateStart, LocalDateTime today);
 }

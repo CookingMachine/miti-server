@@ -4,20 +4,19 @@ import com.miti.server.model.MainPageContent;
 import com.miti.server.util.MainPageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
 @RequestMapping(path = "api/v1/mainPage")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class MainPageController {
 
   private final MainPageService mainPageConstructor;
 
-  @GetMapping
-  public MainPageContent getMainPageElements(@RequestParam Long calories, @RequestParam int time) {
-    return mainPageConstructor.mainPage(calories, time);
+  @GetMapping(value = "")
+  public MainPageContent getMainPageElements() {
+    return mainPageConstructor.mainPage();
   }
 }

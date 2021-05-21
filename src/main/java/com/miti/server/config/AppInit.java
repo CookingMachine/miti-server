@@ -114,15 +114,15 @@ public class AppInit implements ApplicationRunner {
 
     ingredientService.addAllIngredients(ingredients);
 
-    addCaloriesContent(calories, 110L, 10L, 30L, 21L);
-    addCaloriesContent(calories, 120L, 11L, 13L, 22L);
-    addCaloriesContent(calories, 130L, 12L, 12L, 23L);
-    addCaloriesContent(calories, 140L, 13L, 15L, 24L);
-    addCaloriesContent(calories, 150L, 14L, 16L, 25L);
-    addCaloriesContent(calories, 160L, 15L, 18L, 26L);
-    addCaloriesContent(calories, 170L, 16L, 20L, 27L);
-    addCaloriesContent(calories, 180L, 17L, 31L, 28L);
-    addCaloriesContent(calories, 190L, 18L, 234L, 29L);
+    addCaloriesContent(calories, 100L, 10L, 30L, 21L);
+    addCaloriesContent(calories, 300L, 11L, 13L, 22L);
+    addCaloriesContent(calories, 400L, 12L, 12L, 23L);
+    addCaloriesContent(calories, 500L, 13L, 15L, 24L);
+    addCaloriesContent(calories, 1000L, 14L, 16L, 25L);
+    addCaloriesContent(calories, 900L, 15L, 18L, 26L);
+    addCaloriesContent(calories, 800L, 16L, 20L, 27L);
+    addCaloriesContent(calories, 700L, 17L, 31L, 28L);
+    addCaloriesContent(calories, 600L, 18L, 234L, 29L);
     addCaloriesContent(calories, 1500L, 19L, 10L, 30L);
     addCaloriesContent(calories, 200L, 20L, 11L, 20L);
 
