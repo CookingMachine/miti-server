@@ -2,7 +2,7 @@ package com.miti.server.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.miti.server.model.enums.Kitchen;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -43,7 +43,7 @@ public class Recipe {
   private int time;
 
   @Column(name = "CREATE_DATE")
-  private Date createDate;
+  private LocalDateTime createDate;
 
   @Column(name = "KITCHEN")
   private Kitchen kitchen;
@@ -86,6 +86,6 @@ public class Recipe {
     this.calorie = calorie;
     this.rating = null;
 
-    this.createDate = new Date();
+    this.createDate = LocalDateTime.now();
   }
 }

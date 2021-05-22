@@ -14,6 +14,7 @@ import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -89,7 +90,7 @@ public class SearchFilter {
       Recipe min = recipeService.getRecipeById(recipes.get(i).getId());
       int minId = i;
       for (int j = i + 1; j < recipes.size(); j++) {
-        if (recipes.get(j).getCreateDate().getTime() < min.getCreateDate().getTime()) {
+        if (recipes.get(j).getCreateDate().isAfter(min.getCreateDate())) {
           min = recipeService.getRecipeById(recipes.get(j).getId());
           minId = j;
         }
@@ -112,7 +113,8 @@ public class SearchFilter {
     List<Recipe> sortedList = new ArrayList<>(recipes);
     List<Double> avg = new ArrayList<>(getAverageRating(recipes));
 
-    sortedList.sort(Comparator.comparing(s -> avg.get(recipes.indexOf(s))).reversed());
+    sortedList.sort(Comparator.comparing(s -> avg.get(recipes.indexOf(s))));
+    Collections.reverse(sortedList);
 
     return sortRecipes(sortedList,
         input, ingredients,
