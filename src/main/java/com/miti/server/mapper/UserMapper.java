@@ -27,7 +27,6 @@ public class UserMapper {
 
   public UserResponse userModelToUserResponse(User user) {
     return user == null ? null :
-        new UserResponse(user.getUsername(),
-            user.getEmail());
+        new UserResponse(user.getId(), user.getUsername(), user.getName(), user.getEmail());
   }
 }
