@@ -1,6 +1,7 @@
 package com.miti.server.service;
 
 import com.miti.server.api.UserService;
+import com.miti.server.config.jwt.JwtUtil;
 import com.miti.server.mapper.UserMapper;
 import com.miti.server.model.entity.User;
 import com.miti.server.model.enums.Role;
@@ -32,6 +33,8 @@ public class UserServiceImpl implements UserService {
   private final CommentRepository commentRepository;
   private final ContextIngredientRepository contextIngredientRepository;
   private final RatingRepository ratingRepository;
+
+  private final JwtUtil jwtUtil;
 
   private final PasswordEncoder passwordEncoder;
   private final UserMapper mapper;
@@ -71,6 +74,15 @@ public class UserServiceImpl implements UserService {
   public User getUserById(Long userId) {
     return userRepository.findById(userId).orElseThrow(()
         -> new RuntimeException("User with id: " + userId + " doesn't exist!"));
+  }
+
+  @Override
+  public UserResponse getUserByToken(String token) {
+    UserResponse userResponse = mapper.userModelToUserResponse(
+        getUserByUsername(jwtUtil.getUsernameFromToken(token)));
+    userResponse.setJwtToken(token);
+
+    return userResponse;
   }
 
   @Override

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -49,6 +50,11 @@ public class UserController {
   }
   //    throw new RuntimeException("No permission!");
   //  }
+
+  @GetMapping(value = "/getByToken")
+  public UserResponse getUserByJWTToken(@RequestHeader(name = "Authorization") String token) {
+    return userService.getUserByToken(token.substring(7));
+  }
 
   @GetMapping(value = "/getByUsername/{username}")
   public User getUserByUserName(@PathVariable String username) {
