@@ -34,5 +34,9 @@ public interface UserService {
 
   List<User> getUsersByRegistrationDateAfter(String date) throws ParseException;
 
+  void addFavouriteRecipe(Long userId, Long recipeId);
+
+  void deleteFavouriteRecipe(Long userId, Long recipeId);
+
   void deleteById(Long userId);
 }

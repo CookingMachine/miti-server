@@ -136,6 +136,11 @@ public class RecipeServiceImpl implements RecipeService {
   }
 
   @Override
+  public List<Recipe> getFavouriteRecipesByUserId(Long userId) {
+    return recipeRepository.getRecipesByFavouriteUsers(userService.getUserById(userId));
+  }
+
+  @Override
   public void deleteRecipeById(Long recipeId) {
     Recipe recipe = getRecipeById(recipeId);
 
