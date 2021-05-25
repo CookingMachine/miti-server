@@ -66,6 +66,11 @@ public class RecipeController {
     return recipeService.getRecipesByKitchen(kitchen);
   }
 
+  @GetMapping(value = "/getFavourites/{userId}")
+  public List<Recipe> getFavouriteRecipesByUserId(@PathVariable Long userId) {
+    return recipeService.getFavouriteRecipesByUserId(userId);
+  }
+
   @DeleteMapping("/{id}")
   public String deleteRecipeById(@PathVariable Long id) {
     recipeService.deleteRecipeById(id);

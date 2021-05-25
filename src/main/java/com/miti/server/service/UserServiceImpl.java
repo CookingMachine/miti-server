@@ -163,6 +163,25 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
+  public void addFavouriteRecipe(Long userId, Long recipeId) {
+    try {
+      userRepository.addFavouriteRecipe(userId, recipeId);
+    } catch (Exception ex) {
+      ex.printStackTrace();
+    }
+
+  }
+
+  @Override
+  public void deleteFavouriteRecipe(Long userId, Long recipeId) {
+    try {
+      userRepository.deleteFavouriteRecipe(userId, recipeId);
+    } catch (Exception ex) {
+      ex.printStackTrace();
+    }
+  }
+
+  @Override
   public void deleteById(Long userId) {
     User user = getUserById(userId);
 

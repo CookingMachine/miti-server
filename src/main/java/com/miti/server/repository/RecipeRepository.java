@@ -26,4 +26,6 @@ public interface RecipeRepository extends JpaRepository<Recipe, Long> {
   List<Recipe> getRecipesByTimeLessThanEqual(int time);
 
   List<Recipe> getRecipesByCreateDateBetween(LocalDateTime recipePublicationDateStart, LocalDateTime today);
+
+  List<Recipe> getRecipesByFavouriteUsers(User user);
 }

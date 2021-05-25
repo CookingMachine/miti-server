@@ -33,5 +33,7 @@ public interface RecipeService {
 
   List<Recipe> getRecipesByCreateDateBetween(LocalDateTime recipePublicationDateStart);
 
+  List<Recipe> getFavouriteRecipesByUserId(Long userId);
+
   void deleteRecipeById(Long recipeId);
 }
