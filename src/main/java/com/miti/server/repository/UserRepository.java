@@ -29,12 +29,16 @@ public interface UserRepository extends JpaRepository<User, Long> {
   List<User> getUsersByRegistrationDateAfter(Date date);
 
   @Modifying
-  @Query(value = "INSERT INTO recipe_favourite_users VALUES (:userId, :recipeId);", nativeQuery = true)
+  @Query(value = "INSERT INTO recipe_favourite_users VALUES (:recipeId, :userId);", nativeQuery = true)
   @Transactional
   void addFavouriteRecipe(@Param("userId") Long userId, @Param("recipeId") Long recipeId);
 
+  @Query(value = "SELECT * FROM usr u INNER JOIN recipe_favourite_users f ON u.id = f.favourite_users_id "
+      + "WHERE f.favourite_list_id = :recipeId AND f.favourite_users_id = :userId", nativeQuery = true)
+  User getUserByFavouriteRecipe(@Param("userId") Long userId, @Param("recipeId") Long recipeId);
+
   @Modifying
-  @Query(value = "DELETE FROM recipe_favourite_users f WHERE f.favourite_list_id = :userId AND f.favourite_users_id = :recipeId", nativeQuery = true)
+  @Query(value = "DELETE FROM recipe_favourite_users f WHERE f.favourite_list_id = :recipeId AND f.favourite_users_id = :userId", nativeQuery = true)
   @Transactional
   void deleteFavouriteRecipe(@Param("userId") Long userId, @Param("recipeId") Long recipeId);
 

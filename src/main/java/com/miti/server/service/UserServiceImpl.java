@@ -164,20 +164,19 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public void addFavouriteRecipe(Long userId, Long recipeId) {
-    try {
+    if (userRepository.getUserByFavouriteRecipe(userId, recipeId) == null)
       userRepository.addFavouriteRecipe(userId, recipeId);
-    } catch (Exception ex) {
-      ex.printStackTrace();
+    else {
+      throw new RuntimeException("");
     }
-
   }
 
   @Override
   public void deleteFavouriteRecipe(Long userId, Long recipeId) {
-    try {
+    if (userRepository.getUserByFavouriteRecipe(userId,recipeId) != null)
       userRepository.deleteFavouriteRecipe(userId, recipeId);
-    } catch (Exception ex) {
-      ex.printStackTrace();
+    else {
+      throw new RuntimeException("");
     }
   }
 

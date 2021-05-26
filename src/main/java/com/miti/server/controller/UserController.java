@@ -105,9 +105,9 @@ public class UserController {
   public ResponseEntity<?> addFavouriteRecipe(@RequestParam Long userId, @RequestParam Long recipeId) {
     try {
       userService.addFavouriteRecipe(userId, recipeId);
-      return new ResponseEntity<>("Recipe has been added to user favourite list!", HttpStatus.OK);
-    } catch (Exception ex) {
-      return new ResponseEntity<>("ERROR!", HttpStatus.INTERNAL_SERVER_ERROR);
+      return new ResponseEntity<>("Recipe [" + recipeId + "] has been added to favourite list of user [" + userId + "]!", HttpStatus.OK);
+    } catch (RuntimeException re) {
+      return new ResponseEntity<>("Recipe [" + recipeId + "] already exists in favourite list of user [" + userId + "]!", HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
@@ -115,9 +115,9 @@ public class UserController {
   public ResponseEntity<?> deleteFavouriteRecipe(@RequestParam Long userId, @RequestParam Long recipeId) {
     try {
       userService.deleteFavouriteRecipe(userId, recipeId);
-      return new ResponseEntity<>("Recipe with id:" + recipeId + " has been deleted from user with userId:" + userId, HttpStatus.OK);
-    } catch (Exception ex) {
-      return new ResponseEntity<>("ERROR!", HttpStatus.INTERNAL_SERVER_ERROR);
+      return new ResponseEntity<>("Recipe [" + recipeId + "] has been deleted from favourite list of user [" + userId + "]!", HttpStatus.OK);
+    } catch (RuntimeException re) {
+      return new ResponseEntity<>("Recipe [" + recipeId + "] doesn't exist in favourite list of user [" + userId + "]!", HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
