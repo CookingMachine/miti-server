@@ -14,7 +14,6 @@ import java.util.List;
 @Data
 @Entity
 @NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "RECIPE")
 @JsonIgnoreProperties(ignoreUnknown = true, value = {"commentList", "contextIngredientList",
     "favouriteUsers", "rating", "restaurants"})
@@ -76,8 +75,8 @@ public class Recipe {
       joinColumns = @JoinColumn(name = "recipe_id"))
   private List<Restaurant> restaurants;
 
-  public Recipe(String name, String description, User author, Category category, Kitchen kitchen,
-                int time, CalorieContent calorie, List<Restaurant> restaurantList) {
+  public Recipe(String name, String description, User author, Category category, Kitchen kitchen, int time,
+                CalorieContent calorie) {
     this.name = name;
     this.description = description;
     this.author = author;
@@ -86,7 +85,6 @@ public class Recipe {
     this.time = time;
     this.calorie = calorie;
     this.rating = null;
-    this.restaurants = restaurantList;
 
     this.createDate = LocalDateTime.now();
   }

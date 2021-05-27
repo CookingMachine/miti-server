@@ -1,6 +1,7 @@
 package com.miti.data.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.miti.data.enums.Kitchen;
 import com.miti.data.enums.Tag;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -29,7 +30,13 @@ public class Restaurant {
   private String title;
 
   @Column(name = "KITCHEN")
-  private String kitchen;
+  @Enumerated(EnumType.STRING)
+  @ElementCollection(targetClass = Kitchen.class)
+  @JoinTable(
+      name = "RESTAURANT_KITCHENS",
+      joinColumns = @JoinColumn(name = "RESTAURANT_ID")
+  )
+  private List<Kitchen> kitchen;
 
   @Column(name = "DESTINATION")
   private String destination;

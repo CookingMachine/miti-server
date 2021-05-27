@@ -41,8 +41,6 @@ public class AppInit implements ApplicationRunner {
     List<Restaurant> restaurants = new ArrayList<>();
     List<RestaurantRating> restaurantRatings = new ArrayList<>();
 
-    List<Restaurant> allRestaurants;
-
     addUser(users, "admin", "Max",
         "$2y$12$DLa0OcG1cf559Sfu.3S90u/kgWWxwOXICctN6I53SQHBz1SApvi4S", "admin@gmail.com",
         Role.ADMINISTRATION);
@@ -119,57 +117,50 @@ public class AppInit implements ApplicationRunner {
 
     calorieContentService.addAllCalorieContent(calories);
 
-    addRestaurant(restaurants, "Белая ночь", Kitchen.EUROPEAN, "г.Москва, Кленовый б-р, д.11",
-        "м.Коломенская", "1000-1500", new ArrayList<>(Arrays.asList(Tag.BIRTHDAYS, Tag.WIFI)),
-        null, recipeService.getAllRecipes());
-
-    restaurantService.addAllRestaurants(restaurants);
-    allRestaurants = restaurantService.getAllRestaurants();
-
     addRecipe(recipes, "Салат оливье",
         "Классический салат Оливье в советское время готовили исключительно с вареной колбасой, желательно - с  Докторской. Мы не оступили от традиции и приготовили Оливье по канонам  советской гастрономии.",
         userService.getUserById(1L), categoryService.getCategoryById("salads"),
-        Kitchen.RUSSIAN, 300, calorieContentService.getCalorieContentById(1L), allRestaurants);
+        Kitchen.RUSSIAN, 300, calorieContentService.getCalorieContentById(1L));
     addRecipe(recipes, "Картошка фри",
         "Просто рецепт приготовления картошки фри в сковороде! Картофель фри любим многими!",
         userService.getUserById(2L), categoryService.getCategoryById("snacks"),
-        Kitchen.AMERICAN, 1800, calorieContentService.getCalorieContentById(2L), allRestaurants);
+        Kitchen.AMERICAN, 1800, calorieContentService.getCalorieContentById(2L));
     addRecipe(recipes, "Борщ",
         "Еще не знаете, какое первое блюдо сделать на обед? Я хочу показать вам несложный пошаговый способ, как приготовить самый вкусный борщ. Насыщенный, аппетитный и сытный… чудесная идея для всей семьи! Подробнее: https://povar.ru/recipes/samyi_vkusnyi_borsh-57233.html",
         userService.getUserById(3L), categoryService.getCategoryById("firsts"),
-        Kitchen.UKRAINIAN, 600, calorieContentService.getCalorieContentById(3L), allRestaurants);
+        Kitchen.UKRAINIAN, 600, calorieContentService.getCalorieContentById(3L));
     addRecipe(recipes, "Котлеты \"Пожарские\" с картофельным пюре",
         "Сегодня предлагаю вам приготовить нежные куриные котлеты \"Пожарские\" с хрустящей корочкой и подать их с картофельным пюре.",
         userService.getUserById(6L), categoryService.getCategoryById("seconds"),
-        Kitchen.RUSSIAN, 5400, calorieContentService.getCalorieContentById(4L), allRestaurants);
+        Kitchen.RUSSIAN, 5400, calorieContentService.getCalorieContentById(4L));
     addRecipe(recipes, "Мясо по-французски",
         "Представляю вашему вниманию популярное блюдо русской кухни, которое, как говорят, было придумано французским поваром Урбеном Дюбуа специально для графа Алексея Орлова. Изначально блюдо называлось \"Телятина по-орловски\", но впоследствии рецепт был упрощен и сейчас блюдо из запеченных слоев мяса, картофеля, лука и сыра известно нам как \"Мясо по-французски\".",
         userService.getUserById(2L), categoryService.getCategoryById("meat"),
-        Kitchen.RUSSIAN, 3600, calorieContentService.getCalorieContentById(5L), allRestaurants);
+        Kitchen.RUSSIAN, 3600, calorieContentService.getCalorieContentById(5L));
     addRecipe(recipes, "Домашние пельмени",
         "Готовим вместе пельмени? Тесто для пельменей замешивается на кипятке. Повозиться, конечно, немножко придется, но зато какое наслаждение Вас ожидает потом! Горяченькие домашние пельмени, которые вы сделали своими руками. Сами. :) Это не сложно.",
         userService.getUserById(4L), categoryService.getCategoryById("firsts"),
-        Kitchen.RUSSIAN, 7200, calorieContentService.getCalorieContentById(6L), allRestaurants);
+        Kitchen.RUSSIAN, 7200, calorieContentService.getCalorieContentById(6L));
     addRecipe(recipes, "Гречка по-купечески",
         "Гречка \"А добавка будет?\". Если вы никогда не пробовали такой вариант гречки, бегом на кухню! Гречка по-купечески с мясным фаршем - вкусно, полезно и быстро.",
         userService.getUserById(3L), categoryService.getCategoryById("seconds"),
-        Kitchen.RUSSIAN, 1200, calorieContentService.getCalorieContentById(7L), allRestaurants);
+        Kitchen.RUSSIAN, 1200, calorieContentService.getCalorieContentById(7L));
     addRecipe(recipes, "Рассольник овощной",
         "Очень вкусный овощной рассольник с перловкой. Люблю лёгкие супы без мяса. Бальзам для желудка).",
         userService.getUserById(2L), categoryService.getCategoryById("soups"),
-        Kitchen.RUSSIAN, 3600, calorieContentService.getCalorieContentById(8L), allRestaurants);
+        Kitchen.RUSSIAN, 3600, calorieContentService.getCalorieContentById(8L));
     addRecipe(recipes, "Тюря",
         "Предлагаем вам приготовить старинное блюдо русской кухни. Тюря напоминает окрошку, а сделать тюрю можно буквально за несколько минут. Традиционными ингредиентами этого холодного блюда являются ржаной хлеб и квас или вода. Мы дополнили тюрю зеленым луком, огурцом и хреном.",
         userService.getUserById(5L), categoryService.getCategoryById("firsts"),
-        Kitchen.RUSSIAN, 1800, calorieContentService.getCalorieContentById(9L), allRestaurants);
+        Kitchen.RUSSIAN, 1800, calorieContentService.getCalorieContentById(9L));
     addRecipe(recipes, "Сырники",
         "Идеальный завтрак для вас - вкусные, ароматные сырники, которые очень просто сделать. Творог для сырников должен быть свежим, не слишком жирным и однородной текстуры.",
         userService.getUserById(4L), categoryService.getCategoryById("breakfast"),
-        Kitchen.RUSSIAN, 1800, calorieContentService.getCalorieContentById(10L), allRestaurants);
+        Kitchen.RUSSIAN, 1800, calorieContentService.getCalorieContentById(10L));
     addRecipe(recipes, "Ватрушки с творогом",
         "Рецепт домашних ватрушек с творогом. Восхитительно вкусная домашняя выпечка из дрожжевого теста. Обязательно попробуйте приготовить любимую выпечку детей и взрослых - ватрушки с творогом.",
         userService.getUserById(2L), categoryService.getCategoryById("breakfast"),
-        Kitchen.RUSSIAN, 3600, calorieContentService.getCalorieContentById(11L), allRestaurants);
+        Kitchen.RUSSIAN, 3600, calorieContentService.getCalorieContentById(11L));
 
     recipeService.addAllRecipes(recipes);
 
@@ -299,7 +290,14 @@ public class AppInit implements ApplicationRunner {
     addRating(ratings, 5, recipeService.getRecipeById(10L), userService.getUserById(2L));
     addRating(ratings, 5, recipeService.getRecipeById(7L), userService.getUserById(1L));
 
-    addRestaurantRating(restaurantRatings, 10, allRestaurants.get(0), users.get(0));
+    addRestaurant(restaurants, "Белая ночь", Arrays.asList(Kitchen.EUROPEAN, Kitchen.RUSSIAN),
+        "г.Москва, Кленовый б-р, д.11", "м.Коломенская", "1000-1500",
+        new ArrayList<>(Arrays.asList(Tag.BIRTHDAYS, Tag.WIFI)),
+        null, recipeService.getAllRecipes());
+
+    restaurantService.addAllRestaurants(restaurants);
+
+    addRestaurantRating(restaurantRatings, 10, restaurantService.getAllRestaurants().get(0), users.get(0));
 
     contextIngredientService.addAllContextIngredients(contextIngredients);
     commentService.addAllComments(comments);
@@ -327,8 +325,8 @@ public class AppInit implements ApplicationRunner {
   }
 
   private void addRecipe(List<Recipe> recipes, String name, String description, User author, Category category,
-                         Kitchen kitchen, int time, CalorieContent calorie, List<Restaurant> restaurants) {
-    recipes.add(new Recipe(name, description, author, category, kitchen, time, calorie, restaurants));
+                         Kitchen kitchen, int time, CalorieContent calorie) {
+    recipes.add(new Recipe(name, description, author, category, kitchen, time, calorie));
   }
 
   private void addComments(List<Comment> comments, String commentText, Recipe recipe, User user) {
@@ -344,11 +342,11 @@ public class AppInit implements ApplicationRunner {
     ratings.add(new Rating(null, ratingValue, recipe, user));
   }
 
-  private void addRestaurant(List<Restaurant> restaurants, String title, Kitchen kitchen, String destination,
+  private void addRestaurant(List<Restaurant> restaurants, String title, List<Kitchen> kitchens, String destination,
                              String metroStation, String averageBill, List<Tag> tags, List<RestaurantRating> rating,
                              List<Recipe> recipes) {
     restaurants.add(
-        new Restaurant(UUID.randomUUID(), title, kitchen.getName(), destination, metroStation, averageBill, tags, rating, recipes)
+        new Restaurant(UUID.randomUUID(), title, kitchens, destination, metroStation, averageBill, tags, rating, recipes)
     );
   }
 
