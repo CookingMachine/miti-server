@@ -1,15 +1,15 @@
 package com.miti.server.util;
 
-import com.miti.server.api.ContextIngredientService;
-import com.miti.server.api.IngredientService;
-import com.miti.server.api.RatingService;
-import com.miti.server.api.RecipeService;
-import com.miti.server.model.entity.ContextIngredient;
-import com.miti.server.model.entity.Ingredient;
-import com.miti.server.model.entity.Rating;
-import com.miti.server.model.entity.Recipe;
-import com.miti.server.model.enums.Kitchen;
-import com.miti.server.model.request.IngredientRequest;
+import com.miti.server.service.ContextIngredientService;
+import com.miti.server.service.IngredientService;
+import com.miti.server.service.RatingService;
+import com.miti.server.service.RecipeService;
+import com.miti.data.model.ContextIngredient;
+import com.miti.data.model.Ingredient;
+import com.miti.data.model.Rating;
+import com.miti.data.model.Recipe;
+import com.miti.data.enums.Kitchen;
+import com.miti.server.api.request.IngredientRequest;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.ArrayList;

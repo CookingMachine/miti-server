@@ -1,0 +1,48 @@
+plugins {
+    id 'war'
+    id 'application'
+    id 'io.freefair.lombok' version '6.0.0-m2'
+    id 'org.springframework.boot' version '2.2.2.RELEASE'
+}
+
+group = 'com.miti'
+version = '0.0.1-SNAPSHOT'
+description = 'MITI-Server'
+java.sourceCompatibility = JavaVersion.VERSION_1_8
+
+mainClassName = 'com.miti.server.Application'
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+ext {
+    springBootVersion = '2.2.2.RELEASE'
+    mapstructVersion = '1.3.1.Final'
+    lombokVersion = '1.18.20'
+    jwtVersion = '0.9.1'
+    jacksonVersion = '2.11.4'
+    postgresVersion = '42.2.8'
+    tomcatVersion = '8.0.47'
+}
+
+dependencies {
+
+    implementation "org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}"
+    implementation "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
+    implementation "org.springframework.boot:spring-boot-starter-security:${springBootVersion}"
+    implementation "org.springframework.boot:spring-boot-starter-tomcat:${springBootVersion}"
+
+    compileOnly "org.mapstruct:mapstruct:${mapstructVersion}"
+    annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
+
+    implementation "io.jsonwebtoken:jjwt:${jwtVersion}"
+    implementation "com.fasterxml.jackson.core:jackson-annotations:${jacksonVersion}"
+    runtimeOnly "org.postgresql:postgresql:${postgresVersion}"
+
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}

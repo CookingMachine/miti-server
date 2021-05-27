@@ -1,35 +1,20 @@
 package com.miti.server.config;
 
-import com.miti.server.api.CalorieContentService;
-import com.miti.server.api.CategoryService;
-import com.miti.server.api.CommentService;
-import com.miti.server.api.ContextIngredientService;
-import com.miti.server.api.IngredientService;
-import com.miti.server.api.RatingService;
-import com.miti.server.api.RecipeService;
-import com.miti.server.api.UserService;
-import com.miti.server.model.entity.CalorieContent;
-import com.miti.server.model.entity.Category;
-import com.miti.server.model.entity.Comment;
-import com.miti.server.model.entity.ContextIngredient;
-import com.miti.server.model.entity.Ingredient;
-import com.miti.server.model.entity.Rating;
-import com.miti.server.model.entity.Recipe;
-import com.miti.server.model.entity.User;
-import com.miti.server.model.enums.IngredientCategory;
-import com.miti.server.model.enums.Kitchen;
-import com.miti.server.model.enums.Measure;
-import com.miti.server.model.enums.Role;
-import java.util.ArrayList;
-import java.util.List;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.miti.data.enums.*;
+import com.miti.data.model.*;
+import com.miti.server.service.*;
+import lombok.AllArgsConstructor;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.UUID;
+
 @Component
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@AllArgsConstructor
 public class AppInit implements ApplicationRunner {
 
   private final UserService userService;
@@ -40,6 +25,8 @@ public class AppInit implements ApplicationRunner {
   private final CommentService commentService;
   private final CalorieContentService calorieContentService;
   private final RatingService ratingService;
+  private final RestaurantService restaurantService;
+  private final RestaurantRatingService restaurantRatingService;
 
   @Override
   public void run(ApplicationArguments args) {
@@ -51,6 +38,8 @@ public class AppInit implements ApplicationRunner {
     List<Comment> comments = new ArrayList<>();
     List<CalorieContent> calories = new ArrayList<>();
     List<Rating> ratings = new ArrayList<>();
+    List<Restaurant> restaurants = new ArrayList<>();
+    List<RestaurantRating> restaurantRatings = new ArrayList<>();
 
     addUser(users, "admin", "Max",
         "$2y$12$DLa0OcG1cf559Sfu.3S90u/kgWWxwOXICctN6I53SQHBz1SApvi4S", "admin@gmail.com",
@@ -284,16 +273,12 @@ public class AppInit implements ApplicationRunner {
         ingredientService.getIngredientById("paprika_red"),
         recipeService.getRecipeById(4L));
 
-    contextIngredientService.addAllContextIngredients(contextIngredients);
-
     addComments(comments, "Прекрасный рецепт. Спасибо вам огромное",
         recipeService.getRecipeById(1L), userService.getUserById(2L));
     addComments(comments, "Очень вкуснуя картошка. А главное - быстро.",
         recipeService.getRecipeById(2L), userService.getUserById(3L));
     addComments(comments, "Ммм, Лориса. Борщ просто вещь!", recipeService.getRecipeById(3L),
         userService.getUserById(1L));
-
-    commentService.addAllComments(comments);
 
     addRating(ratings, 4, recipeService.getRecipeById(1L), userService.getUserById(1L));
     addRating(ratings, 3, recipeService.getRecipeById(2L), userService.getUserById(6L));
@@ -305,11 +290,23 @@ public class AppInit implements ApplicationRunner {
     addRating(ratings, 5, recipeService.getRecipeById(10L), userService.getUserById(2L));
     addRating(ratings, 5, recipeService.getRecipeById(7L), userService.getUserById(1L));
 
+    addRestaurant(restaurants, "Белая ночь", Arrays.asList(Kitchen.EUROPEAN, Kitchen.RUSSIAN),
+        "г.Москва, Кленовый б-р, д.11", "м.Коломенская", "1000-1500",
+        new ArrayList<>(Arrays.asList(Tag.BIRTHDAYS, Tag.WIFI)),
+        null, recipeService.getAllRecipes());
+
+    restaurantService.addAllRestaurants(restaurants);
+
+    addRestaurantRating(restaurantRatings, 10, restaurantService.getAllRestaurants().get(0), users.get(0));
+
+    contextIngredientService.addAllContextIngredients(contextIngredients);
+    commentService.addAllComments(comments);
     ratingService.addAllRatings(ratings);
+    restaurantRatingService.addRestaurantRating(restaurantRatings.get(0));
   }
 
   private void addUser(List<User> users, String username, String name, String password,
-      String email, Role role) {
+                       String email, Role role) {
     users.add(new User(username, name, password, email, role));
   }
 
@@ -318,17 +315,17 @@ public class AppInit implements ApplicationRunner {
   }
 
   private void addContextIngredient(List<ContextIngredient> contextIngredients, Long amount,
-      Measure measure, Ingredient ingredient, Recipe recipe) {
+                                    Measure measure, Ingredient ingredient, Recipe recipe) {
     contextIngredients.add(new ContextIngredient(amount, measure, ingredient, recipe));
   }
 
   private void addIngredient(List<Ingredient> ingredients, String id, String name,
-      IngredientCategory category) {
+                             IngredientCategory category) {
     ingredients.add(new Ingredient(id, name, category));
   }
 
-  private void addRecipe(List<Recipe> recipes, String name, String description, User author,
-      Category category, Kitchen kitchen, int time, CalorieContent calorie) {
+  private void addRecipe(List<Recipe> recipes, String name, String description, User author, Category category,
+                         Kitchen kitchen, int time, CalorieContent calorie) {
     recipes.add(new Recipe(name, description, author, category, kitchen, time, calorie));
   }
 
@@ -337,11 +334,24 @@ public class AppInit implements ApplicationRunner {
   }
 
   private void addCaloriesContent(List<CalorieContent> caloriesContent, Long calories, Long protein,
-      Long fat, Long carbohydrates) {
+                                  Long fat, Long carbohydrates) {
     caloriesContent.add(new CalorieContent(calories, protein, fat, carbohydrates));
   }
 
   private void addRating(List<Rating> ratings, int ratingValue, Recipe recipe, User user) {
-    ratings.add(new Rating(ratingValue, recipe, user));
+    ratings.add(new Rating(null, ratingValue, recipe, user));
+  }
+
+  private void addRestaurant(List<Restaurant> restaurants, String title, List<Kitchen> kitchens, String destination,
+                             String metroStation, String averageBill, List<Tag> tags, List<RestaurantRating> rating,
+                             List<Recipe> recipes) {
+    restaurants.add(
+        new Restaurant(UUID.randomUUID(), title, kitchens, destination, metroStation, averageBill, tags, rating, recipes)
+    );
+  }
+
+  private void addRestaurantRating(List<RestaurantRating> restaurantRatings, int ratingValue, Restaurant restaurant,
+                                   User user) {
+    restaurantRatings.add(new RestaurantRating(UUID.randomUUID(), ratingValue, restaurant, user));
   }
 }

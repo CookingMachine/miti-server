@@ -1,10 +1,10 @@
 package com.miti.server.util;
 
-import com.miti.server.api.CalorieContentService;
-import com.miti.server.api.CategoryService;
-import com.miti.server.api.RecipeService;
-import com.miti.server.model.MainPageContent;
-import com.miti.server.model.entity.Recipe;
+import com.miti.server.service.CalorieContentService;
+import com.miti.server.service.CategoryService;
+import com.miti.server.service.RecipeService;
+import com.miti.server.api.response.MainPageResponse;
+import com.miti.data.model.Recipe;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -27,9 +27,9 @@ public class MainPageService {
   private static final Long  MAIN_PAGE_CALORIE_TOP_LIMIT = 550L;
   private static final int MAIN_PAGE_TIME_TOP_LIMIT = 1000;
 
-  public MainPageContent mainPage() {
+  public MainPageResponse mainPage() {
 
-    return new MainPageContent(
+    return new MainPageResponse(
         getRecipeOfTheDay(LocalDateTime.now()),
         categoryService.getAllCategories(),
         getRecipesWithLowCalories(),

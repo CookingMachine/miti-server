@@ -1,20 +1,16 @@
 package com.miti.server.controller;
 
-import com.miti.server.model.entity.Recipe;
-import com.miti.server.model.request.IngredientRequest;
+import com.miti.data.model.Recipe;
+import com.miti.server.api.request.IngredientRequest;
 import com.miti.server.util.SearchFilter;
+import lombok.AllArgsConstructor;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(path = "api/v1/searchRecipe")
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@AllArgsConstructor
 public class SearchController {
 
   private final SearchFilter searchFilter;
