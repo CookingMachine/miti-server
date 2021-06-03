@@ -11,6 +11,13 @@ spring:
     generate-ddl: true
     hibernate:
       ddl-auto: create
+  minio:
+    url: https://play.min.io
+    bucket: 00000qweqwe
+    bucket-name: miti
+    access-key:
+    secret-key:
+    default-folder: /
 
 server:
   port: ${PORT:8080}
