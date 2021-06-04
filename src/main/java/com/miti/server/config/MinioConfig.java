@@ -8,10 +8,10 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class MinioConfig {
 
-  @Value("${spring.minio.access-key}")
+  @Value("${spring.minio.access.key}")
   private String accessKey;
 
-  @Value("${spring.minio.access-secret}")
+  @Value("${spring.minio.access.secret}")
   private String accessSecret;
 
   @Value("${spring.minio.url}")
@@ -20,8 +20,7 @@ public class MinioConfig {
   @Bean
   public MinioClient generateMinioClient() {
     try {
-      MinioClient client = new MinioClient(url, accessKey, accessSecret);
-      return client;
+      return new MinioClient(url, accessKey, accessSecret);
     } catch (Exception e) {
       throw new RuntimeException(e.getMessage());
     }

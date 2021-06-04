@@ -25,6 +25,6 @@ public class MinioStorageController implements MinioStorageApi {
 
   @Override
   public ResponseEntity<ByteArrayResource> downloadFile(String file) {
-    return minioStorageService.downloadFile();
+    return minioStorageService.downloadFile(file);
   }
 }

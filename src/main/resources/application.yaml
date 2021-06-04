@@ -12,12 +12,16 @@ spring:
     hibernate:
       ddl-auto: create
   minio:
-    url: https://play.min.io
-    bucket: 00000qweqwe
-    bucket-name: miti
-    access-key:
-    secret-key:
-    default-folder: /
+    url: 127.0.0.1:9000
+    bucket:
+      name: makeittasteit
+      folder: /
+    access:
+      key: minioadmin
+      secret: minioadmin
+  servlet:
+    multipart:
+      enabled: true
 
 server:
   port: ${PORT:8080}
