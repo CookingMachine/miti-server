@@ -14,11 +14,11 @@ spring:
   minio:
     url: 127.0.0.1:9000
     bucket:
-      name: makeittasteit
-      folder: /
+      name: miti
+      folder: /usr/local/share/minio
     access:
-      key: minioadmin
-      secret: minioadmin
+      key: cookMeGood
+      secret: makeittasteit
   servlet:
     multipart:
       enabled: true
